@@ -3,15 +3,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: 'APP',
+  name: "APP",
 });
 </script>
 
 <style lang="scss">
-body,html {
+body,
+html {
   padding: 0;
   margin: 0;
 }

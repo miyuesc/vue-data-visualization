@@ -1,8 +1,6 @@
 <template>
   <div class="editor-container">
-    <header class="editor-header">
-      header content
-    </header>
+    <header class="editor-header">header content</header>
     <main class="editor-main">
       <ToolBar />
       <PaletteBar />
@@ -22,22 +20,34 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-
-import ToolBar from '../../components/editor-tool-bar/ToolBar.vue';
-import ComponentsCanvas from '../../components/editor-canvas/ComponentsCanvas.vue';
-import ScenesCanvas from '../../components/editor-canvas/ScenesCanvas.vue';
-import HandlersCanvas from '../../components/editor-canvas/HanldersCanvas.vue';
-import PaletteBar from '../../components/editor-palette/PaletteBar.vue';
+import { defineComponent, computed } from "vue";
+import { Store, useStore } from "vuex";
+import { Canvas } from "@/types/canvas";
+import ToolBar from "../../components/editor-tool-bar/ToolBar.vue";
+import ComponentsCanvas from "../../components/editor-canvas/ComponentsCanvas.vue";
+import ScenesCanvas from "../../components/editor-canvas/ScenesCanvas.vue";
+import HandlersCanvas from "../../components/editor-canvas/HanldersCanvas.vue";
+import PaletteBar from "../../components/editor-palette/PaletteBar.vue";
 
 export default defineComponent({
-  name: 'Editor',
+  name: "Editor",
   components: {
-    PaletteBar, HandlersCanvas, ComponentsCanvas, ScenesCanvas, ToolBar,
+    PaletteBar,
+    HandlersCanvas,
+    ComponentsCanvas,
+    ScenesCanvas,
+    ToolBar,
   },
   setup() {
+    const store: Store<any> = useStore();
+    const canvasState: Canvas = store.state.canvas;
+
+    console.log(canvasState);
+
+    const screenStyle = computed(() => `transform: scale(${canvasState.scale});`);
+
     return {
-      screenStyle: '',
+      screenStyle,
     };
   },
 });

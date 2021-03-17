@@ -1,5 +1,3 @@
-import {Store} from "vuex";
-
 interface MouseDownCoordinator {
   x: number;
   y: number;
@@ -14,7 +12,7 @@ const mouseStatus = {
       x: 0,
       y: 0,
       offsetX: 0,
-      offsetY: 0,
+      offsetY: 0
     }
   }),
   mutations: {
@@ -26,6 +24,6 @@ const mouseStatus = {
       state.mouseDownCoordinator.offsetY = mdc.offsetY;
     }
   }
-}
+};
 
 export default mouseStatus;

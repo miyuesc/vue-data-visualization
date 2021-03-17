@@ -1,11 +1,15 @@
 <template>
-  <div class="editor-wrapper-area"></div>
+  <div class="editor-wrapper-area" :style="cpStyle"></div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: 'ScenesCanvas',
+  name: "ScenesCanvas",
+  props: { cpStyle: String },
+  setup() {
+    return {};
+  },
 });
 </script>

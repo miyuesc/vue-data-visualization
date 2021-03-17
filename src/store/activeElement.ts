@@ -1,8 +1,5 @@
-import { ActiveElement, Position, Size } from "@/types/activeElement";
-
-interface ActiveElementState {
-
-}
+import { Position, Size } from "@/types/activeElement";
+import { ChartComponent } from "@/types/components";
 
 const activeElement = {
   namespaced: true,
@@ -13,10 +10,11 @@ const activeElement = {
     index: -1,
     visible: false, // 显示状态
     resizable: false, // 是否准备缩放
-    movable: false // 是否移动 => 是否显示指示线
+    movable: false, // 是否移动 => 是否显示指示线
+    componentInfo: ""
   }),
   mutations: {
-    updateAll(state: ActiveElement, newState: ActiveElement) {
+    updateAll(state: ChartComponent, newState: ChartComponent) {
       state.position = { ...newState.position }; // position and size
       state.size = { ...newState.size };
       state.visible = newState.visible;
@@ -25,28 +23,30 @@ const activeElement = {
       state.id = newState.id;
       state.index = newState.index;
     },
-    updatePAS(state: ActiveElement, { position, size }: { position: Position, size: Size }) {
+    updatePAS(state: ChartComponent, { position, size }: ChartComponent) {
       state.position = { ...position }; // position and size
       state.size = { ...size };
     },
-    updatePosition(state: ActiveElement, newPosition: Position) {
+    updatePosition(state: ChartComponent, newPosition: Position) {
       state.position = { ...newPosition };
     },
-    updateSize(state: ActiveElement, newSize: Size) {
+    updateSize(state: ChartComponent, newSize: Size) {
       state.size = { ...newSize };
     },
-    updateVisible(state: ActiveElement, visible: boolean) {
+    updateVisible(state: ChartComponent, visible: boolean) {
       state.visible = visible;
     },
-    updateMovable(state: ActiveElement, movable: boolean) {
+    updateMovable(state: ChartComponent, movable: boolean) {
       state.movable = movable;
     },
-    updateResizable(state: ActiveElement, resizable: boolean) {
+    updateResizable(state: ChartComponent, resizable: boolean) {
       state.resizable = resizable;
     },
-    updateBase(state: ActiveElement, { id, index }: { id: string, index: number }) {
+    updateBase(state: ChartComponent, { id, index }: ChartComponent) {
       state.id = id;
       state.index = index;
     }
   }
-}
+};
+
+export default activeElement;
