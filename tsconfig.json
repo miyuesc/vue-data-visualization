@@ -35,6 +35,8 @@
     "tests/**/*.tsx"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "src/assets/icons",
+    "src/utils"
   ]
 }

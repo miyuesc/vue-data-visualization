@@ -4,10 +4,11 @@ import { ChartComponent } from "@/types/components";
 const activeElement = {
   namespaced: true,
   state: () => ({
-    position: { left: 0, top: 0 }, // 位置
-    size: { width: 0, height: 0 }, // 大小
     id: "",
     index: -1,
+    position: { left: 0, top: 0 }, // 位置
+    size: { width: 0, height: 0 }, // 大小
+    zIndex: 1,
     visible: false, // 显示状态
     resizable: false, // 是否准备缩放
     movable: false, // 是否移动 => 是否显示指示线
@@ -22,6 +23,7 @@ const activeElement = {
       state.resizable = newState.resizable;
       state.id = newState.id;
       state.index = newState.index;
+      state.zIndex = newState.zIndex;
     },
     updatePAS(state: ChartComponent, { position, size }: ChartComponent) {
       state.position = { ...position }; // position and size

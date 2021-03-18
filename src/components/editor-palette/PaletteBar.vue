@@ -1,12 +1,77 @@
 <template>
-  <div class="editor-palette-bar"></div>
+  <div class="editor-palette-bar" ref="paletteRef">
+    <div class="root-content">
+      <div
+        v-for="i in presetComponentsList"
+        :class="{ 'component-type-button': true, 'is-selected': i.icon === selectedComponentType.activeKey }"
+        :key="'type' + i.icon"
+        :id="'type-' + i.icon"
+        @click.stop="openChildrenPenal(i)"
+      >
+        <svg class="component-type-button__icon" aria-hidden="true" style="pointer-events: none">
+          <use :xlink:href="`#${i.icon}`"></use>
+        </svg>
+      </div>
+    </div>
+    <div :class="{ 'component-support-list': true, 'is-show': showPanel }">
+      <a
+        v-for="p in selectedComponentType.list"
+        :key="p.code"
+        class="component-support-item"
+        @mousedown.stop="dragStart($event, p)"
+        @dragstart.stop.prevent
+      >
+        <img
+          src="https://cdn.jsdelivr.net/gh/apache/echarts-website@asf-site/examples/data/thumb/line-simple.webp?_v_=1612615474746"
+          alt="test"
+        />
+      </a>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, reactive, ref } from "vue";
+import presetComponents from "@/assets/components/presetComponents";
+import { useStore } from "vuex";
+import { MouseDownCoordinator } from "@/types/mouseStatus";
 
 export default defineComponent({
-  name: "PaletteBar"
+  name: "PaletteBar",
+  setup() {
+    const store = useStore();
+    const presetComponentsList = presetComponents;
+    const selectedComponentType = reactive({ list: [], activeKey: "" });
+    const showPanel = ref(false);
+
+    const openChildrenPenal = (i: any) => {
+      showPanel.value = !(selectedComponentType.activeKey === i.icon);
+      selectedComponentType.activeKey = selectedComponentType.activeKey === i.icon ? "" : i.icon;
+      selectedComponentType.list = Object.values(i.children || {});
+    };
+
+    const dragStart = (e: MouseEvent, p: any) => {
+      const mdc: MouseDownCoordinator = {
+        x: 0,
+        y: 0,
+        mouseX: e.offsetX,
+        mouseY: e.offsetY,
+        width: 0,
+        height: 0
+      };
+      store.commit("mouseStatus/updateMDC", mdc);
+      store.commit("mouseStatus/updateMAT", "create");
+      store.commit("components/dragging", JSON.stringify(p));
+    };
+
+    return {
+      presetComponentsList,
+      selectedComponentType,
+      showPanel,
+      openChildrenPenal,
+      dragStart
+    };
+  }
 });
 </script>
 

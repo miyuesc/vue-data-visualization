@@ -73,7 +73,7 @@ export default defineComponent({
         mouseX: event.clientX, // 鼠标处于屏幕的横向位置
         mouseY: event.clientY // 鼠标处于屏幕的纵向位置
       };
-      console.log(currentPAS);
+      store.commit("mouseStatus/updateMAT", "resize");
       store.commit("activeElement/updateResizable", true);
       store.commit("mouseStatus/updateMDC", currentPAS);
       store.commit("mouseStatus/updateActivePoint", point);

@@ -27,7 +27,8 @@ const components = {
         resizable: false,
         componentInfo: null
       }
-    ]
+    ],
+    draggingComponent: ""
   }),
   mutations: {
     add(state: ChartComponents, newComponent: ChartComponent) {
@@ -38,6 +39,9 @@ const components = {
     },
     delete(state: ChartComponents, index: number) {
       state.components.splice(index, 1);
+    },
+    dragging(state: any, componentInfo: string) {
+      state.draggingComponent = componentInfo;
     }
   }
 };

@@ -14,4 +14,5 @@ export interface ChartComponent {
 
 export interface ChartComponents {
   components: Array<ChartComponent>;
+  draggingComponent?: string;
 }

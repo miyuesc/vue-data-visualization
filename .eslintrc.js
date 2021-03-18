@@ -5,10 +5,8 @@ module.exports = {
   },
   extends: [
     'plugin:vue/vue3-essential',
-    '@vue/airbnb',
     '@vue/typescript/recommended',
-    "@vue/prettier",
-    "@vue/prettier/@typescript-eslint"
+    "@vue/prettier"
   ],
   parserOptions: {
     ecmaVersion: 2020,
@@ -20,7 +18,7 @@ module.exports = {
     'prettier/prettier': [
       'warn', {
         useTabs: false, // 不使用tab
-        singleQuote: false, // 不使用单引号
+        singleQuote: true, // 不使用单引号
         printWidth: 120, // 换行字符串阈值
         semi: true, // 句末加分号
         trailingComma: "none", // 最后一个对象元素加逗号
@@ -31,5 +29,5 @@ module.exports = {
         proseWrap: "preserve" // 是否要换行
       }
     ]
-  },
+  }
 };

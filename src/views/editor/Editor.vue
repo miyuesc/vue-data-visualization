@@ -54,5 +54,5 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-@import "../../assets/editor-styles.scss";
+@import "../../assets/styles/editor-styles";
 </style>
