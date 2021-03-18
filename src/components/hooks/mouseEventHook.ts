@@ -162,7 +162,7 @@ export default function mouseEventHook() {
       store.commit('mouseStatus/updateMAT', null);
       const { offsetX, offsetY } = event;
       // 未进入画布区域的判断
-      console.log(offsetY, offsetX);
+      if (offsetY < 20 || offsetX < 20) return;
       const { mouseX, mouseY } = mousedownMDC.value;
       // 边界判断
       const width: number = Math.floor(224 / scale.value);

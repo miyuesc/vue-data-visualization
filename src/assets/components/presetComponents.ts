@@ -6,7 +6,9 @@ const presetComponents: any = {
     children: {
       lineCharts: {
         name: "折线图",
-        code: "lineChart"
+        code: "lineChart",
+        componentName: "折线图",
+
       }, // 折线图
       barCharts: {
         name: "条形图",
