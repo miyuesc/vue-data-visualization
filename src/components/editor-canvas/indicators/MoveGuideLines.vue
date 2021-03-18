@@ -1,16 +1,16 @@
 <template>
-  <div class="drag-guide-line vertical-line l-vertical-line" v-show="moving" v-bind:style="verticalStyleL"></div>
-  <div class="drag-guide-line vertical-line r-vertical-line" v-show="moving" v-bind:style="verticalStyleR"></div>
-  <div class="drag-guide-line horizontal-line t-horizontal-line" v-show="moving" v-bind:style="horizontalStyleT"></div>
-  <div class="drag-guide-line horizontal-line b-horizontal-line" v-show="moving" v-bind:style="horizontalStyleB"></div>
+  <div class="move-guide-line vertical-line l-vertical-line" v-show="moving" v-bind:style="verticalStyleL"></div>
+  <div class="move-guide-line vertical-line r-vertical-line" v-show="moving" v-bind:style="verticalStyleR"></div>
+  <div class="move-guide-line horizontal-line t-horizontal-line" v-show="moving" v-bind:style="horizontalStyleT"></div>
+  <div class="move-guide-line horizontal-line b-horizontal-line" v-show="moving" v-bind:style="horizontalStyleB"></div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ComputedRef } from "vue";
+import { defineComponent, computed } from "vue";
 import { useStore } from "vuex";
 
 export default defineComponent({
-  name: "GuideLines",
+  name: "MoveGuideLines",
   setup() {
     const activeElementState = useStore().state.activeElement;
     const canvasState = useStore().state.canvas;
@@ -43,7 +43,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.drag-guide-line {
+.move-guide-line {
   position: absolute;
   background: none;
   outline: none;

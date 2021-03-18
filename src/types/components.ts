@@ -5,6 +5,7 @@ export interface ChartComponent {
   size: Size;
   id: string | number;
   index: number;
+  zIndex: number;
   visible: boolean;
   movable: boolean;
   resizable: boolean;
