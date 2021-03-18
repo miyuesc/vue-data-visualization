@@ -8,7 +8,10 @@ const presetComponents: any = {
         name: "折线图",
         code: "lineChart",
         componentName: "折线图",
-
+        xAxis: {
+          name: "",
+          showName: false
+        }
       }, // 折线图
       barCharts: {
         name: "条形图",
