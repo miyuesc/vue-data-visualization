@@ -10,6 +10,6 @@ export default defineComponent({
   props: { cpStyle: String },
   setup() {
     return {};
-  },
+  }
 });
 </script>

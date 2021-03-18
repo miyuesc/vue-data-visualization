@@ -36,7 +36,7 @@ export default defineComponent({
     HandlersCanvas,
     ComponentsCanvas,
     ScenesCanvas,
-    ToolBar,
+    ToolBar
   },
   setup() {
     const store: Store<any> = useStore();
@@ -47,9 +47,9 @@ export default defineComponent({
     const screenStyle = computed(() => `transform: scale(${canvasState.scale});`);
 
     return {
-      screenStyle,
+      screenStyle
     };
-  },
+  }
 });
 </script>
 

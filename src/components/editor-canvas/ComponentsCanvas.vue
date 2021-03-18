@@ -1,16 +1,37 @@
 <template>
-  <div class="editor-canvas-area" :style="cpStyle"></div>
+  <div class="editor-canvas-area" :style="cpStyle">
+    <div
+      v-for="cpt in componentsList"
+      :key="cpt.id"
+      :class="`cp cp__${cpt.id}`"
+      :style="{
+        width: `${cpt.size.width}px`,
+        height: `${cpt.size.height}px`,
+        left: `${cpt.position.left}px`,
+        top: `${cpt.position.top}px`,
+        zIndex: cpt.zIndex
+      }"
+    ></div>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, computed, ComputedRef } from "vue";
+import { useStore } from "vuex";
+import { ChartComponent, ChartComponents } from "@/types/components";
 
 export default defineComponent({
   name: "ComponentsCanvas",
   props: { cpStyle: String },
   setup() {
-    return {};
-  },
+    const componentsState: ChartComponents = useStore().state.components;
+
+    const componentsList: ComputedRef<ChartComponent[]> = computed(() => componentsState.components);
+
+    return {
+      componentsList
+    };
+  }
 });
 </script>
 

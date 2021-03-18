@@ -9,6 +9,6 @@ export default createStore({
     activeElement,
     canvas,
     components,
-    mouseStatus,
-  },
+    mouseStatus
+  }
 });
