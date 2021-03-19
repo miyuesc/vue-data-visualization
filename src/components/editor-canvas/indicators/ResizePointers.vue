@@ -12,14 +12,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ComputedRef } from "vue";
-import { useStore } from "vuex";
-import { ChartComponent } from "@/types/components";
-import { Canvas } from "@/types/canvas";
-import { MouseDownCoordinator } from "@/types/mouseStatus";
+import { defineComponent, computed, ComputedRef } from 'vue';
+import { useStore } from 'vuex';
+import { ChartComponent } from '@/types/components';
+import { Canvas } from '@/types/canvas';
+import { MouseDownCoordinator } from '@/types/mouseStatus';
 
 export default defineComponent({
-  name: "ResizePointers",
+  name: 'ResizePointers',
   setup() {
     /*
      * 边框上的点标记，可触发 resize
@@ -29,7 +29,7 @@ export default defineComponent({
      * [ |              | ]
      * [ bl --- bc --- br ]
      */
-    const points: string[] = ["tl", "tc", "tr", "ml", "mr", "bl", "bc", "br"];
+    const points: string[] = ['tl', 'tc', 'tr', 'ml', 'mr', 'bl', 'bc', 'br'];
 
     const store = useStore();
     const activeElementState: ChartComponent = store.state.activeElement;
@@ -44,7 +44,7 @@ export default defineComponent({
         position: { left, top },
         zIndex
       } = activeElementState;
-      const bgColor = isActive.value ? "#4a71fe" : "#4a71fe00";
+      const bgColor = isActive.value ? '#4a71fe' : '#4a71fe00';
       const borderWidth = Math.floor(2 / scale.value);
       return {
         width: `${width}px`,
@@ -58,7 +58,7 @@ export default defineComponent({
     });
     // points 样式
     const pointsStyle: ComputedRef<string> = computed(() => {
-      const display = isActive.value ? "block" : "none";
+      const display = isActive.value ? 'block' : 'none';
       return `transform: scale(${1 / scale.value}); display: ${display}`;
     });
 
@@ -73,10 +73,10 @@ export default defineComponent({
         mouseX: event.clientX, // 鼠标处于屏幕的横向位置
         mouseY: event.clientY // 鼠标处于屏幕的纵向位置
       };
-      store.commit("mouseStatus/updateMAT", "resize");
-      store.commit("activeElement/updateResizable", true);
-      store.commit("mouseStatus/updateMDC", currentPAS);
-      store.commit("mouseStatus/updateActivePoint", point);
+      store.commit('mouseStatus/updateMAT', 'resize');
+      store.commit('activeElement/updateResizable', true);
+      store.commit('mouseStatus/updateMDC', currentPAS);
+      store.commit('mouseStatus/updateActivePoint', point);
     };
 
     return {

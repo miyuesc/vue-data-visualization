@@ -6,11 +6,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "vue";
-import { useStore } from "vuex";
+import { defineComponent, computed } from 'vue';
+import { useStore } from 'vuex';
 
 export default defineComponent({
-  name: "MoveGuideLines",
+  name: 'MoveGuideLines',
   setup() {
     const activeElementState = useStore().state.activeElement;
     const canvasState = useStore().state.canvas;

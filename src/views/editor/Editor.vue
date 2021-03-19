@@ -20,17 +20,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "vue";
-import { Store, useStore } from "vuex";
-import { Canvas } from "@/types/canvas";
-import ToolBar from "../../components/editor-tool-bar/ToolBar.vue";
-import ComponentsCanvas from "../../components/editor-canvas/ComponentsCanvas.vue";
-import ScenesCanvas from "../../components/editor-canvas/ScenesCanvas.vue";
-import HandlersCanvas from "../../components/editor-canvas/HanldersCanvas.vue";
-import PaletteBar from "../../components/editor-palette/PaletteBar.vue";
+import { defineComponent, computed } from 'vue';
+import { Store, useStore } from 'vuex';
+import { Canvas } from '@/types/canvas';
+import ToolBar from '../../components/editor-tool-bar/ToolBar.vue';
+import ComponentsCanvas from '../../components/editor-canvas/ComponentsCanvas.vue';
+import ScenesCanvas from '../../components/editor-canvas/ScenesCanvas.vue';
+import HandlersCanvas from '../../components/editor-canvas/HanldersCanvas.vue';
+import PaletteBar from '../../components/editor-palette/PaletteBar.vue';
 
 export default defineComponent({
-  name: "Editor",
+  name: 'Editor',
   components: {
     PaletteBar,
     HandlersCanvas,
@@ -54,5 +54,5 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-@import "../../assets/styles/editor-styles";
+@import '../../assets/styles/editor-styles';
 </style>

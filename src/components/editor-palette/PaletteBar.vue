@@ -31,22 +31,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from "vue";
-import presetComponents from "@/assets/components/presetComponents";
-import { useStore } from "vuex";
-import { MouseDownCoordinator } from "@/types/mouseStatus";
+import { defineComponent, reactive, ref } from 'vue';
+import presetComponents from '@/assets/components/presetComponents';
+import { useStore } from 'vuex';
+import { MouseDownCoordinator } from '@/types/mouseStatus';
 
 export default defineComponent({
-  name: "PaletteBar",
+  name: 'PaletteBar',
   setup() {
     const store = useStore();
     const presetComponentsList = presetComponents;
-    const selectedComponentType = reactive({ list: [], activeKey: "" });
+    const selectedComponentType = reactive({ list: [], activeKey: '' });
     const showPanel = ref(false);
 
     const openChildrenPenal = (i: any) => {
       showPanel.value = !(selectedComponentType.activeKey === i.icon);
-      selectedComponentType.activeKey = selectedComponentType.activeKey === i.icon ? "" : i.icon;
+      selectedComponentType.activeKey = selectedComponentType.activeKey === i.icon ? '' : i.icon;
       selectedComponentType.list = Object.values(i.children || {});
     };
 
@@ -59,9 +59,9 @@ export default defineComponent({
         width: 0,
         height: 0
       };
-      store.commit("mouseStatus/updateMDC", mdc);
-      store.commit("mouseStatus/updateMAT", "create");
-      store.commit("components/dragging", JSON.stringify(p));
+      store.commit('mouseStatus/updateMDC', mdc);
+      store.commit('mouseStatus/updateMAT', 'create');
+      store.commit('components/dragging', JSON.stringify(p));
     };
 
     return {
@@ -104,7 +104,7 @@ export default defineComponent({
         background: #00b9ff22;
 
         &:before {
-          content: "";
+          content: '';
           width: 2px;
           position: absolute;
           left: 0;

@@ -1,9 +1,9 @@
+import { computed, ComputedRef, reactive } from 'vue';
 import { useStore } from 'vuex';
+import { throttle, uuid } from '@/utils/commonUtils';
 import { ChartComponent, ChartComponents } from '@/types/components';
 import { ActivePoint, MouseActiveType, MouseDownCoordinator, MouseStatus } from '@/types/mouseStatus';
 import { Canvas } from '@/types/canvas';
-import { computed, ComputedRef, reactive } from 'vue';
-import { throttle, uuid } from '@/utils/commonUtils';
 import { Position, Size } from '@/types/activeElement';
 
 export default function mouseEventHook() {

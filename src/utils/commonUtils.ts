@@ -1,3 +1,4 @@
+/* eslint-disable */
 export function debounce(fn: Function, delay: number) {
   if (typeof fn !== 'function') {
     // 参数类型为函数
