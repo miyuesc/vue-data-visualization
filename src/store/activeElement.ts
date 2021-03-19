@@ -1,10 +1,10 @@
-import { Position, Size } from "@/types/activeElement";
-import { ChartComponent } from "@/types/components";
+import { Position, Size } from '@/types/activeElement';
+import { ChartComponent } from '@/types/components';
 
 const activeElement = {
   namespaced: true,
   state: () => ({
-    id: "",
+    id: '',
     index: -1,
     position: { left: 0, top: 0 }, // 位置
     size: { width: 0, height: 0 }, // 大小
@@ -12,7 +12,8 @@ const activeElement = {
     visible: false, // 显示状态
     resizable: false, // 是否准备缩放
     movable: false, // 是否移动 => 是否显示指示线
-    componentInfo: ""
+    componentInfo: '',
+    componentConfig: {}
   }),
   mutations: {
     updateAll(state: ChartComponent, newState: ChartComponent) {
@@ -47,6 +48,9 @@ const activeElement = {
     updateBase(state: ChartComponent, { id, index }: ChartComponent) {
       state.id = id;
       state.index = index;
+    },
+    updateConfig(state: any, config: any) {
+      state.componentConfig = JSON.parse(JSON.stringify(config));
     }
   }
 };

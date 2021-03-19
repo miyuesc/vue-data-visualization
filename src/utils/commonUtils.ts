@@ -4,7 +4,7 @@ export function debounce(fn: Function, delay: number) {
     // 参数类型为函数
     throw new TypeError('fn is not a function');
   }
-  let timer: number; // 维护一个 timer
+  let timer: NodeJS.Timeout; // 维护一个 timer
   return function () {
     let args = arguments;
     if (timer) {
@@ -22,7 +22,7 @@ export function throttle(fn: Function, delay: number) {
     // 参数类型为函数
     throw new TypeError('fn is not a function');
   }
-  let timer: number | null;
+  let timer: NodeJS.Timeout | null;
   return function () {
     let args = arguments;
     if (timer) {

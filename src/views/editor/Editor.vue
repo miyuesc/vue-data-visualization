@@ -4,7 +4,7 @@
     <main class="editor-main">
       <ToolBar />
       <PaletteBar />
-      <aside class="editor-context-pad"></aside>
+      <ContentPad />
       <div class="editor-content">
         <div class="screen">
           <!-- 场景元素区域 Scenes-->
@@ -28,6 +28,7 @@ import ComponentsCanvas from '../../components/editor-canvas/ComponentsCanvas.vu
 import ScenesCanvas from '../../components/editor-canvas/ScenesCanvas.vue';
 import HandlersCanvas from '../../components/editor-canvas/HanldersCanvas.vue';
 import PaletteBar from '../../components/editor-palette/PaletteBar.vue';
+import ContentPad from '../../components/editor-content-pad/ContentPad.vue';
 
 export default defineComponent({
   name: 'Editor',
@@ -36,7 +37,8 @@ export default defineComponent({
     HandlersCanvas,
     ComponentsCanvas,
     ScenesCanvas,
-    ToolBar
+    ToolBar,
+    ContentPad
   },
   setup() {
     const store: Store<any> = useStore();
