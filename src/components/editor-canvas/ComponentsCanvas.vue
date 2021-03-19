@@ -12,25 +12,32 @@
         zIndex: cpt.zIndex
       }"
       @mousedown.stop.prevent="changeActiveElement(cpt, $event)"
-    ></div>
+    >
+      <ComponentTransform :info="cpt.componentInfo" :size="cpt.size" />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ComputedRef, onMounted, onBeforeMount, getCurrentInstance } from "vue";
-import { useStore } from "vuex";
-import { ChartComponent, ChartComponents } from "@/types/components";
-import { MouseDownCoordinator } from "@/types/mouseStatus";
-import mouseEventHook from "@/components/hooks/mouseEventHook";
+import { defineComponent, computed, ComputedRef, onMounted, onBeforeMount, getCurrentInstance } from 'vue';
+import { useStore } from 'vuex';
+import { ChartComponent, ChartComponents } from '@/types/components';
+import { MouseDownCoordinator } from '@/types/mouseStatus';
+import mouseEventHook from '@/components/hooks/mouseEventHook';
+import ComponentTransform from './indicators/ComponentTransform.vue';
 
 export default defineComponent({
-  name: "ComponentsCanvas",
+  name: 'ComponentsCanvas',
   props: { cpStyle: String },
+  components: { ComponentTransform },
   setup() {
     const store = useStore();
     const componentsState: ChartComponents = store.state.components;
 
-    const componentsList: ComputedRef<ChartComponent[]> = computed(() => componentsState.components);
+    const componentsList: ComputedRef<ChartComponent[]> = computed(() => {
+      console.log(componentsState.components);
+      return componentsState.components;
+    });
 
     const changeActiveElement: any = (cpt: ChartComponent, event: MouseEvent) => {
       const mdc: MouseDownCoordinator = {
@@ -46,15 +53,15 @@ export default defineComponent({
         visible: true,
         movable: true
       };
-      store.commit("mouseStatus/updateMDC", mdc);
-      store.commit("mouseStatus/updateMAT", "move");
-      store.commit("activeElement/updateAll", newState);
+      store.commit('mouseStatus/updateMDC', mdc);
+      store.commit('mouseStatus/updateMAT', 'move');
+      store.commit('activeElement/updateAll', newState);
     };
     const clearActiveElement: any = () => {
-      store.commit("activeElement/updateMovable", false);
-      store.commit("activeElement/updateVisible", false);
-      store.commit("activeElement/updateResizable", false);
-      store.commit("mouseStatus/updateActivePoint", null);
+      store.commit('activeElement/updateMovable', false);
+      store.commit('activeElement/updateVisible', false);
+      store.commit('activeElement/updateResizable', false);
+      store.commit('mouseStatus/updateActivePoint', null);
     };
 
     const { parentNodeSize, OnMouseMoving, OnMouseUp } = mouseEventHook();
@@ -63,12 +70,12 @@ export default defineComponent({
       const { ctx: instance }: any = getCurrentInstance();
       parentNodeSize.width = instance.$el.clientWidth;
       parentNodeSize.height = instance.$el.clientHeight;
-      document.documentElement.addEventListener("mousemove", OnMouseMoving);
-      document.documentElement.addEventListener("mouseup", OnMouseUp);
+      document.documentElement.addEventListener('mousemove', OnMouseMoving);
+      document.documentElement.addEventListener('mouseup', OnMouseUp);
     });
     onBeforeMount(() => {
-      document.documentElement.removeEventListener("mousemove", OnMouseMoving);
-      document.documentElement.removeEventListener("mouseup", OnMouseUp);
+      document.documentElement.removeEventListener('mousemove', OnMouseMoving);
+      document.documentElement.removeEventListener('mouseup', OnMouseUp);
     });
 
     return {
@@ -82,7 +89,6 @@ export default defineComponent({
 
 <style lang="scss">
 .cp {
-  background: #00b9ff99;
   position: absolute;
 }
 </style>

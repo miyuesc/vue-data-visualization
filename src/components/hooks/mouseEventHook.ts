@@ -178,7 +178,7 @@ export default function mouseEventHook() {
       const newComponent: ChartComponent = {
         id: uuid(16),
         index: componentsState.components.length,
-        zIndex: componentsState.components[componentsState.components.length - 1].zIndex + 1,
+        zIndex: (componentsState.components[componentsState.components.length - 1]?.zIndex || 0) + 1,
         position: { top, left },
         size: { width, height },
         visible: true,
