@@ -1,6 +1,6 @@
 <template>
   <div class="config-form-item">
-    <div class="config-form-item__label" :style="labelWidth">{{ label }}</div>
+    <div class="config-form-item__label" :style="labelWidthStyle">{{ label }}</div>
     <div class="config-form-item__content">
       <slot></slot>
     </div>
@@ -15,18 +15,18 @@ export default defineComponent({
     label: {
       type: String
     },
-    width: {
+    labelWidth: {
       type: Number,
-      default: 120
+      default: 80
     }
   },
   setup(props) {
-    const labelWidth = computed(() => {
-      return `width: ${props.width}px`;
+    const labelWidthStyle = computed(() => {
+      return `width: ${props.labelWidth}px`;
     });
 
     return {
-      labelWidth
+      labelWidthStyle
     };
   }
 });
@@ -52,9 +52,6 @@ export default defineComponent({
     flex: 1;
     box-sizing: border-box;
     padding-left: 8px;
-  }
-  & + .config-form-item {
-    margin-top: 16px;
   }
 }
 </style>

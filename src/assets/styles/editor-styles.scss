@@ -46,6 +46,23 @@
   background: #ccf2f4;
   box-sizing: border-box;
   z-index: 2;
+  .content-pad-item__title {
+    width: 100%;
+    font-size: 14px;
+    height: 32px;
+    line-height: 32px;
+    padding: 0 8px;
+  }
+  .content-pad-row {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    & +.content-pad-row {
+      margin-top: 8px;
+    }
+  }
 }
 .editor-content {
   position: absolute;

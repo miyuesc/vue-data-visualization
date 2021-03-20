@@ -1,19 +1,17 @@
 <template>
   <div class="editor-content-pad">
-    <MPosition />
-    <MSize />
+    <MBaseConfig v-bind="componentConfig" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
 import { useStore } from 'vuex';
-import MSize from './MSize.vue';
-import MPosition from './MPosition.vue';
+import MBaseConfig from './MBaseConfig.vue';
 
 export default defineComponent({
   name: 'ContentPad',
-  components: { MSize, MPosition },
+  components: { MBaseConfig },
   setup() {
     const store = useStore();
     const activeElementState = store.state.activeElement;
