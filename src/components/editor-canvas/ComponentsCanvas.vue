@@ -23,7 +23,8 @@ import { defineComponent, computed, ComputedRef, onMounted, onBeforeMount, getCu
 import { useStore } from 'vuex';
 import { ChartComponent, ChartComponents } from '@/types/components';
 import { MouseDownCoordinator } from '@/types/mouseStatus';
-import mouseEventHook from '@/components/hooks/mouseEventHook';
+// import mouseEventHook from '@/components/hooks/mouseEventHook';
+import dragEventHook from '@/components/hooks/dragEventHook';
 import ComponentTransform from './indicators/ComponentTransform.vue';
 
 export default defineComponent({

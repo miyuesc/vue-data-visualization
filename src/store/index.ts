@@ -24,33 +24,28 @@ export default createStore({
     // 激活组件
     activity: {
       type: "background",
-      id: "bg",
       resizable: false, // 是否准备缩放
       movable: false, // 是否移动 => 是否显示指示线
       isLocked: false, // 是否锁定
-      config: {} // 保存选中的组件的配置
-    },
-    // 鼠标状态
-    mouse: {
-      down: {
-        x: 0, // event.target.parentNode.offsetLeft 鼠标所在元素 距离父元素左侧 的距离
-        y: 0, // event.target.parentNode.offsetTop 鼠标所在元素 距离父元素上侧 的距离
-        clientX: 0, // event.clientX 鼠标处于屏幕的横向位置
-        clientY: 0  // event.clientY  鼠标处于屏幕的纵向位置
-      },
-      client: {
-        width: 0,
-        height: 0
-      },
-      type: "create", // create, drag, background
+      component: {} // 保存选中的组件的配置
     },
     // 复制的组件
     copiedComponent: null
   }),
-  modules: {
-    activeElement,
-    canvas,
-    components,
-    mouseStatus
+  mutations: {
+    setActivity(state: any, { type, component }: any) {
+      state.activity.type = type;
+      state.activity.component = JSON.parse(JSON.stringify(component));
+      state.activity.isLocked = component.isLocked;
+    },
+    updateComponent(state: any, component: any) {
+      state.components.splice(component.index, 1, JSON.parse(JSON.stringify(component)));
+    }
   }
+  // modules: {
+  //   activeElement,
+  //   canvas,
+  //   components,
+  //   mouseStatus
+  // }
 });
