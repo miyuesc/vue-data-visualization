@@ -1,6 +1,6 @@
-import {useStore} from 'vuex';
-import {computed} from 'vue';
-import {throttle} from '@/utils/commonUtils';
+import { useStore } from 'vuex';
+import { computed } from 'vue';
+import { throttle } from '@/utils/commonUtils';
 
 export default function dragEventHook () {
   const store = useStore();
@@ -9,7 +9,7 @@ export default function dragEventHook () {
 
   const throttleUpdate: any = throttle((newState: any) => {
     const component: any = {...activity.component, ...newState};
-    store.commit('setActivity', {type: 'component', component});
+    store.commit('setActivity', { type: 'component', component });
     store.commit('updateComponent', component);
   }, 8);
 
@@ -20,11 +20,15 @@ export default function dragEventHook () {
       clientX: event.clientX,
       clientY: event.clientY
     }
-    console.log(currentPAS);
+    let first = true;
     component.visible = true;
     store.commit('setActivity', { type: 'component', component: component });
 
-    const move = (event: MouseEvent) => {
+    const moving = (event: MouseEvent) => {
+      if (first) {
+        store.commit('setMoving', true);
+        first = false;
+      }
       console.log(event);
 
       const { size: { width, height } } = activity.component;
@@ -46,12 +50,14 @@ export default function dragEventHook () {
       throttleUpdate(newPAS);
     }
 
-    const up = () => {
-      document.documentElement.removeEventListener('mousemove', move);
-      document.documentElement.removeEventListener('mouseup', up);
+    const moveEnd = () => {
+      store.commit('setMoving', false);
+      first = true;
+      document.documentElement.removeEventListener('mousemove', moving);
+      document.documentElement.removeEventListener('mouseup', moveEnd);
     }
-    document.documentElement.addEventListener('mousemove', move);
-    document.documentElement.addEventListener('mouseup', up);
+    document.documentElement.addEventListener('mousemove', moving);
+    document.documentElement.addEventListener('mouseup', moveEnd);
   }
 
   return {

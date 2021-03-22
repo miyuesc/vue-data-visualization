@@ -1,8 +1,16 @@
 <template>
-  <div class="move-guide-line vertical-line l-vertical-line" v-show="moving" v-bind:style="verticalStyleL"></div>
-  <div class="move-guide-line vertical-line r-vertical-line" v-show="moving" v-bind:style="verticalStyleR"></div>
-  <div class="move-guide-line horizontal-line t-horizontal-line" v-show="moving" v-bind:style="horizontalStyleT"></div>
-  <div class="move-guide-line horizontal-line b-horizontal-line" v-show="moving" v-bind:style="horizontalStyleB"></div>
+  <div class="move-guide-line vertical-line l-vertical-line" v-show="isMoving" v-bind:style="verticalStyleL"></div>
+  <div class="move-guide-line vertical-line r-vertical-line" v-show="isMoving" v-bind:style="verticalStyleR"></div>
+  <div
+    class="move-guide-line horizontal-line t-horizontal-line"
+    v-show="isMoving"
+    v-bind:style="horizontalStyleT"
+  ></div>
+  <div
+    class="move-guide-line horizontal-line b-horizontal-line"
+    v-show="isMoving"
+    v-bind:style="horizontalStyleB"
+  ></div>
 </template>
 
 <script lang="ts">
@@ -12,39 +20,38 @@ import { useStore } from 'vuex';
 export default defineComponent({
   name: 'MoveGuideLines',
   setup() {
-    // const activityComponent.value = useStore().state.activeElement;
-    // const canvasState = useStore().state.canvas;
-
     const store = useStore();
-    const canvas: any = computed(() => store.state.canvas).value;
-    const activityComponent: any = computed(() => store.state.activity.component).value;
+    const isMoving = computed(() => store.state.activity.isMoving);
+    const position = computed(() => store.state.activity.component?.position);
+    const size = computed(() => store.state.activity.component?.size);
 
-    const moving = computed(() => activityComponent?.movable || false);
-    const borderWidth = Math.floor(2 / canvas.scale) || 1;
+    const borderWidth = computed(() => {
+      return Math.floor(2 / store.state.canvas.scale) || 1;
+    });
 
     const verticalStyleL = computed(() => {
-      if (!moving.value) return 'display: none';
-      return `left: ${activityComponent.position.left}px; border-width: 0; border-right-width: ${borderWidth}px`;
+      if (!isMoving.value) return 'display: none';
+      return `left: ${position.value.left}px; border-width: 0; border-right-width: ${borderWidth.value}px`;
     });
     const verticalStyleR = computed(() => {
-      if (!moving.value) return 'display: none';
+      if (!isMoving.value) return 'display: none';
       return `left: ${
-        activityComponent.position.left + activityComponent.component.size.width - borderWidth
-      }px; border-width: 0; border-right-width: ${borderWidth}px`;
+        position.value.left + size.value.width - borderWidth.value
+      }px; border-width: 0; border-right-width: ${borderWidth.value}px`;
     });
     const horizontalStyleT = computed(() => {
-      if (!moving.value) return 'display: none';
-      return `top: ${activityComponent.position.top}px; border-width: 0; border-bottom-width: ${borderWidth}px`;
+      if (!isMoving.value) return 'display: none';
+      return `top: ${position.value.top}px; border-width: 0; border-bottom-width: ${borderWidth.value}px`;
     });
     const horizontalStyleB = computed(() => {
-      if (!moving.value) return 'display: none';
+      if (!isMoving.value) return 'display: none';
       return `top: ${
-        activityComponent.position.top + activityComponent.component.size.height - borderWidth
-      }px; border-width: 0; border-bottom-width: ${borderWidth}px`;
+        position.value.top + size.value.height - borderWidth.value
+      }px; border-width: 0; border-bottom-width: ${borderWidth.value}px`;
     });
 
     return {
-      moving,
+      isMoving,
       verticalStyleL,
       verticalStyleR,
       horizontalStyleT,
@@ -63,7 +70,7 @@ export default defineComponent({
   pointer-events: none;
   border-style: dashed;
   border-color: #c8141499;
-  z-index: 1;
+  z-index: 0;
 }
 .vertical-line {
   top: 0;

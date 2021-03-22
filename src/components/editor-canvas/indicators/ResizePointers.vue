@@ -100,7 +100,7 @@ export default defineComponent({
   outline: none;
   box-sizing: border-box;
   border-style: solid;
-  z-index: 2;
+  z-index: 4;
   user-select: none;
   pointer-events: none;
 }
