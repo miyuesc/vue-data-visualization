@@ -22,11 +22,18 @@ export function throttle(fn: Function, delay: number) {
     // 参数类型为函数
     throw new TypeError('fn is not a function');
   }
+  let firstTime: boolean = true;
   let timer: number | null;
   return function () {
     let args = arguments;
+    if (firstTime) {
+      // @ts-ignore
+      fn.apply(this, args);
+      firstTime = false;
+      return false;
+    }
     if (timer) {
-      return;
+      return false;
     }
     timer = setTimeout(() =>  {
       // @ts-ignore
@@ -59,4 +66,17 @@ export function uuid(len: number = 16, radix?: number): string {
   }
 
   return uuid.join('');
+}
+
+export function setLocal(key: string, data?: any) {
+  if (!data) localStorage.removeItem(key);
+  let localData = data;
+  if (typeof data !== "string") {
+    localData = JSON.stringify(data);
+  }
+  localStorage.setItem(key, localData);
+}
+
+export function isObject(data: any) {
+  return Object.prototype.toString.call(data) === '[object Object]';
 }
