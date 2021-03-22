@@ -20,14 +20,27 @@ export default createStore({
       }
     },
     // 组件
-    components: [],
+    components: [
+      {
+        id: 'test',
+        name: '测试',
+        position: {
+          left: 122,
+          top: 267
+        },
+        size: {
+          width: 500,
+          height: 360
+        }
+      }
+    ],
     // 激活组件
     activity: {
       type: "background",
       resizable: false, // 是否准备缩放
       movable: false, // 是否移动 => 是否显示指示线
       isLocked: false, // 是否锁定
-      component: {} // 保存选中的组件的配置
+      component: null // 保存选中的组件的配置
     },
     // 复制的组件
     copiedComponent: null
@@ -37,6 +50,7 @@ export default createStore({
       state.activity.type = type;
       state.activity.component = JSON.parse(JSON.stringify(component));
       state.activity.isLocked = component.isLocked;
+      state.components.splice(component.index, 1, JSON.parse(JSON.stringify(component)));
     },
     updateComponent(state: any, component: any) {
       state.components.splice(component.index, 1, JSON.parse(JSON.stringify(component)));

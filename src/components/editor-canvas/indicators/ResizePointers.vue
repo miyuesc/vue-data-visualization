@@ -5,18 +5,16 @@
       :key="point"
       :class="`indicator-point indicator-point-${point}`"
       :style="pointsStyle"
-      @mousedown.stop.prevent="handleToResize(point, $event)"
     ></span>
-    <slot></slot>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed, ComputedRef } from 'vue';
 import { useStore } from 'vuex';
-import { ChartComponent } from '@/types/components';
-import { Canvas } from '@/types/canvas';
-import { MouseDownCoordinator } from '@/types/mouseStatus';
+// import { ChartComponent } from '@/types/components';
+// import { Canvas } from '@/types/canvas';
+// import { MouseDownCoordinator } from '@/types/mouseStatus';
 
 export default defineComponent({
   name: 'ResizePointers',
@@ -32,20 +30,25 @@ export default defineComponent({
     const points: string[] = ['tl', 'tc', 'tr', 'ml', 'mr', 'bl', 'bc', 'br'];
 
     const store = useStore();
-    const activeElementState: ChartComponent = store.state.activeElement;
-    const canvasState: Canvas = store.state.canvas;
+    // const activeElementState: ChartComponent = store.state.activeElement;
+    // const canvasState: Canvas = store.state.canvas;
+    //
+    // const isActive: ComputedRef<boolean> = computed(() => activeElementState.visible);
+    // const scale: ComputedRef<number> = computed(() => canvasState.scale);
 
-    const isActive: ComputedRef<boolean> = computed(() => activeElementState.visible);
-    const scale: ComputedRef<number> = computed(() => canvasState.scale);
+    const canvas: any = computed(() => store.state.canvas);
+    const activityComponent: any = computed(() => store.state.activity.component);
+
     // border 样式
-    const indicatorAreaStyle: ComputedRef<{ [key: string]: string | number }> = computed(() => {
-      const {
-        size: { width, height },
-        position: { left, top },
-        zIndex
-      } = activeElementState;
-      const bgColor = isActive.value ? '#4a71fe' : '#4a71fe00';
-      const borderWidth = Math.floor(2 / scale.value);
+    const indicatorAreaStyle = computed(() => {
+      if (!store.state.activity.component) return { display: 'none' };
+      const { size, position, zIndex = 0, visible = false } = store.state.activity.component;
+      const width = size?.width || 0;
+      const height = size?.height || 0;
+      const left = position?.left || 0;
+      const top = position?.top || 0;
+      const bgColor = visible ? '#4a71fe' : '#4a71fe00';
+      const borderWidth = Math.floor(2 / canvas.value.scale);
       return {
         width: `${width}px`,
         height: `${height}px`,
@@ -58,32 +61,33 @@ export default defineComponent({
     });
     // points 样式
     const pointsStyle: ComputedRef<string> = computed(() => {
-      const display = isActive.value ? 'block' : 'none';
-      return `transform: scale(${1 / scale.value}); display: ${display}`;
+      const display = activityComponent.value?.visible ? 'block' : 'none';
+      return `transform: scale(${1 / canvas.value.scale}); display: ${display}`;
     });
 
     // 选中point并准备进行大小改变, 记录初始状态（需要阻止冒泡）
-    const handleToResize = (point: string, event: any) => {
-      event.stopPropagation();
-      const currentPAS: MouseDownCoordinator = {
-        x: event.target.parentNode.offsetLeft, // 鼠标所在元素 距离父元素左侧 的距离
-        y: event.target.parentNode.offsetTop, // 鼠标所在元素 距离父元素上侧 的距离
-        width: event.target.parentNode.clientWidth, // 鼠标所在元素 的标记元素 的宽度
-        height: event.target.parentNode.clientHeight, // 鼠标所在元素 的标记元素 的高度
-        mouseX: event.clientX, // 鼠标处于屏幕的横向位置
-        mouseY: event.clientY // 鼠标处于屏幕的纵向位置
-      };
-      store.commit('mouseStatus/updateMAT', 'resize');
-      store.commit('activeElement/updateResizable', true);
-      store.commit('mouseStatus/updateMDC', currentPAS);
-      store.commit('mouseStatus/updateActivePoint', point);
-    };
+    // const handleToResize = (point: string, event: any) => {
+    //   event.stopPropagation();
+    //   const currentPAS: MouseDownCoordinator = {
+    //     x: event.target.parentNode.offsetLeft, // 鼠标所在元素 距离父元素左侧 的距离
+    //     y: event.target.parentNode.offsetTop, // 鼠标所在元素 距离父元素上侧 的距离
+    //     width: event.target.parentNode.clientWidth, // 鼠标所在元素 的标记元素 的宽度
+    //     height: event.target.parentNode.clientHeight, // 鼠标所在元素 的标记元素 的高度
+    //     mouseX: event.clientX, // 鼠标处于屏幕的横向位置
+    //     mouseY: event.clientY // 鼠标处于屏幕的纵向位置
+    //   };
+    //   store.commit('mouseStatus/updateMAT', 'resize');
+    //   store.commit('activeElement/updateResizable', true);
+    //   store.commit('mouseStatus/updateMDC', currentPAS);
+    //   store.commit('mouseStatus/updateActivePoint', point);
+    // };
 
     return {
       points,
       indicatorAreaStyle,
       pointsStyle,
-      handleToResize
+      activityComponent
+      // handleToResize
     };
   }
 });

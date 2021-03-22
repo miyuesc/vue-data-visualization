@@ -12,31 +12,43 @@ import { useStore } from 'vuex';
 export default defineComponent({
   name: 'MoveGuideLines',
   setup() {
-    const activeElementState = useStore().state.activeElement;
-    const canvasState = useStore().state.canvas;
+    // const activityComponent.value = useStore().state.activeElement;
+    // const canvasState = useStore().state.canvas;
+
+    const store = useStore();
+    const canvas: any = computed(() => store.state.canvas).value;
+    const activityComponent: any = computed(() => store.state.activity.component).value;
+
+    const moving = computed(() => activityComponent?.movable || false);
+    const borderWidth = Math.floor(2 / canvas.scale) || 1;
+
+    const verticalStyleL = computed(() => {
+      if (!moving.value) return 'display: none';
+      return `left: ${activityComponent.position.left}px; border-width: 0; border-right-width: ${borderWidth}px`;
+    });
+    const verticalStyleR = computed(() => {
+      if (!moving.value) return 'display: none';
+      return `left: ${
+        activityComponent.position.left + activityComponent.component.size.width - borderWidth
+      }px; border-width: 0; border-right-width: ${borderWidth}px`;
+    });
+    const horizontalStyleT = computed(() => {
+      if (!moving.value) return 'display: none';
+      return `top: ${activityComponent.position.top}px; border-width: 0; border-bottom-width: ${borderWidth}px`;
+    });
+    const horizontalStyleB = computed(() => {
+      if (!moving.value) return 'display: none';
+      return `top: ${
+        activityComponent.position.top + activityComponent.component.size.height - borderWidth
+      }px; border-width: 0; border-bottom-width: ${borderWidth}px`;
+    });
 
     return {
-      moving: computed(() => activeElementState.movable),
-      verticalStyleL: computed(() => {
-        const borderWidth: number = Math.floor(2 / canvasState.scale) || 1;
-        return `left: ${activeElementState.position.left}px; border-width: 0; border-right-width: ${borderWidth}px`;
-      }),
-      verticalStyleR: computed(() => {
-        const borderWidth = Math.floor(2 / canvasState.scale) || 1;
-        return `left: ${
-          activeElementState.position.left + activeElementState.size.width - borderWidth
-        }px; border-width: 0; border-right-width: ${borderWidth}px`;
-      }),
-      horizontalStyleT: computed(() => {
-        const borderWidth = Math.floor(2 / canvasState.scale) || 1;
-        return `top: ${activeElementState.position.top}px; border-width: 0; border-bottom-width: ${borderWidth}px`;
-      }),
-      horizontalStyleB: computed(() => {
-        const borderWidth = Math.floor(2 / canvasState.scale) || 1;
-        return `top: ${
-          activeElementState.position.top + activeElementState.size.height - borderWidth
-        }px; border-width: 0; border-bottom-width: ${borderWidth}px`;
-      })
+      moving,
+      verticalStyleL,
+      verticalStyleR,
+      horizontalStyleT,
+      horizontalStyleB
     };
   }
 });

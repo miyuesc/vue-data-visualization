@@ -44,8 +44,6 @@ export default defineComponent({
     const store: Store<any> = useStore();
     const canvasState: Canvas = store.state.canvas;
 
-    console.log(canvasState);
-
     const screenStyle = computed(() => `transform: scale(${canvasState.scale});`);
 
     return {

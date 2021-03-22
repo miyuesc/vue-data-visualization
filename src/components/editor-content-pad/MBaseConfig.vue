@@ -85,7 +85,6 @@ export default defineComponent({
       store.commit('components/update', { component: { ...activeElement }, index: activeElement.index });
     }, 200);
     const debounceUpdateSize = debounce(function () {
-      console.log(1);
       store.commit('activeElement/updateSize', { width: width.value, height: height.value });
       store.commit('components/update', { component: { ...activeElement }, index: activeElement.index });
     }, 200);
