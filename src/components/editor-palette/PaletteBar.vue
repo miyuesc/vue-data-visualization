@@ -22,10 +22,7 @@
         @dragstart.stop="dragToCreate($event, p)"
         @dragend.stop="dragEnd"
       >
-        <img
-          src="https://cdn.jsdelivr.net/gh/apache/echarts-website@asf-site/examples/data/thumb/line-simple.webp?_v_=1612615474746"
-          alt="test"
-        />
+        <img :src="imagesObject[p.code]" alt="test" />
       </a>
     </div>
   </div>
@@ -33,6 +30,7 @@
 
 <script lang="ts">
 import presetComponents from '@/assets/components/presetComponents';
+import images from '@/assets/components/componentImages';
 import { defineComponent, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
 
@@ -41,6 +39,7 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const presetComponentsList = presetComponents;
+    const imagesObject = images;
     const selectedComponentType = reactive({ list: [], activeKey: '' });
     const showPanel = ref(false);
 
@@ -61,6 +60,7 @@ export default defineComponent({
 
     return {
       presetComponentsList,
+      imagesObject,
       selectedComponentType,
       showPanel,
       openChildrenPenal,

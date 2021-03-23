@@ -39,7 +39,7 @@ const presetComponents: any = {
       }, // 树形图
       kCharts: {
         name: "K线图",
-        code: "kCharts",
+        code: "kChart",
         componentName: "K线图",
         config: ["size", "position", "zIndex", "title", "background", "legend", "kConfig"]
       }, // K 线图
