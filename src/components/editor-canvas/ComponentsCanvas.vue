@@ -6,7 +6,7 @@
     @dragover.prevent
     @dragleave.prevent
     @dragenter.prevent
-    @drop="dropEnd"
+    @drop="drop"
   >
     <div
       v-for="cpt in componentsList"
@@ -30,6 +30,7 @@
 import { defineComponent, computed } from 'vue';
 import { useStore } from 'vuex';
 import dragEventHook from '@/components/hooks/dragEventHook';
+import dropEventHook from '@/components/hooks/dropEventHook';
 import ComponentTransform from './indicators/ComponentTransform.vue';
 
 export default defineComponent({
@@ -47,16 +48,13 @@ export default defineComponent({
     };
 
     const { dragStart } = dragEventHook();
-
-    const dropEnd = (event: MouseEvent) => {
-      console.log(event);
-    };
+    const { drop } = dropEventHook();
 
     return {
       componentsList,
       clearActivity,
       dragStart,
-      dropEnd
+      drop
     };
   }
 });
@@ -65,5 +63,6 @@ export default defineComponent({
 <style lang="scss">
 .cp {
   position: absolute;
+  background: #f4f9f9;
 }
 </style>

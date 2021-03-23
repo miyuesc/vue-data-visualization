@@ -19,8 +19,8 @@
         class="component-support-item"
         :key="p.code"
         draggable
-        @dragstart="dragToCreate"
-        @dragover.prevent
+        @dragstart.stop="dragToCreate($event, p)"
+        @dragend.stop="dragEnd"
       >
         <img
           src="https://cdn.jsdelivr.net/gh/apache/echarts-website@asf-site/examples/data/thumb/line-simple.webp?_v_=1612615474746"
@@ -50,8 +50,11 @@ export default defineComponent({
       selectedComponentType.list = Object.values(i.children || {});
     };
 
-    const dragToCreate = (event: any) => {
-      console.log(event);
+    const dragToCreate = (event: any, component: any) => {
+      store.commit('setCopied', component);
+    };
+    const dragEnd = (event: any) => {
+      // console.log(this);
     };
 
     return {
@@ -59,7 +62,8 @@ export default defineComponent({
       selectedComponentType,
       showPanel,
       openChildrenPenal,
-      dragToCreate
+      dragToCreate,
+      dragEnd
     };
   }
 });
