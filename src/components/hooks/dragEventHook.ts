@@ -14,9 +14,14 @@ export default function dragEventHook () {
   }, 8);
 
   const dragStart: any = (event: any, component: any) => {
+    const { path } = event;
+    console.log(path);
+    const target = path.filter((el: HTMLElement) => {
+      return el.classList && el.classList.value && el.classList.value.indexOf('cp cp__') !== -1;
+    });
     const currentPAS = {
-      x: event.target.offsetLeft,
-      y: event.target.offsetTop,
+      x: target[0].offsetLeft,
+      y: target[0].offsetTop,
       clientX: event.clientX,
       clientY: event.clientY
     }

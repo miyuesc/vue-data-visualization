@@ -4,11 +4,11 @@ import { uuid } from "@/utils/commonUtils";
 
 export default function DropEventHook() {
   const store = useStore();
-  const copied =  computed(() => store.state.copiedComponent).value;
-  const defaultSize = computed(() => store.state.defaultConfig.size).value;
 
   const drop: any = (event: MouseEvent) => {
     const { offsetX, offsetY, target } = event;
+    const copied =  store.state.copiedComponent;
+    const defaultSize = store.state.defaultConfig.size;
     const zIndex = store.state.componentsTotal + 1;
     const copiedConfig = store.state.copiedConfig || {};
     let left = 0;

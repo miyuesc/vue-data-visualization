@@ -21,7 +21,7 @@
       }"
       @mousedown.stop="dragStart($event, cpt)"
     >
-      <!--      <ComponentTransform :info="cpt.componentInfo" :size="cpt.size" />-->
+      <ComponentTransform :info="cpt" />
     </div>
   </div>
 </template>
@@ -37,7 +37,7 @@ export default defineComponent({
   name: 'ComponentsCanvas',
   props: { cpStyle: String },
   components: {
-    // ComponentTransform
+    ComponentTransform
   },
   setup() {
     const store = useStore();

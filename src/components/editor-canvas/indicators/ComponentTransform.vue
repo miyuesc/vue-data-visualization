@@ -3,19 +3,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, computed } from 'vue';
 import LineChart from '@/components/charts/LineChart.vue';
 
 export default defineComponent({
   name: 'ComponentTransform',
   props: {
-    info: String,
-    size: Object
+    info: Object
   },
   components: { LineChart },
   setup(props) {
-    const componentInfo: string | undefined = props?.info;
-    const componentType = componentInfo ? JSON.parse(componentInfo).code : '';
+    const componentType = computed(() => props.info?.code || '');
     return {
       componentType
     };

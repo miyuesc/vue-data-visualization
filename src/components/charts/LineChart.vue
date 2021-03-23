@@ -10,13 +10,12 @@ import { debounce } from '@/utils/commonUtils';
 export default defineComponent({
   name: 'LineChart',
   props: {
-    info: String,
-    size: Object
+    info: Object
   },
   setup(props) {
     const instance: any = getCurrentInstance();
 
-    const size: ComputedRef = computed(() => props.size);
+    const size: ComputedRef = computed(() => props.info?.size);
 
     const options = {
       xAxis: {
@@ -53,7 +52,7 @@ export default defineComponent({
 
     onMounted(() => createChart());
 
-    watch(size, () => debounceResize());
+    watch([() => size.value.width, () => size.value.height], () => debounceResize());
   }
 });
 </script>

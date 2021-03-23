@@ -16,21 +16,7 @@ export default createStore({
       }
     },
     // 组件
-    components: [
-      {
-        id: 'test',
-        name: '测试',
-        zIndex: 1,
-        position: {
-          left: 122,
-          top: 267
-        },
-        size: {
-          width: 500,
-          height: 360
-        }
-      }
-    ],
+    components: [],
     componentsTotal: 1,
     // 激活组件
     activity: {
@@ -57,7 +43,6 @@ export default createStore({
       if (component) {
         state.activity.isLocked = component?.isLocked || false;
         const index = state.components.findIndex((cp: any) => cp.id === component.id);
-        console.log(index, component.id);
         if (index !== -1) {
           state.components.splice(index, 1, JSON.parse(JSON.stringify(component)));
         }
@@ -67,6 +52,7 @@ export default createStore({
       state.activity.isMoving = status;
     },
     setCopied(state: any, component: any) {
+      console.log(component);
       state.copiedComponent = JSON.parse(JSON.stringify(component));
     },
     setCopiedConfig(state: any, config: any) {
