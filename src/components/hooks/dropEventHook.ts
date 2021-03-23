@@ -10,22 +10,22 @@ export default function DropEventHook() {
   const drop: any = (event: MouseEvent) => {
     const { offsetX, offsetY, target } = event;
     const zIndex = store.state.componentsTotal + 1;
+    const copiedConfig = store.state.copiedConfig || {};
     let left = 0;
     let top = 0;
     if ((target as HTMLElement).classList.contains('cp')) {
       // 拖拽放置的目标位置在组件上
       // 继承原组件位置
-      left = (target as HTMLElement).offsetLeft + offsetX;
-      top = (target as HTMLElement).offsetTop + offsetY;
+      left = (target as HTMLElement).offsetLeft + offsetX - (copiedConfig?.offsetX || 0);
+      top = (target as HTMLElement).offsetTop + offsetY - (copiedConfig?.offsetY || 0);
     } else {
-      left = offsetX;
-      top = offsetY;
+      left = offsetX - (copiedConfig?.offsetX || 0);
+      top = offsetY - (copiedConfig?.offsetY || 0);
     }
     const id = uuid(16);
 
     const newComponent = {
       ...copied,
-      index: zIndex - 1,
       size: { ...defaultSize },
       position: { left, top },
       id,

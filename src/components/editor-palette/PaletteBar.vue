@@ -51,7 +51,9 @@ export default defineComponent({
     };
 
     const dragToCreate = (event: any, component: any) => {
+      const { offsetX, offsetY } = event;
       store.commit('setCopied', component);
+      store.commit('setCopiedConfig', { offsetX, offsetY });
     };
     const dragEnd = (event: any) => {
       // console.log(this);

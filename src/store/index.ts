@@ -20,7 +20,6 @@ export default createStore({
       {
         id: 'test',
         name: '测试',
-        index: 0,
         zIndex: 1,
         position: {
           left: 122,
@@ -42,6 +41,7 @@ export default createStore({
     },
     // 复制的组件
     copiedComponent: null,
+    copiedConfig: null,
     // 默认配置
     defaultConfig: {
       size: {
@@ -56,7 +56,11 @@ export default createStore({
       state.activity.component = JSON.parse(JSON.stringify(component));
       if (component) {
         state.activity.isLocked = component?.isLocked || false;
-        state.components.splice(component.index, 1, JSON.parse(JSON.stringify(component)));
+        const index = state.components.findIndex((cp: any) => cp.id === component.id);
+        console.log(index, component.id);
+        if (index !== -1) {
+          state.components.splice(index, 1, JSON.parse(JSON.stringify(component)));
+        }
       }
     },
     setMoving(state: any, status: boolean) {
@@ -65,6 +69,9 @@ export default createStore({
     setCopied(state: any, component: any) {
       state.copiedComponent = JSON.parse(JSON.stringify(component));
     },
+    setCopiedConfig(state: any, config: any) {
+      state.copiedConfig = JSON.parse(JSON.stringify(config));
+    },
     createComponent(state: any, component: any){
       state.components.push(JSON.parse(JSON.stringify(component)));
       state.activity.component = JSON.parse(JSON.stringify(component));
@@ -72,7 +79,10 @@ export default createStore({
       state.componentsTotal = state.componentsTotal + 1;
     },
     updateComponent(state: any, component: any) {
-      state.components.splice(component.index, 1, JSON.parse(JSON.stringify(component)));
+      const index = state.components.findIndex((cp: any) => cp.id === component.id);
+      if (index !== -1) {
+        state.components.splice(index, 1, JSON.parse(JSON.stringify(component)));
+      }
     }
   }
 });
