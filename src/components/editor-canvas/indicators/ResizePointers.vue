@@ -5,6 +5,7 @@
       :key="point"
       :class="`indicator-point indicator-point-${point}`"
       :style="pointsStyle"
+      @mousedown.stop="resizeStart($event, point)"
     ></span>
   </div>
 </template>
@@ -12,9 +13,7 @@
 <script lang="ts">
 import { defineComponent, computed, ComputedRef } from 'vue';
 import { useStore } from 'vuex';
-// import { ChartComponent } from '@/types/components';
-// import { Canvas } from '@/types/canvas';
-// import { MouseDownCoordinator } from '@/types/mouseStatus';
+import resizeEventHook from '@/components/hooks/resizeEventHook';
 
 export default defineComponent({
   name: 'ResizePointers',
@@ -30,11 +29,6 @@ export default defineComponent({
     const points: string[] = ['tl', 'tc', 'tr', 'ml', 'mr', 'bl', 'bc', 'br'];
 
     const store = useStore();
-    // const activeElementState: ChartComponent = store.state.activeElement;
-    // const canvasState: Canvas = store.state.canvas;
-    //
-    // const isActive: ComputedRef<boolean> = computed(() => activeElementState.visible);
-    // const scale: ComputedRef<number> = computed(() => canvasState.scale);
 
     const canvas: any = computed(() => store.state.canvas);
     const activityComponent: any = computed(() => store.state.activity.component);
@@ -65,29 +59,13 @@ export default defineComponent({
       return `transform: scale(${1 / canvas.value.scale}); display: ${display}`;
     });
 
-    // 选中point并准备进行大小改变, 记录初始状态（需要阻止冒泡）
-    // const handleToResize = (point: string, event: any) => {
-    //   event.stopPropagation();
-    //   const currentPAS: MouseDownCoordinator = {
-    //     x: event.target.parentNode.offsetLeft, // 鼠标所在元素 距离父元素左侧 的距离
-    //     y: event.target.parentNode.offsetTop, // 鼠标所在元素 距离父元素上侧 的距离
-    //     width: event.target.parentNode.clientWidth, // 鼠标所在元素 的标记元素 的宽度
-    //     height: event.target.parentNode.clientHeight, // 鼠标所在元素 的标记元素 的高度
-    //     mouseX: event.clientX, // 鼠标处于屏幕的横向位置
-    //     mouseY: event.clientY // 鼠标处于屏幕的纵向位置
-    //   };
-    //   store.commit('mouseStatus/updateMAT', 'resize');
-    //   store.commit('activeElement/updateResizable', true);
-    //   store.commit('mouseStatus/updateMDC', currentPAS);
-    //   store.commit('mouseStatus/updateActivePoint', point);
-    // };
+    const { resizeStart } = resizeEventHook();
 
     return {
       points,
       indicatorAreaStyle,
       pointsStyle,
-      activityComponent
-      // handleToResize
+      resizeStart
     };
   }
 });
@@ -107,15 +85,34 @@ export default defineComponent({
 .indicator-point {
   position: absolute;
   display: inline-block;
-  width: 6px;
-  height: 6px;
   box-sizing: border-box;
   border: 1px solid #4a71fe;
-  border-radius: 50%;
+  border-radius: 4px;
   background: #ffffff;
   z-index: 3;
   user-select: none;
   pointer-events: auto;
+}
+.indicator-point-tl,
+.indicator-point-tr,
+.indicator-point-bl,
+.indicator-point-br {
+  width: 6px;
+  height: 6px;
+}
+.indicator-point-tc,
+.indicator-point-bc {
+  width: 20%;
+  min-width: 6px;
+  max-width: 18px;
+  height: 6px;
+}
+.indicator-point-ml,
+.indicator-point-mr {
+  width: 6px;
+  height: 20%;
+  min-height: 6px;
+  max-height: 18px;
 }
 .indicator-point-tl {
   top: -4px;

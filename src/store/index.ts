@@ -37,8 +37,7 @@ export default createStore({
     // 激活组件
     activity: {
       type: "background",
-      resizable: false, // 是否准备缩放
-      isMoving: false, // 是否移动 => 是否显示指示线
+      isMoving: false, // 是否移动中 => 是否显示指示线
       isLocked: false, // 是否锁定
       component: null // 保存选中的组件的配置
     },
@@ -49,7 +48,7 @@ export default createStore({
     setActivity(state: any, { type, component }: any) {
       state.activity.type = type;
       state.activity.component = JSON.parse(JSON.stringify(component));
-      state.activity.isLocked = component.isLocked;
+      state.activity.isLocked = component?.isLocked || false;
       state.components.splice(component.index, 1, JSON.parse(JSON.stringify(component)));
     },
     setMoving(state: any, status: boolean) {

@@ -1,5 +1,13 @@
 <template>
-  <div class="editor-canvas-area" :style="cpStyle" @mousedown.stop="clearActiveElement">
+  <div
+    class="editor-canvas-area"
+    :style="cpStyle"
+    @mousedown.stop="clearActivity"
+    @dragover.prevent
+    @dragleave.prevent
+    @dragenter.prevent
+    @drop="dropEnd"
+  >
     <div
       v-for="cpt in componentsList"
       :key="cpt.id"
@@ -19,11 +27,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ComputedRef, onMounted, onBeforeMount, getCurrentInstance } from 'vue';
+import { defineComponent, computed } from 'vue';
 import { useStore } from 'vuex';
-import { ChartComponent, ChartComponents } from '@/types/components';
-import { MouseDownCoordinator } from '@/types/mouseStatus';
-// import mouseEventHook from '@/components/hooks/mouseEventHook';
 import dragEventHook from '@/components/hooks/dragEventHook';
 import ComponentTransform from './indicators/ComponentTransform.vue';
 
@@ -36,53 +41,22 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    const componentsList: ComputedRef<ChartComponent[]> = computed(() => {
-      return store.state.components;
-    });
-
-    // const changeActiveElement: any = (cpt: ChartComponent, event: MouseEvent) => {
-    //   const mdc: MouseDownCoordinator = {
-    //     x: cpt.position.left, // 鼠标所在元素 距离父元素左侧 的距离
-    //     y: cpt.position.top, // 鼠标所在元素 距离父元素上侧 的距离
-    //     width: 0,
-    //     height: 0,
-    //     mouseX: event.clientX || 0, // 鼠标处于屏幕的横向位置
-    //     mouseY: event.clientY || 0 // 鼠标处于屏幕的纵向位置
-    //   };
-    //   const newState: ChartComponent = {
-    //     ...cpt,
-    //     visible: true,
-    //     movable: true
-    //   };
-    //   store.commit('mouseStatus/updateMDC', mdc);
-    //   store.commit('mouseStatus/updateMAT', 'move');
-    //   store.commit('activeElement/updateAll', newState);
-    // };
-    const clearActiveElement: any = () => {
+    const componentsList = computed(() => store.state.components);
+    const clearActivity = () => {
       store.commit('setActivity', { type: 'background', component: null });
     };
 
-    // const { parentNodeSize, OnMouseMoving, OnMouseUp } = mouseEventHook();
-    //
-    // onMounted(() => {
-    //   const { ctx: instance }: any = getCurrentInstance();
-    //   parentNodeSize.width = instance.$el.clientWidth;
-    //   parentNodeSize.height = instance.$el.clientHeight;
-    //   document.documentElement.addEventListener('mousemove', OnMouseMoving);
-    //   document.documentElement.addEventListener('mouseup', OnMouseUp);
-    // });
-    // onBeforeMount(() => {
-    //   document.documentElement.removeEventListener('mousemove', OnMouseMoving);
-    //   document.documentElement.removeEventListener('mouseup', OnMouseUp);
-    // });
-
     const { dragStart } = dragEventHook();
+
+    const dropEnd = (event: MouseEvent) => {
+      console.log(event);
+    };
 
     return {
       componentsList,
-      // changeActiveElement,
-      clearActiveElement,
-      dragStart
+      clearActivity,
+      dragStart,
+      dropEnd
     };
   }
 });

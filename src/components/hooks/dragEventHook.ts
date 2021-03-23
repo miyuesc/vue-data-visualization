@@ -29,12 +29,9 @@ export default function dragEventHook () {
         store.commit('setMoving', true);
         first = false;
       }
-      console.log(event);
-
       const { size: { width, height } } = activity.component;
       // 根据鼠标移动距离更新元素的当前位置
       const { x, y, clientX, clientY } = currentPAS;
-      console.log(width, height);
       let newLeft: number = x + (event.clientX - clientX) / canvas.scale;
       let newTop: number = y + (event.clientY - clientY) / canvas.scale;
       // 判断是否还在可视区域内, 不在则重设为合法数值

@@ -16,10 +16,11 @@
     <div :class="{ 'component-support-list': true, 'is-show': showPanel }">
       <a
         v-for="p in selectedComponentType.list"
-        :key="p.code"
         class="component-support-item"
-        @mousedown.stop="dragStart($event, p)"
-        @dragstart.stop.prevent
+        :key="p.code"
+        draggable
+        @dragstart="dragToCreate"
+        @dragover.prevent
       >
         <img
           src="https://cdn.jsdelivr.net/gh/apache/echarts-website@asf-site/examples/data/thumb/line-simple.webp?_v_=1612615474746"
@@ -31,10 +32,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue';
 import presetComponents from '@/assets/components/presetComponents';
+import { defineComponent, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
-import { MouseDownCoordinator } from '@/types/mouseStatus';
 
 export default defineComponent({
   name: 'PaletteBar',
@@ -50,18 +50,8 @@ export default defineComponent({
       selectedComponentType.list = Object.values(i.children || {});
     };
 
-    const dragStart = (e: MouseEvent, p: any) => {
-      const mdc: MouseDownCoordinator = {
-        x: 0,
-        y: 0,
-        mouseX: e.offsetX,
-        mouseY: e.offsetY,
-        width: 0,
-        height: 0
-      };
-      store.commit('mouseStatus/updateMDC', mdc);
-      store.commit('mouseStatus/updateMAT', 'create');
-      store.commit('components/dragging', JSON.stringify(p));
+    const dragToCreate = (event: any) => {
+      console.log(event);
     };
 
     return {
@@ -69,7 +59,7 @@ export default defineComponent({
       selectedComponentType,
       showPanel,
       openChildrenPenal,
-      dragStart
+      dragToCreate
     };
   }
 });
