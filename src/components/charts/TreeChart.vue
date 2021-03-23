@@ -1,5 +1,5 @@
 <template>
-  <div class="chart-component line-chart-component" ref="lineChartRef"></div>
+  <div class="chart-component tree-chart-component" ref="lineChartRef"></div>
 </template>
 
 <script lang="ts">
@@ -8,7 +8,7 @@ import * as echarts from 'echarts';
 import { debounce } from '@/utils/commonUtils';
 
 export default defineComponent({
-  name: 'LineChart',
+  name: 'TreeChart',
   props: {
     info: Object
   },
@@ -27,25 +27,25 @@ export default defineComponent({
       },
       series: [
         {
-          data: [150, 230, 224, 218, 135, 147, 260],
-          type: 'line'
+          data: [120, 200, 150, 80, 70, 110, 130],
+          type: 'bar'
         }
       ]
     };
 
-    let lineChart: any = null;
+    let treeChart: any = null;
 
     const createChart = () => {
       if (instance) {
-        lineChart = echarts.init(instance.ctx.$el);
-        lineChart.setOption(options);
+        treeChart = echarts.init(instance.ctx.$el);
+        treeChart.setOption(options);
       }
     };
 
     const debounceResize = debounce(() => {
-      if (lineChart) {
-        lineChart.dispose();
-        lineChart = null;
+      if (treeChart) {
+        treeChart.dispose();
+        treeChart = null;
       }
       createChart();
     }, 200);

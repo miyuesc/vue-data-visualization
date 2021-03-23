@@ -49,6 +49,12 @@ const presetComponents: any = {
         componentName: "仪表盘",
         config: ["size", "position", "zIndex", "title", "background", "legend", "gaugeConfig"]
       }, // 仪表盘
+      graphCharts: {
+        name: "关系图",
+        code: "graphChart",
+        componentName: "关系图",
+        config: ["size", "position", "zIndex", "title", "background", "legend", "funnelConfig"]
+      }, // 关系图
       funnelCharts: {
         name: "漏斗图",
         code: "funnelChart",

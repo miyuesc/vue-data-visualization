@@ -15,7 +15,6 @@ export default function dragEventHook () {
 
   const dragStart: any = (event: any, component: any) => {
     const { path } = event;
-    console.log(path);
     const target = path.filter((el: HTMLElement) => {
       return el.classList && el.classList.value && el.classList.value.indexOf('cp cp__') !== -1;
     });

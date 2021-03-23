@@ -1,5 +1,5 @@
 <template>
-  <div class="chart-component line-chart-component" ref="lineChartRef"></div>
+  <div class="chart-component gauge-chart-component" ref="lineChartRef"></div>
 </template>
 
 <script lang="ts">
@@ -8,7 +8,7 @@ import * as echarts from 'echarts';
 import { debounce } from '@/utils/commonUtils';
 
 export default defineComponent({
-  name: 'LineChart',
+  name: 'GaugeChart',
   props: {
     info: Object
   },
@@ -18,34 +18,43 @@ export default defineComponent({
     const size: ComputedRef = computed(() => props.info?.size);
 
     const options = {
-      xAxis: {
-        type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-      },
-      yAxis: {
-        type: 'value'
+      tooltip: {
+        formatter: '{a} <br/>{b} : {c}%'
       },
       series: [
         {
-          data: [150, 230, 224, 218, 135, 147, 260],
-          type: 'line'
+          name: 'Pressure',
+          type: 'gauge',
+          progress: {
+            show: true
+          },
+          detail: {
+            valueAnimation: true,
+            formatter: '{value}'
+          },
+          data: [
+            {
+              value: 50,
+              name: 'SCORE'
+            }
+          ]
         }
       ]
     };
 
-    let lineChart: any = null;
+    let gaugeChart: any = null;
 
     const createChart = () => {
       if (instance) {
-        lineChart = echarts.init(instance.ctx.$el);
-        lineChart.setOption(options);
+        gaugeChart = echarts.init(instance.ctx.$el);
+        gaugeChart.setOption(options);
       }
     };
 
     const debounceResize = debounce(() => {
-      if (lineChart) {
-        lineChart.dispose();
-        lineChart = null;
+      if (gaugeChart) {
+        gaugeChart.dispose();
+        gaugeChart = null;
       }
       createChart();
     }, 200);

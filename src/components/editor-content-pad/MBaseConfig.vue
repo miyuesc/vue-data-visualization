@@ -49,44 +49,40 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from 'vue';
+import { defineComponent, ref, watch, toRef } from 'vue';
 import { useStore } from 'vuex';
 import { debounce } from '@/utils/commonUtils';
 
 export default defineComponent({
   name: 'MBaseConfig',
-  setup() {
+  props: {
+    config: Object
+  },
+  setup(props) {
     const store = useStore();
-    const activeElement = store.state.activeElement;
+
+    const config = toRef(props, 'config');
 
     const left = ref(0);
     const top = ref(0);
     const width = ref(0);
     const height = ref(0);
 
-    watch(
-      () => activeElement.position,
-      () => {
-        left.value = activeElement.position.left;
-        top.value = activeElement.position.top;
-      }
-    );
-
-    watch(
-      () => activeElement.size,
-      () => {
-        width.value = activeElement.size.width;
-        height.value = activeElement.size.height;
-      }
-    );
+    watch(config, () => {
+      left.value = config.value?.position?.left || 0;
+      top.value = config.value?.position?.top || 0;
+      width.value = config.value?.size?.width || 0;
+      height.value = config.value?.size?.height || 0;
+    });
 
     const debounceUpdatePosition = debounce(function () {
-      store.commit('activeElement/updatePosition', { left: left.value, top: top.value });
-      store.commit('components/update', { component: { ...activeElement }, index: activeElement.index });
+      const position = { left: left.value, top: top.value };
+      store.commit('updateActivity', { ...config.value, position });
     }, 200);
+
     const debounceUpdateSize = debounce(function () {
-      store.commit('activeElement/updateSize', { width: width.value, height: height.value });
-      store.commit('components/update', { component: { ...activeElement }, index: activeElement.index });
+      const size = { width: width.value, height: height.value };
+      store.commit('updateActivity', { ...config.value, size });
     }, 200);
 
     return {

@@ -1,5 +1,16 @@
 import { createStore } from "vuex";
 
+function updateComponent(state: any, component: any) {
+  state.activity.component = JSON.parse(JSON.stringify(component));
+  if (component) {
+    state.activity.isLocked = component?.isLocked || false;
+    const index = state.components.findIndex((cp: any) => cp.id === component.id);
+    if (index !== -1) {
+      state.components.splice(index, 1, JSON.parse(JSON.stringify(component)));
+    }
+  }
+}
+
 export default createStore({
   state: () => ({
     // 画布
@@ -39,14 +50,10 @@ export default createStore({
   mutations: {
     setActivity(state: any, { type, component }: any) {
       state.activity.type = type;
-      state.activity.component = JSON.parse(JSON.stringify(component));
-      if (component) {
-        state.activity.isLocked = component?.isLocked || false;
-        const index = state.components.findIndex((cp: any) => cp.id === component.id);
-        if (index !== -1) {
-          state.components.splice(index, 1, JSON.parse(JSON.stringify(component)));
-        }
-      }
+      updateComponent(state, component);
+    },
+    updateActivity(state: any, component: any) {
+      updateComponent(state, component);
     },
     setMoving(state: any, status: boolean) {
       state.activity.isMoving = status;

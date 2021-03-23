@@ -1,5 +1,5 @@
 <template>
-  <div class="chart-component line-chart-component" ref="lineChartRef"></div>
+  <div class="chart-component k-chart-component" ref="lineChartRef"></div>
 </template>
 
 <script lang="ts">
@@ -8,7 +8,7 @@ import * as echarts from 'echarts';
 import { debounce } from '@/utils/commonUtils';
 
 export default defineComponent({
-  name: 'LineChart',
+  name: 'KChart',
   props: {
     info: Object
   },
@@ -19,33 +19,35 @@ export default defineComponent({
 
     const options = {
       xAxis: {
-        type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        data: ['2017-10-24', '2017-10-25', '2017-10-26', '2017-10-27']
       },
-      yAxis: {
-        type: 'value'
-      },
+      yAxis: {},
       series: [
         {
-          data: [150, 230, 224, 218, 135, 147, 260],
-          type: 'line'
+          type: 'k',
+          data: [
+            [20, 34, 10, 38],
+            [40, 35, 30, 50],
+            [31, 38, 33, 44],
+            [38, 15, 5, 42]
+          ]
         }
       ]
     };
 
-    let lineChart: any = null;
+    let kChart: any = null;
 
     const createChart = () => {
       if (instance) {
-        lineChart = echarts.init(instance.ctx.$el);
-        lineChart.setOption(options);
+        kChart = echarts.init(instance.ctx.$el);
+        kChart.setOption(options);
       }
     };
 
     const debounceResize = debounce(() => {
-      if (lineChart) {
-        lineChart.dispose();
-        lineChart = null;
+      if (kChart) {
+        kChart.dispose();
+        kChart = null;
       }
       createChart();
     }, 200);
