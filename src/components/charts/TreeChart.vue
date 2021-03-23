@@ -52,7 +52,11 @@ export default defineComponent({
 
     onMounted(() => createChart());
 
-    watch([() => size.value.width, () => size.value.height], () => debounceResize());
+    watch(size, (newVal: any, oldVal: any) => {
+      if (newVal.width !== oldVal.width || newVal.height !== oldVal.height) {
+        debounceResize();
+      }
+    });
   }
 });
 </script>
