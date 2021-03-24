@@ -22,7 +22,7 @@ export default defineComponent({
   },
   setup(props) {
     const labelWidthStyle = computed(() => {
-      return `width: ${props.labelWidth}px`;
+      return `width: ${props.labelWidth}px; min-width: ${props.labelWidth}px`;
     });
 
     return {
@@ -32,11 +32,10 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .config-form-item {
   width: 100%;
-  height: 32px;
-  line-height: 32px;
+  height: 28px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -47,11 +46,16 @@ export default defineComponent({
     white-space: nowrap;
     word-break: break-word;
     text-align: right;
+    font-size: 14px;
   }
   .config-form-item__content {
     flex: 1;
     box-sizing: border-box;
-    padding-left: 8px;
+    padding: 0 8px;
+    .el-input-number--mini .el-input-number__decrease,
+    .el-input-number--mini .el-input-number__increase {
+      top: 2px;
+    }
   }
 }
 </style>

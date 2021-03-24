@@ -10,6 +10,7 @@ export function debounce(fn: Function, delay: number) {
     if (timer) {
       clearTimeout(timer);
     }
+    // @ts-ignore
     timer = setTimeout( ()=> {
       // @ts-ignore
       fn.apply(this, args); // 用apply指向调用debounce的对象，相当于_this.fn(args);
@@ -35,6 +36,7 @@ export function throttle(fn: Function, delay: number) {
     if (timer) {
       return false;
     }
+    // @ts-ignore
     timer = setTimeout(() =>  {
       // @ts-ignore
       fn.apply(this, args);

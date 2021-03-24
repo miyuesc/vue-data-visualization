@@ -2,13 +2,14 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import Antd from 'ant-design-vue';
-import 'ant-design-vue/dist/antd.css';
+import ElementPlus from 'element-plus';
 import ConfigFormItem from '@/components/other/ConfigFormItem.vue';
+
+import 'element-plus/lib/theme-chalk/index.css';
 
 createApp(App as any)
   .use(store)
   .use(router)
-  .use(Antd, { size: 'small' })
+  .use(ElementPlus, { size: 'mini' })
   .component("ConfigFormItem", ConfigFormItem)
   .mount('#app');

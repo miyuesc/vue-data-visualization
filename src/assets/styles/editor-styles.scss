@@ -41,17 +41,28 @@
   z-index: 2;
 }
 .editor-content-pad {
-  width: 320px;
+  width: 360px;
   height: 100%;
   background: #ccf2f4;
   box-sizing: border-box;
   z-index: 2;
+  padding: 6px;
+  .component-base-config {
+    border-top: 1px solid #ffffff;
+    margin-top: 16px;
+    color: #606266;
+    &:first-of-type {
+      border: none;
+      margin-top: 0;
+    }
+  }
   .content-pad-item__title {
     width: 100%;
     font-size: 14px;
     height: 32px;
     line-height: 32px;
     padding: 0 8px;
+    color: #303133;
   }
   .content-pad-row {
     display: flex;

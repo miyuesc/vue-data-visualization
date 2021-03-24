@@ -3,46 +3,18 @@
     <div class="content-pad-item__title">位置与尺寸</div>
     <div class="content-pad-row">
       <config-form-item label="X" :label-width="20">
-        <a-input-number
-          v-model:value="left"
-          size="small"
-          controls-position="right"
-          :step="1"
-          :min="0"
-          @change="debounceUpdatePosition()"
-        />
+        <el-input-number v-model="left" :step="1" :min="0" @change="debounceUpdatePosition()" />
       </config-form-item>
       <config-form-item label="Y" :label-width="20">
-        <a-input-number
-          v-model:value="top"
-          size="small"
-          controls-position="right"
-          :step="1"
-          :min="0"
-          @change="debounceUpdatePosition()"
-        />
+        <el-input-number v-model="top" :step="1" :min="0" @change="debounceUpdatePosition()" />
       </config-form-item>
     </div>
     <div class="content-pad-row">
       <config-form-item label="W" :label-width="20">
-        <a-input-number
-          v-model:value="width"
-          size="small"
-          controls-position="right"
-          :step="1"
-          :min="0"
-          @change="debounceUpdateSize()"
-        />
+        <el-input-number v-model="width" :step="1" :min="0" @change="debounceUpdateSize()" />
       </config-form-item>
       <config-form-item label="H" :label-width="20">
-        <a-input-number
-          v-model:value="height"
-          size="small"
-          controls-position="right"
-          :step="1"
-          :min="0"
-          @change="debounceUpdateSize()"
-        />
+        <el-input-number v-model="height" :step="1" :min="0" @change="debounceUpdateSize()" />
       </config-form-item>
     </div>
   </div>
