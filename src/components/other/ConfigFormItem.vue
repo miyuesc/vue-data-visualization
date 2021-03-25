@@ -52,10 +52,12 @@ export default defineComponent({
     flex: 1;
     box-sizing: border-box;
     padding: 0 8px;
-    .el-input-number--mini .el-input-number__decrease,
-    .el-input-number--mini .el-input-number__increase {
-      top: 2px;
-    }
+    display: flex;
+    align-items: center;
+    //.el-input-number--mini .el-input-number__decrease,
+    //.el-input-number--mini .el-input-number__increase {
+    //  top: 2px;
+    //}
   }
 }
 </style>

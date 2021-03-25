@@ -1,0 +1,12 @@
+.collapse-transition {
+  -webkit-transition: 0.2s height ease-in-out, 0.2s padding-top ease-in-out,
+  0.2s padding-bottom ease-in-out;
+  transition: 0.2s height ease-in-out, 0.2s padding-top ease-in-out,
+  0.2s padding-bottom ease-in-out;
+}
+.horizontal-collapse-transition {
+  -webkit-transition: 0.2s width ease-in-out, 0.2s padding-left ease-in-out,
+  0.2s padding-right ease-in-out;
+  transition: 0.2s width ease-in-out, 0.2s padding-left ease-in-out,
+  0.2s padding-right ease-in-out;
+}
