@@ -18,7 +18,7 @@
             <el-color-picker v-model="color" />
             <el-button :type="bold ? 'primary' : 'default'" icon="ri-bold" @click="changeTitleBold" />
             <el-button :type="italic ? 'primary' : 'default'" icon="ri-italic" @click="changeTitleItalic" />
-            <el-input-number v-model="size" :step="1" :min="12" style="margin-left: 8px" />
+            <el-input-number v-model="size" :step="1" :min="12" controls-position="right" style="margin-left: 8px" />
           </config-form-item>
         </div>
       </div>

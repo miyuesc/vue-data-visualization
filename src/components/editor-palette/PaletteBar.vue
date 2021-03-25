@@ -82,7 +82,7 @@ export default defineComponent({
     right: 0;
     top: 0;
     bottom: 0;
-    background: #ccf2f4;
+    background: #20212b;
     z-index: 10;
     .component-type-button {
       width: 48px;
@@ -94,19 +94,18 @@ export default defineComponent({
       position: relative;
       &:hover {
         cursor: pointer;
-        background: #00b9ff22;
+        background: rgba(111, 111, 245, 0.2);
       }
       &.is-selected {
-        background: #00b9ff22;
-
+        background: rgba(111, 111, 245, 0.2);
         &:before {
           content: '';
-          width: 2px;
+          width: 4px;
           position: absolute;
           left: 0;
           top: 0;
           bottom: 0;
-          background: #4a71fe;
+          background: linear-gradient(180deg, #0225df, #ff42ca 59%, #fc1535);
         }
       }
       .component-type-button__icon {
@@ -124,7 +123,7 @@ export default defineComponent({
     bottom: 0;
     width: 256px;
     z-index: 8;
-    background: #ccf2f4;
+    background: #20212b;
     display: flex;
     flex-direction: column;
     padding: 16px;

@@ -14,9 +14,9 @@ export default defineComponent({
 .editor-tools-bar {
   position: absolute;
   left: 50%;
-  top: 48px;
+  top: 0;
+  bottom: 0;
   width: 600px;
-  height: 48px;
   background: #00b9ff;
   transform: translateX(-50%);
   z-index: 2;

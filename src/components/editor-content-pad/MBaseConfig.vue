@@ -3,18 +3,30 @@
     <div class="content-pad-item__title">位置与尺寸</div>
     <div class="content-pad-row">
       <config-form-item label="X" :label-width="20">
-        <el-input-number v-model="left" :step="1" :min="0" @change="debounceUpdatePosition()" />
+        <el-input-number
+          v-model="left"
+          :step="1"
+          :min="0"
+          controls-position="right"
+          @change="debounceUpdatePosition()"
+        />
       </config-form-item>
       <config-form-item label="Y" :label-width="20">
-        <el-input-number v-model="top" :step="1" :min="0" @change="debounceUpdatePosition()" />
+        <el-input-number
+          v-model="top"
+          :step="1"
+          :min="0"
+          controls-position="right"
+          @change="debounceUpdatePosition()"
+        />
       </config-form-item>
     </div>
     <div class="content-pad-row">
       <config-form-item label="W" :label-width="20">
-        <el-input-number v-model="width" :step="1" :min="0" @change="debounceUpdateSize()" />
+        <el-input-number v-model="width" :step="1" :min="0" controls-position="right" @change="debounceUpdateSize()" />
       </config-form-item>
       <config-form-item label="H" :label-width="20">
-        <el-input-number v-model="height" :step="1" :min="0" @change="debounceUpdateSize()" />
+        <el-input-number v-model="height" :step="1" :min="0" controls-position="right" @change="debounceUpdateSize()" />
       </config-form-item>
     </div>
   </div>

@@ -1,8 +1,9 @@
 <template>
   <div class="editor-container">
-    <header class="editor-header">header content</header>
-    <main class="editor-main">
+    <header class="editor-header">
       <ToolBar />
+    </header>
+    <main class="editor-main">
       <PaletteBar />
       <ContentPad />
       <div class="editor-content">

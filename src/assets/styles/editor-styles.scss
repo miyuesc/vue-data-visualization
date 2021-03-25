@@ -5,22 +5,23 @@
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  background: #f4f9f9;
   display: flex;
   flex-direction: column;
   user-select: none;
   visibility: visible;
   z-index: 1;
+  background: #121212;
 }
 .editor-header {
   width: 100%;
   height: 42px;
   line-height: 40px;
-  background: #ccf2f4;
+  background: #20212b;
   color: #aaaaaa;
   box-sizing: border-box;
-  border-bottom: 2px solid #ffffff;
+  border-bottom: 2px solid #000000;
   z-index: 2;
+  position: relative;
 }
 .editor-main {
   position: relative;
@@ -35,7 +36,7 @@
   top: 8px;
   left: 50%;
   transform: translateX(-50%);
-  background: #00b9ff;
+  background: #20212b;
   width: 400px;
   height: 40px;
   z-index: 2;
@@ -43,7 +44,7 @@
 .editor-content-pad {
   width: 360px;
   height: 100%;
-  background: #ccf2f4;
+  background: #20212b;
   box-sizing: border-box;
   z-index: 2;
   padding: 6px;
@@ -101,7 +102,8 @@
 .editor-wrapper-area {
   z-index: 1;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  background: url("../../assets/images/background/world.jpg") no-repeat center center;
+  background-size: contain;
   border: dashed 2px transparent;
 }
 .editor-canvas-area {
