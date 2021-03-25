@@ -17,7 +17,7 @@ export default defineComponent({
   top: 0;
   bottom: 0;
   width: 600px;
-  background: #00b9ff;
+  background: rgba(0, 0, 0, 0.2);
   transform: translateX(-50%);
   z-index: 2;
 }

@@ -63,6 +63,6 @@ export default defineComponent({
 <style lang="scss">
 .cp {
   position: absolute;
-  background: #4a71fe77;
+  background: rgba(32, 33, 43, 0.8);
 }
 </style>

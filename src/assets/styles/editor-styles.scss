@@ -17,7 +17,7 @@
   height: 42px;
   line-height: 40px;
   background: #20212b;
-  color: #aaaaaa;
+  color: #b6b8cc;
   box-sizing: border-box;
   border-bottom: 2px solid #000000;
   z-index: 2;
@@ -49,9 +49,9 @@
   z-index: 2;
   padding: 6px;
   .component-base-config {
-    border-top: 1px solid #ffffff;
+    border-top: 1px solid #303247;
     margin-top: 16px;
-    color: #606266;
+    color: #b6b8cc;
     &:first-of-type {
       border: none;
       margin-top: 0;
@@ -59,11 +59,11 @@
   }
   .content-pad-item__title {
     width: 100%;
-    font-size: 14px;
+    font-size: 16px;
     height: 32px;
     line-height: 32px;
     padding: 0 8px;
-    color: #303133;
+    color: #b6b8cc;
   }
   .content-pad-row {
     display: flex;

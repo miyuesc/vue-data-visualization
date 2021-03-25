@@ -55,7 +55,7 @@ export default defineComponent({
       store.commit('setCopiedConfig', { offsetX, offsetY });
     };
     const dragEnd = (event: any) => {
-      // console.log(this);
+      console.log(event);
     };
 
     return {
