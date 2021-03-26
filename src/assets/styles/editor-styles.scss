@@ -60,7 +60,7 @@
   .content-pad-item__title {
     width: 100%;
     font-size: 16px;
-    height: 32px;
+    height: 36px;
     line-height: 32px;
     padding: 0 8px;
     color: #b6b8cc;
@@ -103,7 +103,7 @@
   z-index: 1;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   background: url("../../assets/images/background/world.jpg") no-repeat center center;
-  background-size: contain;
+  background-size: cover;
   border: dashed 2px transparent;
 }
 .editor-canvas-area {

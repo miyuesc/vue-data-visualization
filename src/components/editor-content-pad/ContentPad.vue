@@ -1,6 +1,6 @@
 <template>
   <div class="editor-content-pad">
-    <MBaseConfig :config="componentDetails" />
+    <MBaseConfig v-if="activity.type !== 'background'" :config="componentDetails" />
     <component v-for="c in configComponent" :key="c" :is="c" v-bind="componentDetails" />
   </div>
 </template>
@@ -8,14 +8,24 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
 import { useStore } from 'vuex';
-import MBaseConfig from './MBaseConfig.vue';
+import MBackground from '@/components/editor-content-pad/MBackground.vue';
+import MBaseConfig from '@/components/editor-content-pad/MBaseConfig.vue';
+import MLegend from '@/components/editor-content-pad/MLegend.vue';
+import MLineConfig from '@/components/editor-content-pad/MLineConfig.vue';
 import MTitle from '@/components/editor-content-pad/MTitle.vue';
+import MXAxis from '@/components/editor-content-pad/MXAxis.vue';
+import MYAxis from '@/components/editor-content-pad/MYAxis.vue';
 
 export default defineComponent({
   name: 'ContentPad',
   components: {
+    MBackground,
     MBaseConfig,
-    MTitle
+    MLegend,
+    MLineConfig,
+    MTitle,
+    MXAxis,
+    MYAxis
   },
   setup() {
     const store = useStore();
@@ -31,6 +41,7 @@ export default defineComponent({
     });
 
     return {
+      activity,
       componentDetails,
       configComponent
     };
