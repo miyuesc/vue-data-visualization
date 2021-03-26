@@ -10,7 +10,7 @@
       <div v-show="visible">
         <div class="content-pad-row" style="margin-top: 8px">
           <config-form-item label="标题内容" :label-width="64">
-            <el-input v-model="title" :maxlength="20" />
+            <el-input v-model="titleContent" :maxlength="20" />
           </config-form-item>
         </div>
         <div class="content-pad-row">
@@ -29,7 +29,7 @@
         </div>
         <div class="content-pad-row" style="margin-top: 8px">
           <config-form-item label="单位" :label-width="64">
-            <el-input v-model="unit" :maxlength="6" />
+            <el-input v-model="unitContent" :maxlength="6" />
           </config-form-item>
         </div>
         <div class="content-pad-row">
@@ -58,14 +58,14 @@ export default defineComponent({
     config: Object
   },
   setup() {
-    const title = ref('');
+    const titleContent = ref('');
     const visible = ref(true);
     const titleColor = ref('#333333');
     const titleBold = ref(true);
     const titleItalic = ref(true);
     const titleSize = ref(12);
 
-    const unit = ref('');
+    const unitContent = ref('');
     const unitColor = ref('#333333');
     const unitSize = ref(8);
 
@@ -73,13 +73,13 @@ export default defineComponent({
     const changeTitleItalic = () => (titleItalic.value = !titleItalic.value);
 
     return {
-      title,
+      titleContent,
       visible,
       titleColor,
       titleBold,
       titleItalic,
       titleSize,
-      unit,
+      unitContent,
       unitColor,
       unitSize,
       changeTitleBold,
