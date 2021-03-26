@@ -3,23 +3,27 @@
     <div class="content-pad-item__title">标题与单位</div>
     <div class="content-pad-row">
       <config-form-item label="显示状态" :label-width="64">
-        <el-switch v-model="visible" />
+        <el-switch v-model="titleConfig.visible" />
       </config-form-item>
     </div>
     <el-collapse-transition>
-      <div v-show="visible">
+      <div v-show="titleConfig.visible">
         <div class="content-pad-row" style="margin-top: 8px">
           <config-form-item label="标题内容" :label-width="64">
-            <el-input v-model="titleContent" :maxlength="20" />
+            <el-input v-model="titleConfig.titleContent" :maxlength="20" />
           </config-form-item>
         </div>
         <div class="content-pad-row">
           <config-form-item label="字体设置" :label-width="64">
-            <el-color-picker v-model="color" />
-            <el-button :type="titleBold ? 'primary' : 'default'" icon="ri-bold" @click="changeTitleBold" />
-            <el-button :type="titleItalic ? 'primary' : 'default'" icon="ri-italic" @click="changeTitleItalic" />
+            <el-color-picker v-model="titleConfig.titleColor" />
+            <el-button :type="titleConfig.titleBold ? 'primary' : 'default'" icon="ri-bold" @click="changeTitleBold" />
+            <el-button
+              :type="titleConfig.titleItalic ? 'primary' : 'default'"
+              icon="ri-italic"
+              @click="changeTitleItalic"
+            />
             <el-input-number
-              v-model="titleSize"
+              v-model="titleConfig.titleSize"
               :step="1"
               :min="12"
               controls-position="right"
@@ -29,14 +33,14 @@
         </div>
         <div class="content-pad-row" style="margin-top: 8px">
           <config-form-item label="单位" :label-width="64">
-            <el-input v-model="unitContent" :maxlength="6" />
+            <el-input v-model="titleConfig.unitContent" :maxlength="6" />
           </config-form-item>
         </div>
         <div class="content-pad-row">
           <config-form-item label="字体设置" :label-width="64">
-            <el-color-picker v-model="unitColor" />
+            <el-color-picker v-model="titleConfig.unitColor" />
             <el-input-number
-              v-model="unitSize"
+              v-model="titleConfig.unitSize"
               :step="1"
               :min="12"
               controls-position="right"
@@ -50,7 +54,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, reactive } from 'vue';
 
 export default defineComponent({
   name: 'MTitle',
@@ -58,30 +62,23 @@ export default defineComponent({
     config: Object
   },
   setup() {
-    const titleContent = ref('');
-    const visible = ref(true);
-    const titleColor = ref('#333333');
-    const titleBold = ref(true);
-    const titleItalic = ref(true);
-    const titleSize = ref(12);
+    const titleConfig = reactive({
+      titleContent: '',
+      visible: false,
+      titleColor: '#333333',
+      titleBold: false,
+      titleItalic: false,
+      titleSize: 12,
+      unitContent: '',
+      unitColor: '#333333',
+      unitSize: 8
+    });
 
-    const unitContent = ref('');
-    const unitColor = ref('#333333');
-    const unitSize = ref(8);
-
-    const changeTitleBold = () => (titleBold.value = !titleBold.value);
-    const changeTitleItalic = () => (titleItalic.value = !titleItalic.value);
+    const changeTitleBold = () => (titleConfig.titleBold = !titleConfig.titleBold);
+    const changeTitleItalic = () => (titleConfig.titleItalic = !titleConfig.titleItalic);
 
     return {
-      titleContent,
-      visible,
-      titleColor,
-      titleBold,
-      titleItalic,
-      titleSize,
-      unitContent,
-      unitColor,
-      unitSize,
+      titleConfig,
       changeTitleBold,
       changeTitleItalic
     };

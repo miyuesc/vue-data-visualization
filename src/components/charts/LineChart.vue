@@ -1,5 +1,8 @@
 <template>
-  <div class="chart-component line-chart-component" ref="lineChartRef"></div>
+  <div class="chart-component line-chart-component">
+    <ChartTitle v-if="showTitle" />
+    <div class="line-chart-canvas" ref="lineChartRef"></div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -16,6 +19,7 @@ export default defineComponent({
     const instance: any = getCurrentInstance();
 
     const size: ComputedRef = computed(() => props.info?.size);
+    const showTitle = computed(() => props.info?.title?.visible);
 
     const options = {
       xAxis: {
@@ -57,6 +61,10 @@ export default defineComponent({
         debounceResize();
       }
     });
+
+    return {
+      showTitle
+    };
   }
 });
 </script>

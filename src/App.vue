@@ -6,7 +6,10 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'APP'
+  name: 'APP',
+  mounted() {
+    document.documentElement.oncontextmenu = ev => ev.preventDefault();
+  }
 });
 </script>
 
