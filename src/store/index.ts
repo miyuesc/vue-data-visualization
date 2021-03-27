@@ -1,4 +1,4 @@
-import { createStore } from "vuex";
+import { createStore } from 'vuex';
 
 function updateComponent(state: any, component: any) {
   state.activity.component = JSON.parse(JSON.stringify(component));
@@ -21,9 +21,9 @@ export default createStore({
       },
       scale: 0.8,
       background: {
-        color: "",
+        color: '',
         opacity: 1,
-        image: ""
+        image: ''
       }
     },
     // 组件
@@ -31,7 +31,7 @@ export default createStore({
     componentsTotal: 1,
     // 激活组件
     activity: {
-      type: "background",
+      type: 'background',
       isMoving: false, // 是否移动中 => 是否显示指示线
       isLocked: false, // 是否锁定
       component: null // 保存选中的组件的配置
@@ -68,6 +68,7 @@ export default createStore({
     createComponent(state: any, component: any){
       state.components.push(JSON.parse(JSON.stringify(component)));
       state.activity.component = JSON.parse(JSON.stringify(component));
+      state.activity.component.visible = true;
       state.activity.type = 'component';
       state.componentsTotal = state.componentsTotal + 1;
     },

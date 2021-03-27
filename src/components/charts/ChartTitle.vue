@@ -15,8 +15,8 @@ export default defineComponent({
     const store = useStore();
     const activity = store.state.activity;
 
-    const titleContent = computed(() => activity.component?.title.titleContent ?? '请输入标题');
-    const unitContent = computed(() => activity.component?.title.unitContent ?? '单位');
+    const titleContent = computed(() => activity.component?.title?.titleContent ?? '请输入标题');
+    const unitContent = computed(() => activity.component?.title?.unitContent ?? '单位');
 
     const titleStyle = computed(() => {
       return {

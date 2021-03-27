@@ -1,7 +1,6 @@
 <template>
-  <div class="chart-component line-chart-component">
-    <ChartTitle v-if="showTitle" />
-    <div class="line-chart-canvas" ref="lineChartRef"></div>
+  <div class="chart-component line-chart-component" ref="lineChartRef">
+    <!--    <div class="line-chart-canvas"></div>-->
   </div>
 </template>
 
@@ -19,7 +18,6 @@ export default defineComponent({
     const instance: any = getCurrentInstance();
 
     const size: ComputedRef = computed(() => props.info?.size);
-    const showTitle = computed(() => props.info?.title?.visible);
 
     const options = {
       xAxis: {
@@ -46,6 +44,8 @@ export default defineComponent({
       }
     };
 
+    onMounted(() => createChart());
+
     const debounceResize = debounce(() => {
       if (lineChart) {
         lineChart.dispose();
@@ -54,17 +54,11 @@ export default defineComponent({
       createChart();
     }, 200);
 
-    onMounted(() => createChart());
-
     watch(size, (newVal: any, oldVal: any) => {
       if (newVal.width !== oldVal.width || newVal.height !== oldVal.height) {
         debounceResize();
       }
     });
-
-    return {
-      showTitle
-    };
   }
 });
 </script>

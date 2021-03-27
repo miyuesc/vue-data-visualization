@@ -54,25 +54,54 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue';
+import { defineComponent, shallowReactive, watch, toRefs } from 'vue';
+import { useStore } from 'vuex';
 
 export default defineComponent({
   name: 'MTitle',
   props: {
-    config: Object
+    config: {
+      required: true,
+      type: Object,
+      default: () => ({})
+    }
   },
-  setup() {
-    const titleConfig = reactive({
-      titleContent: '',
+  setup(props) {
+    const store = useStore();
+    const activityComponent = store.state.activity.component;
+    const config = toRefs(props.config);
+    const titleConfig = shallowReactive({
       visible: false,
-      titleColor: '#333333',
+      titleContent: '',
+      titleColor: '#eeeeee',
       titleBold: false,
       titleItalic: false,
       titleSize: 12,
       unitContent: '',
-      unitColor: '#333333',
+      unitColor: '#eeeeee',
       unitSize: 8
     });
+
+    console.log(titleConfig);
+
+    watch(
+      [
+        () => titleConfig.visible,
+        () => titleConfig.titleContent,
+        () => titleConfig.titleSize,
+        () => titleConfig.titleColor,
+        () => titleConfig.titleItalic,
+        () => titleConfig.titleBold,
+        () => titleConfig.unitContent,
+        () => titleConfig.unitColor,
+        () => titleConfig.unitSize
+      ],
+      () => {
+        console.log({ ...titleConfig });
+        store.commit('updateComponent', { ...activityComponent, title: { ...titleConfig } });
+      },
+      { deep: true }
+    );
 
     const changeTitleBold = () => (titleConfig.titleBold = !titleConfig.titleBold);
     const changeTitleItalic = () => (titleConfig.titleItalic = !titleConfig.titleItalic);
