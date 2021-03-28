@@ -98,7 +98,7 @@ export default defineComponent({
 
     // 监听id 变化重新赋值
     watch(
-      () => activityComponent.value.id,
+      () => activityComponent.value?.id,
       (newVal: any, oldVal: any) => {
         if (newVal && newVal !== oldVal) {
           titleConfig.visible = activityComponent.value.titleConfig?.visible || false;
