@@ -1,6 +1,6 @@
 <template>
   <div class="chart-component line-chart-component">
-    <ChartTitle :title-config="info.title || {}" />
+    <ChartTitle :title-config="info.titleConfig || {}" />
     <div ref="lineChartRef" class="chart-canvas line-chart-canvas"></div>
   </div>
 </template>
@@ -64,7 +64,7 @@ export default defineComponent({
     });
 
     watch(
-      () => props.info.title.visible,
+      () => props.info?.titleConfig?.visible,
       () => debounceResize()
     );
 

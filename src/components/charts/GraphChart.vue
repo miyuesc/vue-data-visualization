@@ -18,9 +18,6 @@ export default defineComponent({
     const size: ComputedRef = computed(() => props.info?.size);
 
     const options = {
-      title: {
-        text: 'Graph 简单示例'
-      },
       tooltip: {},
       animationDurationUpdate: 1500,
       animationEasingUpdate: 'quinticInOut',

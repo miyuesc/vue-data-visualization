@@ -1,6 +1,6 @@
 <template>
   <div class="chart-component bar-chart-component">
-    <ChartTitle :title-config="info.title || {}" />
+    <ChartTitle :title-config="info.titleConfig || {}" />
     <div ref="barChartRef" class="chart-canvas bar-chart-canvas"></div>
   </div>
 </template>

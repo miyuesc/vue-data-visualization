@@ -18,10 +18,6 @@ export default defineComponent({
     const size: ComputedRef = computed(() => props.info?.size);
 
     const options = {
-      title: {
-        text: '漏斗图',
-        subtext: '纯属虚构'
-      },
       tooltip: {
         trigger: 'item',
         formatter: '{a} <br/>{b} : {c}%'

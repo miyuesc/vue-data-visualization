@@ -18,9 +18,6 @@ export default defineComponent({
     const size: ComputedRef = computed(() => props.info?.size);
 
     const options = {
-      title: {
-        text: '基础雷达图'
-      },
       tooltip: {},
       legend: {
         data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）']

@@ -31,7 +31,10 @@ export default defineComponent({
 
     const unitStyle = computed(() => {
       return {
+        display: props.titleConfig.unitVisible ? 'inline' : 'none',
+        fontWeight: props.titleConfig.unitBold ? 'bold' : 'normal',
         fontSize: props.titleConfig.unitSize ? `${props.titleConfig.unitSize}px` : '12px',
+        fontStyle: props.titleConfig.unitItalic ? 'italic' : 'normal',
         color: props.titleConfig.unitColor || '#333333'
       };
     });
@@ -54,6 +57,7 @@ export default defineComponent({
   min-height: 40px;
   max-height: 60px;
   justify-content: space-between;
+  align-items: baseline;
   box-sizing: border-box;
   padding: 8px;
   .chart-title,

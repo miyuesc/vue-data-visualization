@@ -9,12 +9,12 @@
     <el-collapse-transition>
       <div v-show="titleConfig.visible">
         <div class="content-pad-row" style="margin-top: 8px">
-          <config-form-item label="标题内容" :label-width="64">
+          <config-form-item label="标题" :label-width="64">
             <el-input v-model="titleConfig.titleContent" :maxlength="20" />
           </config-form-item>
         </div>
         <div class="content-pad-row">
-          <config-form-item label="字体设置" :label-width="64">
+          <config-form-item label="字体" :label-width="64">
             <el-color-picker v-model="titleConfig.titleColor" />
             <el-button :type="titleConfig.titleBold ? 'primary' : 'default'" icon="ri-bold" @click="changeTitleBold" />
             <el-button
@@ -31,14 +31,25 @@
             />
           </config-form-item>
         </div>
-        <div class="content-pad-row" style="margin-top: 8px">
+        <div class="content-pad-row">
+          <config-form-item label="显示单位" :label-width="64">
+            <el-switch v-model="titleConfig.unitVisible" />
+          </config-form-item>
+        </div>
+        <div class="content-pad-row" style="margin-top: 8px" v-show="titleConfig.unitVisible">
           <config-form-item label="单位" :label-width="64">
             <el-input v-model="titleConfig.unitContent" :maxlength="6" />
           </config-form-item>
         </div>
-        <div class="content-pad-row">
-          <config-form-item label="字体设置" :label-width="64">
+        <div class="content-pad-row" v-show="titleConfig.unitVisible">
+          <config-form-item label="字体" :label-width="64">
             <el-color-picker v-model="titleConfig.unitColor" />
+            <el-button :type="titleConfig.unitBold ? 'primary' : 'default'" icon="ri-bold" @click="changeUnitBold" />
+            <el-button
+              :type="titleConfig.unitItalic ? 'primary' : 'default'"
+              icon="ri-italic"
+              @click="changeUnitItalic"
+            />
             <el-input-number
               v-model="titleConfig.unitSize"
               :step="1"
@@ -76,10 +87,13 @@ export default defineComponent({
       titleColor: '#eeeeee',
       titleBold: false,
       titleItalic: false,
-      titleSize: 12,
+      titleSize: 20,
+      unitVisible: false,
       unitContent: '',
       unitColor: '#eeeeee',
-      unitSize: 8
+      unitBold: false,
+      unitItalic: false,
+      unitSize: 14
     });
 
     // 监听id 变化重新赋值
@@ -88,15 +102,18 @@ export default defineComponent({
       (newVal: any, oldVal: any) => {
         if (newVal && newVal !== oldVal) {
           console.log('active changed:', newVal);
-          titleConfig.visible = activityComponent.value.title?.visible || false;
-          titleConfig.titleContent = activityComponent.value.title?.titleContent || '';
-          titleConfig.titleColor = activityComponent.value.title?.titleColor || '#eeeeee';
-          titleConfig.titleBold = activityComponent.value.title?.titleBold || false;
-          titleConfig.titleItalic = activityComponent.value.title?.titleItalic || false;
-          titleConfig.titleSize = activityComponent.value.title?.titleSize || 12;
-          titleConfig.unitContent = activityComponent.value.title?.unitContent || '';
-          titleConfig.unitColor = activityComponent.value.title?.unitColor || '#eeeeee';
-          titleConfig.unitSize = activityComponent.value.title?.unitSize || 8;
+          titleConfig.visible = activityComponent.value.titleConfig?.visible || false;
+          titleConfig.titleContent = activityComponent.value.titleConfig?.titleContent || '';
+          titleConfig.titleColor = activityComponent.value.titleConfig?.titleColor || '#eeeeee';
+          titleConfig.titleBold = activityComponent.value.titleConfig?.titleBold || false;
+          titleConfig.titleItalic = activityComponent.value.titleConfig?.titleItalic || false;
+          titleConfig.titleSize = activityComponent.value.titleConfig?.titleSize || 20;
+          titleConfig.unitVisible = activityComponent.value.titleConfig?.unitVisible || false;
+          titleConfig.unitContent = activityComponent.value.titleConfig?.unitContent || '';
+          titleConfig.unitColor = activityComponent.value.titleConfig?.unitColor || '#eeeeee';
+          titleConfig.unitBold = activityComponent.value.titleConfig?.unitBold || false;
+          titleConfig.unitItalic = activityComponent.value.titleConfig?.unitItalic || false;
+          titleConfig.unitSize = activityComponent.value.titleConfig?.unitSize || 14;
         }
       }
     );
@@ -110,25 +127,32 @@ export default defineComponent({
         () => titleConfig.titleColor,
         () => titleConfig.titleItalic,
         () => titleConfig.titleBold,
+        () => titleConfig.unitVisible,
         () => titleConfig.unitContent,
         () => titleConfig.unitColor,
+        () => titleConfig.unitBold,
+        () => titleConfig.unitItalic,
         () => titleConfig.unitSize
       ],
       () => {
         console.log('title config:', { ...titleConfig });
         console.log('activityComponent:', activityComponent.value);
-        store.commit('updateComponent', { ...activityComponent.value, title: { ...titleConfig } });
+        store.commit('updateComponent', { ...activityComponent.value, titleConfig: { ...titleConfig } });
       },
       { deep: true }
     );
 
     const changeTitleBold = () => (titleConfig.titleBold = !titleConfig.titleBold);
     const changeTitleItalic = () => (titleConfig.titleItalic = !titleConfig.titleItalic);
+    const changeUnitBold = () => (titleConfig.unitBold = !titleConfig.unitBold);
+    const changeUnitItalic = () => (titleConfig.unitItalic = !titleConfig.unitItalic);
 
     return {
       titleConfig,
       changeTitleBold,
-      changeTitleItalic
+      changeTitleItalic,
+      changeUnitBold,
+      changeUnitItalic
     };
   }
 });
