@@ -63,6 +63,11 @@ export default defineComponent({
       }
     });
 
+    watch(
+      () => props.info.title.visible,
+      () => debounceResize()
+    );
+
     return {
       lineChartRef
     };
