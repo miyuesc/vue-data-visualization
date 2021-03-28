@@ -1,5 +1,5 @@
 <template>
-  <div class="chart-title-component">
+  <div class="chart-title-component" v-show="titleConfig && titleConfig.visible">
     <span class="chart-title" :style="titleStyle">{{ titleContent }}</span>
     <span class="chart-unit" :style="unitStyle">{{ unitContent }}</span>
   </div>
