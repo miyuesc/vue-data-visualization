@@ -101,7 +101,6 @@ export default defineComponent({
       () => activityComponent.value.id,
       (newVal: any, oldVal: any) => {
         if (newVal && newVal !== oldVal) {
-          console.log('active changed:', newVal);
           titleConfig.visible = activityComponent.value.titleConfig?.visible || false;
           titleConfig.titleContent = activityComponent.value.titleConfig?.titleContent || '';
           titleConfig.titleColor = activityComponent.value.titleConfig?.titleColor || '#eeeeee';
@@ -135,8 +134,6 @@ export default defineComponent({
         () => titleConfig.unitSize
       ],
       () => {
-        console.log('title config:', { ...titleConfig });
-        console.log('activityComponent:', activityComponent.value);
         store.commit('updateComponent', { ...activityComponent.value, titleConfig: { ...titleConfig } });
       },
       { deep: true }
@@ -157,10 +154,3 @@ export default defineComponent({
   }
 });
 </script>
-
-<style lang="scss" scoped>
-::v-deep .el-button--mini {
-  height: 28px;
-  margin-left: 8px;
-}
-</style>

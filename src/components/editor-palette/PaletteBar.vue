@@ -20,7 +20,6 @@
         :key="p.code"
         draggable
         @dragstart.stop="dragToCreate($event, p)"
-        @dragend.stop="dragEnd"
       >
         <img :src="imagesObject[p.code]" alt="test" />
       </a>
@@ -54,9 +53,6 @@ export default defineComponent({
       store.commit('setCopied', component);
       store.commit('setCopiedConfig', { offsetX, offsetY });
     };
-    const dragEnd = (event: any) => {
-      console.log(event);
-    };
 
     return {
       presetComponentsList,
@@ -64,8 +60,7 @@ export default defineComponent({
       selectedComponentType,
       showPanel,
       openChildrenPenal,
-      dragToCreate,
-      dragEnd
+      dragToCreate
     };
   }
 });

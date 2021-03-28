@@ -59,7 +59,6 @@ export default createStore({
       state.activity.isMoving = status;
     },
     setCopied(state: any, component: any) {
-      console.log(component);
       state.copiedComponent = JSON.parse(JSON.stringify(component));
     },
     setCopiedConfig(state: any, config: any) {
