@@ -54,7 +54,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, shallowReactive, watch, toRefs } from 'vue';
+import { defineComponent, shallowReactive, computed, watch } from 'vue';
 import { useStore } from 'vuex';
 
 export default defineComponent({
@@ -66,10 +66,10 @@ export default defineComponent({
       default: () => ({})
     }
   },
-  setup(props) {
+  setup() {
     const store = useStore();
-    const activityComponent = store.state.activity.component;
-    const config = toRefs(props.config);
+    const activityComponent = computed(() => store.state.activity.component);
+    // const config = toRefs(props.config);
     const titleConfig = shallowReactive({
       visible: false,
       titleContent: '',
@@ -82,8 +82,26 @@ export default defineComponent({
       unitSize: 8
     });
 
-    console.log(titleConfig);
+    // 监听id 变化重新赋值
+    watch(
+      () => activityComponent.value.id,
+      (newVal: any, oldVal: any) => {
+        if (newVal && newVal !== oldVal) {
+          console.log('active changed:', newVal);
+          titleConfig.visible = activityComponent.value.title?.visible || false;
+          titleConfig.titleContent = activityComponent.value.title?.titleContent || '';
+          titleConfig.titleColor = activityComponent.value.title?.titleColor || '#eeeeee';
+          titleConfig.titleBold = activityComponent.value.title?.titleBold || false;
+          titleConfig.titleItalic = activityComponent.value.title?.titleItalic || false;
+          titleConfig.titleSize = activityComponent.value.title?.titleSize || 12;
+          titleConfig.unitContent = activityComponent.value.title?.unitContent || '';
+          titleConfig.unitColor = activityComponent.value.title?.unitColor || '#eeeeee';
+          titleConfig.unitSize = activityComponent.value.title?.unitSize || 8;
+        }
+      }
+    );
 
+    // 监听变化，更新组件状态
     watch(
       [
         () => titleConfig.visible,
@@ -97,8 +115,9 @@ export default defineComponent({
         () => titleConfig.unitSize
       ],
       () => {
-        console.log({ ...titleConfig });
-        store.commit('updateComponent', { ...activityComponent, title: { ...titleConfig } });
+        console.log('title config:', { ...titleConfig });
+        console.log('activityComponent:', activityComponent.value);
+        store.commit('updateComponent', { ...activityComponent.value, title: { ...titleConfig } });
       },
       { deep: true }
     );

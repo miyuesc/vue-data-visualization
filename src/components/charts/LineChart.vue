@@ -1,23 +1,26 @@
 <template>
-  <div class="chart-component line-chart-component" ref="lineChartRef">
-    <!--    <div class="line-chart-canvas"></div>-->
+  <div class="chart-component line-chart-component">
+    <ChartTitle :title-config="info.title || {}" />
+    <div ref="lineChartRef" class="chart-canvas line-chart-canvas"></div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, watch, ComputedRef, getCurrentInstance, onMounted } from 'vue';
+import { defineComponent, ref, computed, watch, ComputedRef, onMounted } from 'vue';
 import * as echarts from 'echarts';
 import { debounce } from '@/utils/commonUtils';
 
 export default defineComponent({
   name: 'LineChart',
   props: {
-    info: Object
+    info: {
+      type: Object,
+      default: () => ({})
+    }
   },
   setup(props) {
-    const instance: any = getCurrentInstance();
-
     const size: ComputedRef = computed(() => props.info?.size);
+    const lineChartRef: any = ref(null);
 
     const options = {
       xAxis: {
@@ -38,8 +41,8 @@ export default defineComponent({
     let lineChart: any = null;
 
     const createChart = () => {
-      if (instance) {
-        lineChart = echarts.init(instance.ctx.$el);
+      if (lineChartRef.value) {
+        lineChart = echarts.init(lineChartRef.value);
         lineChart.setOption(options);
       }
     };
@@ -59,13 +62,10 @@ export default defineComponent({
         debounceResize();
       }
     });
+
+    return {
+      lineChartRef
+    };
   }
 });
 </script>
-
-<style lang="scss" scoped>
-.chart-component {
-  width: 100%;
-  height: 100%;
-}
-</style>
