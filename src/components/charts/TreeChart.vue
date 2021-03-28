@@ -1,9 +1,12 @@
 <template>
-  <div class="chart-component tree-chart-component" ref="lineChartRef"></div>
+  <div class="chart-component tree-chart-component">
+    <ChartTitle :title-config="info.titleConfig || {}" />
+    <div ref="treeChartRef" class="chart-canvas bar-chart-canvas"></div>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, watch, ComputedRef, getCurrentInstance, onMounted } from 'vue';
+import { defineComponent, computed, watch, ComputedRef, onMounted, ref } from 'vue';
 import * as echarts from 'echarts';
 import { debounce } from '@/utils/commonUtils';
 
@@ -13,9 +16,8 @@ export default defineComponent({
     info: Object
   },
   setup(props) {
-    const instance: any = getCurrentInstance();
-
     const size: ComputedRef = computed(() => props.info?.size);
+    const treeChartRef: any = ref(null);
 
     const options = {
       xAxis: {
@@ -36,8 +38,8 @@ export default defineComponent({
     let treeChart: any = null;
 
     const createChart = () => {
-      if (instance) {
-        treeChart = echarts.init(instance.ctx.$el);
+      if (treeChartRef.value) {
+        treeChart = echarts.init(treeChartRef.value);
         treeChart.setOption(options);
       }
     };
@@ -57,6 +59,10 @@ export default defineComponent({
         debounceResize();
       }
     });
+
+    return {
+      treeChartRef
+    };
   }
 });
 </script>

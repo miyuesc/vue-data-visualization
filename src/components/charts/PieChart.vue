@@ -1,9 +1,12 @@
 <template>
-  <div class="chart-component pie-chart-component" ref="lineChartRef"></div>
+  <div class="chart-component pie-chart-component">
+    <ChartTitle :title-config="info.titleConfig || {}" />
+    <div ref="pieChartRef" class="chart-canvas pie-chart-canvas"></div>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, watch, ComputedRef, getCurrentInstance, onMounted } from 'vue';
+import { defineComponent, computed, watch, ComputedRef, onMounted, ref } from 'vue';
 import * as echarts from 'echarts';
 import { debounce } from '@/utils/commonUtils';
 
@@ -13,9 +16,8 @@ export default defineComponent({
     info: Object
   },
   setup(props) {
-    const instance: any = getCurrentInstance();
-
     const size: ComputedRef = computed(() => props.info?.size);
+    const pieChartRef: any = ref(null);
 
     const options = {
       tooltip: {
@@ -59,8 +61,8 @@ export default defineComponent({
     let pieChart: any = null;
 
     const createChart = () => {
-      if (instance) {
-        pieChart = echarts.init(instance.ctx.$el);
+      if (pieChartRef.value) {
+        pieChart = echarts.init(pieChartRef.value);
         pieChart.setOption(options);
       }
     };
@@ -80,6 +82,10 @@ export default defineComponent({
         debounceResize();
       }
     });
+
+    return {
+      pieChartRef
+    };
   }
 });
 </script>

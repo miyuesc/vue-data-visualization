@@ -1,9 +1,12 @@
 <template>
-  <div class="chart-component graph-chart-component" ref="lineChartRef"></div>
+  <div class="chart-component graph-chart-component">
+    <ChartTitle :title-config="info.titleConfig || {}" />
+    <div ref="graphChartRef" class="chart-canvas graph-chart-canvas"></div>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, watch, ComputedRef, getCurrentInstance, onMounted } from 'vue';
+import { defineComponent, computed, watch, ComputedRef, onMounted, ref } from 'vue';
 import * as echarts from 'echarts';
 import { debounce } from '@/utils/commonUtils';
 
@@ -13,9 +16,8 @@ export default defineComponent({
     info: Object
   },
   setup(props) {
-    const instance: any = getCurrentInstance();
-
     const size: ComputedRef = computed(() => props.info?.size);
+    const graphChartRef: any = ref(null);
 
     const options = {
       tooltip: {},
@@ -110,8 +112,8 @@ export default defineComponent({
     let graphChart: any = null;
 
     const createChart = () => {
-      if (instance) {
-        graphChart = echarts.init(instance.ctx.$el);
+      if (graphChartRef.value) {
+        graphChart = echarts.init(graphChartRef.value);
         graphChart.setOption(options);
       }
     };
@@ -131,6 +133,10 @@ export default defineComponent({
         debounceResize();
       }
     });
+
+    return {
+      graphChartRef
+    };
   }
 });
 </script>

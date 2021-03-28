@@ -1,9 +1,12 @@
 <template>
-  <div class="chart-component k-chart-component" ref="lineChartRef"></div>
+  <div class="chart-component k-chart-component">
+    <ChartTitle :title-config="info.titleConfig || {}" />
+    <div ref="kChartRef" class="chart-canvas bar-chart-canvas"></div>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, watch, ComputedRef, getCurrentInstance, onMounted } from 'vue';
+import { defineComponent, computed, watch, ComputedRef, onMounted, ref } from 'vue';
 import * as echarts from 'echarts';
 import { debounce } from '@/utils/commonUtils';
 
@@ -13,9 +16,8 @@ export default defineComponent({
     info: Object
   },
   setup(props) {
-    const instance: any = getCurrentInstance();
-
     const size: ComputedRef = computed(() => props.info?.size);
+    const kChartRef: any = ref(null);
 
     const options = {
       xAxis: {
@@ -38,8 +40,8 @@ export default defineComponent({
     let kChart: any = null;
 
     const createChart = () => {
-      if (instance) {
-        kChart = echarts.init(instance.ctx.$el);
+      if (kChartRef.value) {
+        kChart = echarts.init(kChartRef.value);
         kChart.setOption(options);
       }
     };
@@ -59,6 +61,10 @@ export default defineComponent({
         debounceResize();
       }
     });
+
+    return {
+      kChartRef
+    };
   }
 });
 </script>
