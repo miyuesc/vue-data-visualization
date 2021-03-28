@@ -83,6 +83,11 @@ export default defineComponent({
       }
     });
 
+    watch(
+      () => props.info?.titleConfig?.visible,
+      () => debounceResize()
+    );
+
     return {
       pieChartRef
     };
