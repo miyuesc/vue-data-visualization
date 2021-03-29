@@ -18,7 +18,7 @@ $--color-transition-base: color .2s cubic-bezier(.645, .045, .355, 1) !default;
 /// color|1|Brand Color|0
 $--color-primary: #6f6ff5 !default;
 /// color|1|Background Color|4
-$--color-white: rgba(20,21,28,.5) !default;
+$--color-white: rgba(20,21,28,1) !default;
 /// color|1|Background Color|4
 $--color-black: #000000 !default;
 $--color-primary-light-1: mix($--color-white, $--color-primary, 10%) !default; /* 53a8ff */

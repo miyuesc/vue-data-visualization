@@ -23,6 +23,12 @@ export default defineComponent({
       tooltip: {
         trigger: 'item'
       },
+      grid: {
+        left: '10%',
+        top: '10%',
+        right: '10%',
+        bottom: '10%'
+      },
       legend: {
         top: '5%',
         left: 'center'

@@ -54,10 +54,13 @@ export default defineComponent({
     padding: 0 8px;
     display: flex;
     align-items: center;
-    //.el-input-number--mini .el-input-number__decrease,
-    //.el-input-number--mini .el-input-number__increase {
-    //  top: 2px;
-    //}
+    > .el-select,
+    > .el-input {
+      width: 100px;
+    }
+    > .el-input-number {
+      width: 120px;
+    }
   }
 }
 </style>

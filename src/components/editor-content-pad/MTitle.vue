@@ -16,7 +16,12 @@
         <div class="content-pad-row">
           <config-form-item label="字体" :label-width="64">
             <el-color-picker v-model="titleConfig.titleColor" />
-            <el-button :type="titleConfig.titleBold ? 'primary' : 'default'" icon="ri-bold" @click="changeTitleBold" />
+            <el-button
+              :type="titleConfig.titleBold ? 'primary' : 'default'"
+              icon="ri-bold"
+              style="margin-left: 8px"
+              @click="changeTitleBold"
+            />
             <el-button
               :type="titleConfig.titleItalic ? 'primary' : 'default'"
               icon="ri-italic"
@@ -44,7 +49,12 @@
         <div class="content-pad-row" v-show="titleConfig.unitVisible">
           <config-form-item label="字体" :label-width="64">
             <el-color-picker v-model="titleConfig.unitColor" />
-            <el-button :type="titleConfig.unitBold ? 'primary' : 'default'" icon="ri-bold" @click="changeUnitBold" />
+            <el-button
+              :type="titleConfig.unitBold ? 'primary' : 'default'"
+              icon="ri-bold"
+              style="margin-left: 8px"
+              @click="changeUnitBold"
+            />
             <el-button
               :type="titleConfig.unitItalic ? 'primary' : 'default'"
               icon="ri-italic"

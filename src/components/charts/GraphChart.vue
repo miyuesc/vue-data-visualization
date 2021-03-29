@@ -21,6 +21,12 @@ export default defineComponent({
 
     const options = {
       tooltip: {},
+      grid: {
+        left: '10%',
+        top: '10%',
+        right: '10%',
+        bottom: '10%'
+      },
       animationDurationUpdate: 1500,
       animationEasingUpdate: 'quinticInOut',
       series: [

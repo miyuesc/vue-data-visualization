@@ -20,6 +20,12 @@ export default defineComponent({
     const treeChartRef: any = ref(null);
 
     const options = {
+      grid: {
+        left: '10%',
+        top: '10%',
+        right: '10%',
+        bottom: '10%'
+      },
       xAxis: {
         type: 'category',
         data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']

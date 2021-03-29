@@ -1,3 +1,4 @@
+/* eslint-disable */
 const images = {
   lineChart: 'https://cdn.jsdelivr.net/gh/apache/echarts-website@asf-site/examples/data/thumb/line-simple.webp?_v_=1612615474746',
   barChart: 'https://cdn.jsdelivr.net/gh/apache/echarts-website@asf-site/examples/data/thumb/bar-background.webp?_v_=1612615474746',

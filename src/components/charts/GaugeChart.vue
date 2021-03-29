@@ -23,6 +23,12 @@ export default defineComponent({
       tooltip: {
         formatter: '{a} <br/>{b} : {c}%'
       },
+      grid: {
+        left: '10%',
+        top: '10%',
+        right: '10%',
+        bottom: '10%'
+      },
       series: [
         {
           name: 'Pressure',

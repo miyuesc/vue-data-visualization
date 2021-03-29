@@ -24,6 +24,12 @@ export default defineComponent({
         trigger: 'item',
         formatter: '{a} <br/>{b} : {c}%'
       },
+      grid: {
+        left: '10%',
+        top: '10%',
+        right: '10%',
+        bottom: '10%'
+      },
       toolbox: {
         feature: {
           dataView: { readOnly: false },
