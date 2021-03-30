@@ -75,8 +75,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, shallowReactive, computed, watch } from 'vue';
+import { defineComponent, shallowReactive, computed, watch, toRaw } from 'vue';
 import { useStore } from 'vuex';
+import { resetObjectValue } from '@/utils/commonUtils';
 
 export default defineComponent({
   name: 'MTitle',
@@ -90,8 +91,8 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const activityComponent = computed(() => store.state.activity.component);
-    // const config = toRefs(props.config);
-    const titleConfig = shallowReactive({
+    // 默认配置
+    const defaultConfig = {
       visible: false,
       titleContent: '',
       titleColor: '#eeeeee',
@@ -104,45 +105,40 @@ export default defineComponent({
       unitBold: false,
       unitItalic: false,
       unitSize: 14
-    });
+    };
+    // 响应式代理
+    const titleConfig = shallowReactive({ ...defaultConfig });
 
     // 监听id 变化重新赋值
     watch(
       () => activityComponent.value?.id,
-      (newVal: any, oldVal: any) => {
-        if (newVal && newVal !== oldVal) {
-          titleConfig.visible = activityComponent.value.titleConfig?.visible || false;
-          titleConfig.titleContent = activityComponent.value.titleConfig?.titleContent || '';
-          titleConfig.titleColor = activityComponent.value.titleConfig?.titleColor || '#eeeeee';
-          titleConfig.titleBold = activityComponent.value.titleConfig?.titleBold || false;
-          titleConfig.titleItalic = activityComponent.value.titleConfig?.titleItalic || false;
-          titleConfig.titleSize = activityComponent.value.titleConfig?.titleSize || 20;
-          titleConfig.unitVisible = activityComponent.value.titleConfig?.unitVisible || false;
-          titleConfig.unitContent = activityComponent.value.titleConfig?.unitContent || '';
-          titleConfig.unitColor = activityComponent.value.titleConfig?.unitColor || '#eeeeee';
-          titleConfig.unitBold = activityComponent.value.titleConfig?.unitBold || false;
-          titleConfig.unitItalic = activityComponent.value.titleConfig?.unitItalic || false;
-          titleConfig.unitSize = activityComponent.value.titleConfig?.unitSize || 14;
+      () => {
+        if (activityComponent.value?.titleConfig) {
+          resetObjectValue(titleConfig, toRaw(activityComponent.value.titleConfig));
+        } else {
+          resetObjectValue(titleConfig, defaultConfig);
         }
-      }
+      },
+      { immediate: true }
     );
 
     // 监听变化，更新组件状态
     watch(
-      [
-        () => titleConfig.visible,
-        () => titleConfig.titleContent,
-        () => titleConfig.titleSize,
-        () => titleConfig.titleColor,
-        () => titleConfig.titleItalic,
-        () => titleConfig.titleBold,
-        () => titleConfig.unitVisible,
-        () => titleConfig.unitContent,
-        () => titleConfig.unitColor,
-        () => titleConfig.unitBold,
-        () => titleConfig.unitItalic,
-        () => titleConfig.unitSize
-      ],
+      () => titleConfig,
+      // [
+      //   () => titleConfig.visible,
+      //   () => titleConfig.titleContent,
+      //   () => titleConfig.titleSize,
+      //   () => titleConfig.titleColor,
+      //   () => titleConfig.titleItalic,
+      //   () => titleConfig.titleBold,
+      //   () => titleConfig.unitVisible,
+      //   () => titleConfig.unitContent,
+      //   () => titleConfig.unitColor,
+      //   () => titleConfig.unitBold,
+      //   () => titleConfig.unitItalic,
+      //   () => titleConfig.unitSize
+      // ],
       () => {
         store.commit('updateComponent', { ...activityComponent.value, titleConfig: { ...titleConfig } });
       },

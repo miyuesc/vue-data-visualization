@@ -21,10 +21,11 @@ export default defineComponent({
 
     const options = {
       grid: {
-        left: '10%',
-        top: '10%',
-        right: '10%',
-        bottom: '10%'
+        left: 20,
+        top: 20,
+        right: 20,
+        bottom: 20,
+        containLabel: true
       },
       xAxis: {
         data: ['2017-10-24', '2017-10-25', '2017-10-26', '2017-10-27']

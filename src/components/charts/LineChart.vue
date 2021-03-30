@@ -1,5 +1,5 @@
 <template>
-  <div class="chart-component line-chart-component">
+  <div class="chart-component line-chart-component" :style="backgroundStyle">
     <ChartTitle :title-config="info.titleConfig || {}" />
     <div ref="lineChartRef" class="chart-canvas line-chart-canvas"></div>
   </div>
@@ -9,6 +9,7 @@
 import { defineComponent, ref, computed, watch, ComputedRef, onMounted } from 'vue';
 import * as echarts from 'echarts';
 import { debounce } from '@/utils/commonUtils';
+import computedBackgroundStyle from '@/components/charts/computedBackgroundStyle';
 
 export default defineComponent({
   name: 'LineChart',
@@ -27,10 +28,11 @@ export default defineComponent({
         trigger: 'axis'
       },
       grid: {
-        left: '10%',
-        top: '10%',
-        right: '10%',
-        bottom: '10%'
+        left: 20,
+        top: 20,
+        right: 20,
+        bottom: 20,
+        containLabel: true
       },
       legend: {
         data: ['最高气温', '最低气温']
@@ -102,8 +104,11 @@ export default defineComponent({
       () => debounceResize()
     );
 
+    const { backgroundStyle } = computedBackgroundStyle(props.info?.background);
+
     return {
-      lineChartRef
+      lineChartRef,
+      backgroundStyle
     };
   }
 });

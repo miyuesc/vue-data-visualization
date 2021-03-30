@@ -82,3 +82,20 @@ export function setLocal(key: string, data?: any) {
 export function isObject(data: any) {
   return Object.prototype.toString.call(data) === '[object Object]';
 }
+
+export function hexToRgb(hex: string) {
+  return 'rgb(' + parseInt('0x' + hex.slice(1, 3)) + ',' + parseInt('0x' + hex.slice(3, 5))
+    + ',' + parseInt('0x' + hex.slice(5, 7)) + ')';
+}
+
+//hex -> rgba
+export function hexToRgba(hex:string, opacity: number) {
+  return 'rgba(' + parseInt('0x' + hex.slice(1, 3)) + ',' + parseInt('0x' + hex.slice(3, 5)) + ','
+    + parseInt('0x' + hex.slice(5, 7)) + ',' + opacity + ')';
+}
+
+export function resetObjectValue(current: any, targetObject: { [key: string]: any }) {
+  for (const key in targetObject) {
+    current[key] = targetObject[key]
+  }
+}

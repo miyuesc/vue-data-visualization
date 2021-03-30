@@ -22,10 +22,11 @@ export default defineComponent({
     const options = {
       tooltip: {},
       grid: {
-        left: '10%',
-        top: '10%',
-        right: '10%',
-        bottom: '10%'
+        left: 20,
+        top: 20,
+        right: 20,
+        bottom: 20,
+        containLabel: true
       },
       legend: {
         data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）']

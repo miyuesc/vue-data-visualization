@@ -52,12 +52,16 @@ export default defineComponent({
     const width = ref(0);
     const height = ref(0);
 
-    watch(config, () => {
-      left.value = config.value?.position?.left || 0;
-      top.value = config.value?.position?.top || 0;
-      width.value = config.value?.size?.width || 0;
-      height.value = config.value?.size?.height || 0;
-    });
+    watch(
+      config,
+      () => {
+        left.value = config.value?.position?.left || 0;
+        top.value = config.value?.position?.top || 0;
+        width.value = config.value?.size?.width || 0;
+        height.value = config.value?.size?.height || 0;
+      },
+      { immediate: true }
+    );
 
     const debounceUpdatePosition = debounce(function () {
       const position = { left: left.value, top: top.value };

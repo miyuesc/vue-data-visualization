@@ -46,12 +46,12 @@ export default defineComponent({
     white-space: nowrap;
     word-break: break-word;
     text-align: right;
-    font-size: 14px;
+    font-size: 12px;
   }
   .config-form-item__content {
     flex: 1;
     box-sizing: border-box;
-    padding: 0 8px;
+    padding-left: 16px;
     display: flex;
     align-items: center;
     > .el-select,
@@ -59,6 +59,10 @@ export default defineComponent({
       width: 100px;
     }
     > .el-input-number {
+      width: 120px;
+    }
+    > .el-slider .el-input,
+    > .el-slider .el-input-number {
       width: 120px;
     }
   }

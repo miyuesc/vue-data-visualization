@@ -14,6 +14,7 @@
           :max="1"
           :step="0.01"
           :show-tooltip="false"
+          :show-input-controls="false"
           input-size="mini"
           style="width: 100%"
           show-input
@@ -23,9 +24,13 @@
     <div class="content-pad-row">
       <config-form-item label="边框" :label-width="64">
         <el-color-picker v-model="background.border.color" />
-        <el-select v-model="background.border.type">
-          <el-option label="-------" value="solid" />
-          <el-option label="- - - -" value="dash" />
+        <el-select v-model="background.border.type" style="margin-left: 8px">
+          <el-option value="solid">
+            <span style="display: inline-block; width: 100%; height: 0; border-bottom: 1px solid #cccccc"></span>
+          </el-option>
+          <el-option value="dash">
+            <span style="display: inline-block; width: 100%; height: 0; border-bottom: 1px dashed #cccccc"></span>
+          </el-option>
         </el-select>
         <el-input-number
           v-model="background.border.width"
@@ -33,37 +38,33 @@
           :max="20"
           :step="1"
           :precision="0"
+          style="margin-left: 8px"
           controls-position="right"
         />
       </config-form-item>
     </div>
     <div class="content-pad-row">
       <config-form-item label="圆角" :label-width="64">
-        <div class="border-radius-content">
-          <!--          <div class="radius-row">-->
-          <!--            <span class="radius-row-label">左上</span>-->
-          <!--            <el-input-number v-model="background.borderRadius.tl" :min="0" :max="20" :step="1" :precision="0" />-->
-          <!--          </div>-->
-          <!--          <div class="radius-row">-->
-          <!--            <span class="radius-row-label">右上</span>-->
-          <!--            <el-input-number v-model="background.borderRadius.tr" :min="0" :max="20" :step="1" :precision="0" />-->
-          <!--          </div>-->
-          <!--          <div class="radius-row">-->
-          <!--            <span class="radius-row-label">右下</span>-->
-          <!--            <el-input-number v-model="background.borderRadius.br" :min="0" :max="20" :step="1" :precision="0" />-->
-          <!--          </div>-->
-          <!--          <div class="radius-row">-->
-          <!--            <span class="radius-row-label">左下</span>-->
-          <!--            <el-input-number v-model="background.borderRadius.bl" :min="0" :max="20" :step="1" :precision="0" />-->
-          <!--          </div>-->
-        </div>
+        <el-slider
+          v-model="background.borderRadius"
+          :min="0"
+          :max="100"
+          :step="1"
+          :show-tooltip="false"
+          :show-input-controls="false"
+          input-size="mini"
+          style="width: 100%"
+          show-input
+        />
       </config-form-item>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue';
+import { computed, defineComponent, reactive, watch } from 'vue';
+import { useStore } from 'vuex';
+import { resetObjectValue } from '@/utils/commonUtils';
 
 export default defineComponent({
   name: 'MBackground',
@@ -71,15 +72,12 @@ export default defineComponent({
     config: Object
   },
   setup() {
+    const store = useStore();
+    const activityComponent = computed(() => store.state.activity.component);
+
     const background = reactive({
       color: '',
-      type: '',
-      borderRadius: {
-        tl: 4,
-        tr: 4,
-        bl: 4,
-        br: 4
-      },
+      borderRadius: 0,
       border: {
         width: 0,
         type: 'solid',
@@ -93,6 +91,16 @@ export default defineComponent({
         blur: 0
       }
     });
+
+    // 监听id 变化重新赋值
+    watch(
+      () => activityComponent.value?.id,
+      (newVal: any, oldVal: any) => {
+        if (newVal && newVal !== oldVal) {
+          activityComponent.value.background && resetObjectValue(background, activityComponent.value.background);
+        }
+      }
+    );
 
     return {
       background

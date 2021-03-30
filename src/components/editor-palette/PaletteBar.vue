@@ -77,7 +77,7 @@ export default defineComponent({
     right: 0;
     top: 0;
     bottom: 0;
-    background: #20212b;
+    background: #1b1b20;
     z-index: 10;
     .component-type-button {
       width: 48px;
@@ -118,7 +118,7 @@ export default defineComponent({
     bottom: 0;
     width: 256px;
     z-index: 8;
-    background: #20212b;
+    background: #1b1b20;
     display: flex;
     flex-direction: column;
     padding: 16px;
