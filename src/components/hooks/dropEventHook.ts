@@ -1,4 +1,3 @@
-import { computed } from 'vue';
 import { useStore } from "vuex";
 import { uuid } from "@/utils/commonUtils";
 
@@ -27,7 +26,7 @@ export default function DropEventHook() {
     if (top < 0) top = 0;
     if (left + defaultSize.width > canvasSize.width) left = canvasSize.width - defaultSize.width;
     if (top + defaultSize.height > canvasSize.height) top = canvasSize.height - defaultSize.height;
-    
+
     const id = uuid(16);
 
     const newComponent = {

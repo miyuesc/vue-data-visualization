@@ -8,9 +8,9 @@ export default function resizeEventHook() {
   const activity = computed(() => store.state.activity).value;
 
   const throttleUpdate: any = throttle((newState: any) => {
-    const component: any = {...activity.component, ...newState};
+    const component: any = { ...activity.component, ...newState };
     store.commit('setActivity', { type: 'component', component });
-    store.commit('updateComponent', component);
+    // store.commit('updateComponent', component);
   }, 8);
 
   const resizeStart = (event: any, point: string) => {

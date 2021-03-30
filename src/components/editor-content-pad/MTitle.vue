@@ -125,20 +125,6 @@ export default defineComponent({
     // 监听变化，更新组件状态
     watch(
       () => titleConfig,
-      // [
-      //   () => titleConfig.visible,
-      //   () => titleConfig.titleContent,
-      //   () => titleConfig.titleSize,
-      //   () => titleConfig.titleColor,
-      //   () => titleConfig.titleItalic,
-      //   () => titleConfig.titleBold,
-      //   () => titleConfig.unitVisible,
-      //   () => titleConfig.unitContent,
-      //   () => titleConfig.unitColor,
-      //   () => titleConfig.unitBold,
-      //   () => titleConfig.unitItalic,
-      //   () => titleConfig.unitSize
-      // ],
       () => {
         store.commit('updateComponent', { ...activityComponent.value, titleConfig: { ...titleConfig } });
       },
