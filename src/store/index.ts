@@ -39,12 +39,13 @@ export default createStore({
     // 组件(以 ZIndex 为键的， 组件状态为值的对象)
     // ZIndex 方便更改层级
     components: {},
-    componentsTotal: 1,
+    componentsTotal: 0,
     // 激活组件
     activatedFlag: {
       type: 'background',
       zIndex: "0", // zIndex映射，当前选中的组件
-      isMoving: false // 是否移动中 => 是否显示指示线
+      isMoving: false, // 是否移动中 => 是否显示指示线
+      indicatorVisible: false
     },
     activatedComponent: {},
     // 复制的组件
@@ -58,10 +59,12 @@ export default createStore({
     setActivated(state: any, { type, component }: any) {
       state.activatedFlag.type = type;
       state.activatedFlag.isMoving = false;
+      state.activatedFlag.indicatorVisible = !!component;
       state.activatedFlag.zIndex = component?.zIndex ?? 0;
       objectDeepClone(state.activatedComponent, component);
     },
     setMoving(state: any, { zIndex, status }: any) {
+      console.log(state.components[zIndex]);
       if (!state.components[zIndex].isLocked) {
         state.activatedFlag.isMoving = status;
       }
@@ -86,7 +89,8 @@ export default createStore({
     // key: 配置项的 key
     updateComponent(state: any, { newState, key }: any) {
       objectDeepClone(state.activatedComponent[key], newState);
-      objectDeepClone(state.components[state.activatedComponent.zIndex], newState);
+      objectDeepClone(state.components[state.activatedComponent.zIndex][key], newState);
+      console.log(state.activatedComponent[key]);
     },
     updateComponentAll(state: any, newCompo: any) {
       objectDeepClone(state.activatedComponent, newCompo);

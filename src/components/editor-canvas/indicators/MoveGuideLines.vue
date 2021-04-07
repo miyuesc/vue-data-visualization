@@ -22,29 +22,29 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const isMoving = computed(() => store.state.activatedFlag.isMoving);
-    const position = computed(() => store.state.activatedComponent.component?.position);
-    const size = computed(() => store.state.activatedComponent.component?.size);
+    const position = computed(() => store.state.activatedComponent?.position);
+    const size = computed(() => store.state.activatedComponent?.size);
 
     const borderWidth = computed(() => {
       return Math.floor(2 / store.state.canvas.scale) || 1;
     });
 
     const verticalStyleL = computed(() => {
-      if (!isMoving.value) return 'display: none';
+      if (!isMoving.value || !position.value) return 'display: none';
       return `left: ${position.value.left}px; border-width: 0; border-right-width: ${borderWidth.value}px`;
     });
     const verticalStyleR = computed(() => {
-      if (!isMoving.value) return 'display: none';
+      if (!isMoving.value || !position.value) return 'display: none';
       return `left: ${
         position.value.left + size.value.width - borderWidth.value
       }px; border-width: 0; border-right-width: ${borderWidth.value}px`;
     });
     const horizontalStyleT = computed(() => {
-      if (!isMoving.value) return 'display: none';
+      if (!isMoving.value || !position.value) return 'display: none';
       return `top: ${position.value.top}px; border-width: 0; border-bottom-width: ${borderWidth.value}px`;
     });
     const horizontalStyleB = computed(() => {
-      if (!isMoving.value) return 'display: none';
+      if (!isMoving.value || !position.value) return 'display: none';
       return `top: ${
         position.value.top + size.value.height - borderWidth.value
       }px; border-width: 0; border-bottom-width: ${borderWidth.value}px`;

@@ -29,20 +29,21 @@ export default defineComponent({
     const points: string[] = ['tl', 'tc', 'tr', 'ml', 'mr', 'bl', 'bc', 'br'];
 
     const store = useStore();
-
-    const canvas: any = computed(() => store.state.canvas);
-    const activityComponent: any = computed(() => store.state.activatedComponent);
+    const activatedComponent = computed(() => store.state.activatedComponent);
+    const activatedFlag = computed(() => store.state.activatedFlag);
+    const canvas = computed(() => store.state.canvas);
 
     // border 样式
     const indicatorAreaStyle = computed(() => {
-      if (!store.state.activatedComponent) return { display: 'none' };
-      const { size, position, zIndex = 0, visible = false } = store.state.activatedComponent;
+      const { indicatorVisible } = activatedFlag.value;
+      if (!activatedComponent.value || !indicatorVisible) return { display: 'none' };
+      const { size, position, zIndex = 0 } = activatedComponent.value;
       const width = size?.width || 0;
       const height = size?.height || 0;
       const left = position?.left || 0;
       const top = position?.top || 0;
-      const bgColor = visible ? '#4a71fe' : '#4a71fe00';
-      const borderWidth = Math.floor(2 / canvas.value.scale);
+      const bgColor = '#4a71fe';
+      const borderWidth = Math.floor(2 / store.state.canvas.scale);
       return {
         width: `${width}px`,
         height: `${height}px`,
@@ -55,7 +56,7 @@ export default defineComponent({
     });
     // points 样式
     const pointsStyle: ComputedRef<string> = computed(() => {
-      const display = activityComponent.value?.visible ? 'block' : 'none';
+      const display = activatedFlag.value.indicatorVisible ? 'block' : 'none';
       return `transform: scale(${1 / canvas.value.scale}); display: ${display}`;
     });
 

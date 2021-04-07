@@ -5,35 +5,31 @@ import { throttle } from '@/utils/commonUtils';
 export default function dragEventHook () {
   const store = useStore();
   const canvas = computed(() => store.state.canvas).value;
-  const activity = computed(() => store.state.activity).value;
 
-  const throttleUpdate: any = throttle((newState: any) => {
-    const component: any = {...activity.component, ...newState};
-    store.commit('setActivity', { type: 'component', component });
-    store.commit('updateComponent', component);
+  const throttleUpdate: any = throttle((position: any) => {
+    store.commit('updateComponent', { newState: { ...position }, key: 'position' });
   }, 8);
 
   const dragStart: any = (event: any, component: any) => {
     const { path } = event;
-    const target = path.filter((el: HTMLElement) => {
-      return el.classList && el.classList.value && el.classList.value.indexOf('cp cp__') !== -1;
-    });
+    const target = path.find((el: HTMLElement) => el.className && el.className.indexOf('cp cp__') !== -1);
     const currentPAS = {
-      x: target[0].offsetLeft,
-      y: target[0].offsetTop,
+      x: target.offsetLeft,
+      y: target.offsetTop,
       clientX: event.clientX,
       clientY: event.clientY
     }
     let first = true;
     component.visible = true;
-    store.commit('setActivity', { type: 'component', component: component });
+
+    store.commit('setActivated', { type: 'component', component: component });
 
     const moving = (event: MouseEvent) => {
       if (first) {
-        store.commit('setMoving', true);
+        store.commit('setMoving', { zIndex: component.zIndex, status: true});
         first = false;
       }
-      const { size: { width, height } } = activity.component;
+      const { size: { width, height } } = component;
       // 根据鼠标移动距离更新元素的当前位置
       const { x, y, clientX, clientY } = currentPAS;
       let newLeft: number = x + (event.clientX - clientX) / canvas.scale;
@@ -44,15 +40,13 @@ export default function dragEventHook () {
       if (newTop < 0) newTop = 0;
       if (newTop + height > canvas.size.height) newTop = canvas.size.height - height;
 
-      const newPAS = {
-        position: { left: Math.floor(newLeft), top: Math.floor(newTop) }
-      };
+      const position = { left: Math.floor(newLeft), top: Math.floor(newTop) };
 
-      throttleUpdate(newPAS);
+      throttleUpdate(position);
     }
 
     const moveEnd = () => {
-      store.commit('setMoving', false);
+      store.commit('setMoving', { zIndex: component.zIndex, status: false});
       first = true;
       document.documentElement.removeEventListener('mousemove', moving);
       document.documentElement.removeEventListener('mouseup', moveEnd);
