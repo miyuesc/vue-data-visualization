@@ -5,12 +5,9 @@ import { throttle } from "@/utils/commonUtils";
 export default function resizeEventHook() {
   const store = useStore();
   const canvas = computed(() => store.state.canvas).value;
-  const activity = computed(() => store.state.activity).value;
 
   const throttleUpdate: any = throttle((newState: any) => {
-    const component: any = { ...activity.component, ...newState };
-    store.commit('setActivity', { type: 'component', component });
-    // store.commit('updateComponent', component);
+    store.commit('updateComponentPAS', newState);
   }, 8);
 
   const resizeStart = (event: any, point: string) => {

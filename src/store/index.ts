@@ -90,7 +90,12 @@ export default createStore({
     updateComponent(state: any, { newState, key }: any) {
       objectDeepClone(state.activatedComponent[key], newState);
       objectDeepClone(state.components[state.activatedComponent.zIndex][key], newState);
-      console.log(state.activatedComponent[key]);
+    },
+    updateComponentPAS(state: any, newState: any) {
+      objectDeepClone(state.activatedComponent.position, newState.position);
+      objectDeepClone(state.components[state.activatedComponent.zIndex].position, newState.position);
+      objectDeepClone(state.activatedComponent.size, newState.size);
+      objectDeepClone(state.components[state.activatedComponent.zIndex].size, newState.size);
     },
     updateComponentAll(state: any, newCompo: any) {
       objectDeepClone(state.activatedComponent, newCompo);
