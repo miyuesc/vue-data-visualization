@@ -1,4 +1,5 @@
 import { createStore } from 'vuex';
+import { objectDeepClone, uuid } from '@/utils/commonUtils';
 
 function updateComponent(state: any, component: any) {
   state.activity.component = JSON.parse(JSON.stringify(component));
@@ -9,6 +10,15 @@ function updateComponent(state: any, component: any) {
       state.components.splice(index, 1, JSON.parse(JSON.stringify(component)));
     }
   }
+}
+
+const defaultComponentState = {
+  size: { width: 400, height: 260 },
+  position: { left: 700, top: 400 },
+  isLocked: false, // 是否锁定
+  id: 0,
+  index: "",
+  zIndex: 1,
 }
 
 export default createStore({
@@ -26,56 +36,90 @@ export default createStore({
         image: ''
       }
     },
-    // 组件
-    components: [],
+    // 组件(以 ZIndex 为键的， 组件状态为值的对象)
+    // ZIndex 方便更改层级
+    components: {},
     componentsTotal: 1,
     // 激活组件
-    activity: {
+    activatedFlag: {
       type: 'background',
-      isMoving: false, // 是否移动中 => 是否显示指示线
-      isLocked: false, // 是否锁定
-      component: null // 保存选中的组件的配置
+      zIndex: "0", // zIndex映射，当前选中的组件
+      isMoving: false // 是否移动中 => 是否显示指示线
     },
+    activatedComponent: {},
     // 复制的组件
-    copiedComponent: null,
-    copiedConfig: null,
-    // 默认配置
-    defaultConfig: {
-      size: {
-        width: 360,
-        height: 240
-      }
-    }
+    copiedComponent: {},
+    copiedConfig: {},
+    // 拖拽的组件
+    draggedComponent: {},
+    draggedConfig: {}
   }),
   mutations: {
-    setActivity(state: any, { type, component }: any) {
-      state.activity.type = type;
-      updateComponent(state, component);
+    setActivated(state: any, { type, component }: any) {
+      state.activatedFlag.type = type;
+      state.activatedFlag.isMoving = false;
+      state.activatedFlag.zIndex = component?.zIndex ?? 0;
+      objectDeepClone(state.activatedComponent, component);
     },
-    updateActivity(state: any, component: any) {
-      updateComponent(state, component);
+    setMoving(state: any, { zIndex, status }: any) {
+      if (!state.components[zIndex].isLocked) {
+        state.activatedFlag.isMoving = status;
+      }
     },
-    setMoving(state: any, status: boolean) {
-      state.activity.isMoving = status;
+    setCopiedComponent(state: any, compo: any) {
+      state.copiedConfig = JSON.stringify(compo);
     },
-    setCopied(state: any, component: any) {
-      state.copiedComponent = JSON.parse(JSON.stringify(component));
+    setDraggedComponent(state: any, { component, config}: any) {
+      state.draggedComponent = JSON.stringify(component);
+      objectDeepClone(state.draggedConfig, config)
     },
-    setCopiedConfig(state: any, config: any) {
-      state.copiedConfig = JSON.parse(JSON.stringify(config));
-    },
-    createComponent(state: any, component: any){
-      state.components.push(JSON.parse(JSON.stringify(component)));
-      state.activity.component = JSON.parse(JSON.stringify(component));
-      state.activity.component.visible = true;
-      state.activity.type = 'component';
+    createComponent(state: any, { component, position, size }: any) {
+      const newCompo = JSON.parse(component);
+      newCompo.position = { ...position };
+      newCompo.size = { ...size };
+      newCompo.zIndex = state.componentsTotal + 1;
+      newCompo.id = uuid(16);
+      state.components[newCompo.zIndex] = {};
+      objectDeepClone(state.components[newCompo.zIndex], newCompo)
       state.componentsTotal = state.componentsTotal + 1;
     },
-    updateComponent(state: any, component: any) {
-      const index = state.components.findIndex((cp: any) => cp.id === component.id);
-      if (index !== -1) {
-        state.components.splice(index, 1, JSON.parse(JSON.stringify(component)));
-      }
-    }
+    // key: 配置项的 key
+    updateComponent(state: any, { newState, key }: any) {
+      objectDeepClone(state.activatedComponent[key], newState);
+      objectDeepClone(state.components[state.activatedComponent.zIndex], newState);
+    },
+    updateComponentAll(state: any, newCompo: any) {
+      objectDeepClone(state.activatedComponent, newCompo);
+      objectDeepClone(state.components[newCompo.zIndex], newCompo);
+    },
+    // setActivity(state: any, { type, component }: any) {
+    //   state.activity.type = type;
+    //   updateComponent(state, component);
+    // },
+    // updateActivity(state: any, component: any) {
+    //   updateComponent(state, component);
+    // },
+    // setMoving(state: any, status: boolean) {
+    //   state.activity.isMoving = status;
+    // },
+    // setCopied(state: any, component: any) {
+    //   state.copiedComponent = JSON.parse(JSON.stringify(component));
+    // },
+    // setCopiedConfig(state: any, config: any) {
+    //   state.copiedConfig = JSON.parse(JSON.stringify(config));
+    // },
+    // createComponent(state: any, component: any){
+    //   state.components.push(JSON.parse(JSON.stringify(component)));
+    //   state.activity.component = JSON.parse(JSON.stringify(component));
+    //   state.activity.component.visible = true;
+    //   state.activity.type = 'component';
+    //   state.componentsTotal = state.componentsTotal + 1;
+    // },
+    // updateComponent(state: any, component: any) {
+    //   const index = state.components.findIndex((cp: any) => cp.id === component.id);
+    //   if (index !== -1) {
+    //     state.components.splice(index, 1, JSON.parse(JSON.stringify(component)));
+    //   }
+    // }
   }
 });

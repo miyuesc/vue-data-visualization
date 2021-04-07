@@ -50,8 +50,7 @@ export default defineComponent({
 
     const dragToCreate = (event: any, component: any) => {
       const { offsetX, offsetY } = event;
-      store.commit('setCopied', component);
-      store.commit('setCopiedConfig', { offsetX, offsetY });
+      store.commit('setDraggedComponent', { component, config: { offsetX, offsetY } });
     };
 
     return {
@@ -141,6 +140,7 @@ export default defineComponent({
       display: block;
       background: #f4f9f9;
       overflow: hidden;
+      filter: invert(1);
       img {
         width: 100%;
         height: 100%;

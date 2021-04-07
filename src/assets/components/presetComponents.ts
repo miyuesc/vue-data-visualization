@@ -112,6 +112,43 @@ const presetComponents: any = {
   }
 };
 
+// 默认配置部分
+// 大小
+export const size = {
+  width: 400,
+  height: 260
+}
+export const title = {
+  titleVisible: false,
+  titleContent: '',
+  titleColor: '#eeeeee',
+  titleBold: false,
+  titleItalic: false,
+  titleSize: 20,
+  unitVisible: false,
+  unitContent: '',
+  unitColor: '#eeeeee',
+  unitBold: false,
+  unitItalic: false,
+  unitSize: 14
+}
+export const background = {
+  color: '#000000',
+  borderRadius: 0,
+  border: {
+    width: 0,
+    type: 'solid',
+    color: '#000000'
+  },
+  opacity: 0.8,
+  shadow: {
+    color: '#000000',
+    x: 0,
+    y: 0,
+    blur: 0
+  }
+}
+// 坐标标签
 export const labelConfig = {
   show: false, // 显示数据的文本标签
   position: "top", // 标签位置 top / left / right / bottom / inside / insideLeft / insideRight / insideTop / insideBottom / insideTopLeft / insideBottomLeft / insideTopRight / insideBottomRight
@@ -119,7 +156,7 @@ export const labelConfig = {
   rotate: 0, // 旋转
   fontSize: 12
 }
-
+// 折线配置
 export const lineConfig = {
   showSymbol: true, // 拐点
   symbol: "emptyCircle", // 'emptyCircle', 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
@@ -133,7 +170,7 @@ export const lineConfig = {
   smooth: false, // 平滑曲线
   animation: true, // 动画效果
 }
-
+// 柱图配置
 export const barConfig = {
   barWidth: "auto", // number or xx%(string)
   label: labelConfig,

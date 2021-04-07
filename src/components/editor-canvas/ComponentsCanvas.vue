@@ -9,9 +9,10 @@
     @drop="drop"
   >
     <div
-      v-for="cpt in componentsList"
+      v-for="cpt of componentsList"
       :key="cpt.id"
       :class="`cp cp__${cpt.id}`"
+      @mousedown.stop="dragStart($event, cpt)"
       :style="{
         width: `${cpt.size.width}px`,
         height: `${cpt.size.height}px`,
@@ -19,7 +20,6 @@
         top: `${cpt.position.top}px`,
         zIndex: cpt.zIndex
       }"
-      @mousedown.stop="dragStart($event, cpt)"
     >
       <ComponentTransform :info="cpt" />
     </div>
@@ -42,9 +42,10 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    const componentsList = computed(() => store.state.components);
+    const componentsList = computed(() => Object.values(store.state.components ?? {}));
+
     const clearActivity = () => {
-      store.commit('setActivity', { type: 'background', component: null });
+      store.commit('setActivated', { type: 'background', component: null });
     };
 
     const { dragStart } = dragEventHook();
@@ -63,6 +64,7 @@ export default defineComponent({
 <style lang="scss">
 .cp {
   position: absolute;
-  background: rgba(18, 18, 18, 0.6);
+  box-sizing: border-box;
+  overflow: hidden;
 }
 </style>

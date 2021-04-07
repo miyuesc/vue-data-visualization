@@ -62,9 +62,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, watch } from 'vue';
+import { computed, defineComponent, reactive, toRaw, watch } from 'vue';
 import { useStore } from 'vuex';
-import { resetObjectValue } from '@/utils/commonUtils';
+import { objectDeepClone } from '@/utils/commonUtils';
 
 export default defineComponent({
   name: 'MBackground',
@@ -75,7 +75,7 @@ export default defineComponent({
     const store = useStore();
     const activityComponent = computed(() => store.state.activity.component);
 
-    const background = reactive({
+    const defaultBackground = {
       color: '',
       borderRadius: 0,
       border: {
@@ -90,16 +90,31 @@ export default defineComponent({
         y: 0,
         blur: 0
       }
-    });
+    };
+    const background = reactive({ ...JSON.parse(JSON.stringify(defaultBackground)) });
 
     // 监听id 变化重新赋值
     watch(
       () => activityComponent.value?.id,
-      (newVal: any, oldVal: any) => {
-        if (newVal && newVal !== oldVal) {
-          activityComponent.value.background && resetObjectValue(background, activityComponent.value.background);
+      () => {
+        console.log(activityComponent.value);
+        if (activityComponent.value && activityComponent.value.background) {
+          objectDeepClone(background, toRaw(activityComponent.value.background));
+        } else {
+          objectDeepClone(background, defaultBackground);
         }
       }
+    );
+
+    watch(
+      () => background,
+      () => {
+        store.commit('updateComponent', {
+          ...activityComponent.value,
+          background: JSON.parse(JSON.stringify(toRaw(background)))
+        });
+      },
+      { deep: true }
     );
 
     return {

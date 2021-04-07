@@ -77,7 +77,7 @@
 <script lang="ts">
 import { defineComponent, shallowReactive, computed, watch, toRaw } from 'vue';
 import { useStore } from 'vuex';
-import { resetObjectValue } from '@/utils/commonUtils';
+import { objectDeepClone } from '@/utils/commonUtils';
 
 export default defineComponent({
   name: 'MTitle',
@@ -114,9 +114,9 @@ export default defineComponent({
       () => activityComponent.value?.id,
       () => {
         if (activityComponent.value?.titleConfig) {
-          resetObjectValue(titleConfig, toRaw(activityComponent.value.titleConfig));
+          objectDeepClone(titleConfig, toRaw(activityComponent.value.titleConfig));
         } else {
-          resetObjectValue(titleConfig, defaultConfig);
+          objectDeepClone(titleConfig, defaultConfig);
         }
       },
       { immediate: true }

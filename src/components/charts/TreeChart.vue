@@ -78,10 +78,3 @@ export default defineComponent({
   }
 });
 </script>
-
-<style lang="scss" scoped>
-.chart-component {
-  width: 100%;
-  height: 100%;
-}
-</style>

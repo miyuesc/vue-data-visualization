@@ -94,8 +94,15 @@ export function hexToRgba(hex:string, opacity: number) {
     + parseInt('0x' + hex.slice(5, 7)) + ',' + opacity + ')';
 }
 
-export function resetObjectValue(current: any, targetObject: { [key: string]: any }) {
-  for (const key in targetObject) {
-    current[key] = targetObject[key]
+export function objectDeepClone(target: any, source: { [key: string]: any }) {
+  for (const key in source) {
+    if (isObject(source[key])) {
+      target[key] = {};
+      objectDeepClone(target[key], source[key]);
+    } else {
+      if (!target[key] || target !== source[key]) {
+        target[key] = source[key];
+      }
+    }
   }
 }

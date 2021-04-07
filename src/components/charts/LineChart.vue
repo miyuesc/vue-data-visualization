@@ -21,6 +21,9 @@ export default defineComponent({
   },
   setup(props) {
     const size: ComputedRef = computed(() => props.info?.size);
+    const titleConfig: ComputedRef = computed(() => props.info?.titleConfig);
+    const background: ComputedRef = computed(() => props.info?.background);
+
     const lineChartRef: any = ref(null);
 
     const options = {
@@ -93,18 +96,27 @@ export default defineComponent({
       createChart();
     }, 200);
 
-    watch(size, (newVal: any, oldVal: any) => {
-      if (newVal.width !== oldVal.width || newVal.height !== oldVal.height) {
-        debounceResize();
+    watch(
+      () => size.value,
+      (newVal: any, oldVal: any) => {
+        (newVal.width !== oldVal.width || newVal.height !== oldVal.height) && debounceResize();
       }
-    });
+    );
+    watch(
+      () => background.value,
+      (val: any, oldVal: any) => {
+        if (val?.border?.width || val?.border?.width !== oldVal?.border?.width) debounceResize();
+      }
+    );
 
     watch(
-      () => props.info?.titleConfig?.visible,
+      () => titleConfig.value && titleConfig.value.visible,
       () => debounceResize()
     );
 
-    const { backgroundStyle } = computedBackgroundStyle(props.info?.background);
+    const backgroundStyle = computed(() => {
+      return computedBackgroundStyle(background.value);
+    });
 
     return {
       lineChartRef,

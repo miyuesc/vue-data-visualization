@@ -31,12 +31,12 @@ export default defineComponent({
     const store = useStore();
 
     const canvas: any = computed(() => store.state.canvas);
-    const activityComponent: any = computed(() => store.state.activity.component);
+    const activityComponent: any = computed(() => store.state.activatedComponent);
 
     // border 样式
     const indicatorAreaStyle = computed(() => {
-      if (!store.state.activity.component) return { display: 'none' };
-      const { size, position, zIndex = 0, visible = false } = store.state.activity.component;
+      if (!store.state.activatedComponent) return { display: 'none' };
+      const { size, position, zIndex = 0, visible = false } = store.state.activatedComponent;
       const width = size?.width || 0;
       const height = size?.height || 0;
       const left = position?.left || 0;

@@ -21,9 +21,9 @@ export default defineComponent({
   name: 'MoveGuideLines',
   setup() {
     const store = useStore();
-    const isMoving = computed(() => store.state.activity.isMoving);
-    const position = computed(() => store.state.activity.component?.position);
-    const size = computed(() => store.state.activity.component?.size);
+    const isMoving = computed(() => store.state.activatedFlag.isMoving);
+    const position = computed(() => store.state.activatedComponent.component?.position);
+    const size = computed(() => store.state.activatedComponent.component?.size);
 
     const borderWidth = computed(() => {
       return Math.floor(2 / store.state.canvas.scale) || 1;
