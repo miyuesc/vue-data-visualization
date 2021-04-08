@@ -7,8 +7,6 @@ export default function DropEventHook() {
     // @ts-ignore
     const { offsetX, offsetY, target, path } = event;
 
-    console.log(event);
-
     const copied = store.state.draggedComponent;
     const defaultSize = { width: 400, height: 260 };
     // const defaultSize = store.state.defaultConfig.size;

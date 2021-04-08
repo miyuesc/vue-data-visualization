@@ -9,7 +9,7 @@
 import { defineComponent, ref, computed, watch, ComputedRef, onMounted } from 'vue';
 import * as echarts from 'echarts';
 import { debounce } from '@/utils/commonUtils';
-import computedBackgroundStyle from '@/components/charts/computedBackgroundStyle';
+import computedBackgroundStyle from '@/components/charts/supplement/computedBackgroundStyle';
 
 export default defineComponent({
   name: 'LineChart',

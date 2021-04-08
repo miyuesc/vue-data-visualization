@@ -5,6 +5,7 @@
   flex-direction: column;
   position: relative;
   box-sizing: border-box;
+  overflow: hidden;
   .chart-canvas {
     flex: 1;
     width: 100%;

@@ -9,57 +9,57 @@ const presetComponents: any = {
         name: "折线图",
         code: "lineChart",
         componentName: "折线图",
-        config: ["title", "background", "xAxis", "yAxis", "legend", "lineConfig"],
+        config: ["titleConfig", "background", "xAxis", "yAxis", "legend", "lineConfig"],
         dataConfig: []
       }, // 折线图
       barCharts: {
         name: "条形图",
         code: "barChart",
         componentName: "条形图",
-        config: ["title", "background", "xAxis", "yAxis", "legend", "barConfig"],
+        config: ["titleConfig", "background", "xAxis", "yAxis", "legend", "barConfig"],
         dataConfig: []
       }, // 柱状/条形图
       pieCharts: {
         name: "饼图",
         code: "pieChart",
         componentName: "饼图",
-        config: ["title", "background", "legend", "pieConfig"]
+        config: ["titleConfig", "background", "legend", "pieConfig"]
       }, // 扇形/饼图
       radarCharts: {
         name: "雷达图",
         code: "radarChart",
         componentName: "雷达图",
-        config: ["title", "background", "legend", "radarConfig"]
+        config: ["titleConfig", "background", "legend", "radarConfig"]
       }, // 雷达图
       treeCharts: {
         name: "树形图",
         code: "treeChart",
         componentName: "树形图",
-        config: ["title", "background", "legend", "treeConfig"]
+        config: ["titleConfig", "background", "legend", "treeConfig"]
       }, // 树形图
       kCharts: {
         name: "K线图",
         code: "kChart",
         componentName: "K线图",
-        config: ["title", "background", "legend", "kConfig"]
+        config: ["titleConfig", "background", "legend", "kConfig"]
       }, // K 线图
       gaugeCharts: {
         name: "仪表盘",
         code: "gaugeChart",
         componentName: "仪表盘",
-        config: ["title", "background", "legend", "gaugeConfig"]
+        config: ["titleConfig", "background", "legend", "gaugeConfig"]
       }, // 仪表盘
       graphCharts: {
         name: "关系图",
         code: "graphChart",
         componentName: "关系图",
-        config: ["title", "background", "legend", "funnelConfig"]
+        config: ["titleConfig", "background", "legend", "funnelConfig"]
       }, // 关系图
       funnelCharts: {
         name: "漏斗图",
         code: "funnelChart",
         componentName: "漏斗图",
-        config: ["title", "background", "legend", "funnelConfig"]
+        config: ["titleConfig", "background", "legend", "funnelConfig"]
       } // 漏斗图
     }
   },

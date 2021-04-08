@@ -11,6 +11,8 @@ export default function dragEventHook () {
   }, 8);
 
   const dragStart: any = (event: any, component: any) => {
+    store.commit('setActivated', { type: 'component', component: component });
+
     const { path } = event;
     const target = path.find((el: HTMLElement) => el.className && el.className.indexOf('cp cp__') !== -1);
     const currentPAS = {
@@ -20,9 +22,6 @@ export default function dragEventHook () {
       clientY: event.clientY
     }
     let first = true;
-    component.visible = true;
-
-    store.commit('setActivated', { type: 'component', component: component });
 
     const moving = (event: MouseEvent) => {
       if (first) {

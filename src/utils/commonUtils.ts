@@ -95,9 +95,12 @@ export function hexToRgba(hex:string, opacity: number) {
 }
 
 export function objectDeepClone(target: any, source: { [key: string]: any }) {
+  if (!isObject(target)) {
+    target = {};
+  }
   for (const key in source) {
     if (isObject(source[key])) {
-      target[key] = {};
+      !target[key] && (target[key] = {});
       objectDeepClone(target[key], source[key]);
     } else {
       if (!target[key] || target !== source[key]) {

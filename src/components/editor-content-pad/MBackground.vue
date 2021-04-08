@@ -23,23 +23,48 @@
     </div>
     <div class="content-pad-row">
       <config-form-item label="边框" :label-width="64">
-        <el-color-picker v-model="background.border.color" />
-        <el-select v-model="background.border.type" style="margin-left: 8px">
+        <el-color-picker v-model="background.borderColor" />
+        <el-select v-model="background.borderStyle" style="margin-left: 8px">
           <el-option value="solid">
             <span style="display: inline-block; width: 100%; height: 0; border-bottom: 1px solid #cccccc"></span>
           </el-option>
-          <el-option value="dash">
+          <el-option value="double">
+            <span
+              style="
+                display: inline-block;
+                width: 100%;
+                height: 4px;
+                border-top: 1px solid #cccccc;
+                border-bottom: 1px solid #cccccc;
+              "
+            ></span>
+          </el-option>
+          <el-option value="dashed">
             <span style="display: inline-block; width: 100%; height: 0; border-bottom: 1px dashed #cccccc"></span>
           </el-option>
         </el-select>
         <el-input-number
-          v-model="background.border.width"
+          v-model="background.borderWidth"
           :min="0"
           :max="20"
           :step="1"
           :precision="0"
           style="margin-left: 8px"
           controls-position="right"
+        />
+      </config-form-item>
+    </div>
+    <div class="content-pad-row">
+      <config-form-item label="边框透明度" :label-width="64">
+        <el-slider
+          v-model="background.borderOpacity"
+          :max="1"
+          :step="0.01"
+          :show-tooltip="false"
+          :show-input-controls="false"
+          input-size="mini"
+          style="width: 100%"
+          show-input
         />
       </config-form-item>
     </div>
@@ -58,11 +83,65 @@
         />
       </config-form-item>
     </div>
+    <div class="content-pad-row">
+      <config-form-item label="阴影" :label-width="64">
+        <div class="shadow-config-form">
+          <div class="shadow-config-item">
+            <span class="shadow-config-item_label">颜色</span>
+            <el-color-picker v-model="background.shadowColor" />
+          </div>
+          <div class="shadow-config-item">
+            <span class="shadow-config-item_label">X轴偏移</span>
+            <el-input-number
+              v-model="background.shadowX"
+              :min="-100"
+              :max="200"
+              :step="1"
+              :precision="0"
+              controls-position="right"
+            />
+          </div>
+          <div class="shadow-config-item">
+            <span class="shadow-config-item_label">Y轴偏移</span>
+            <el-input-number
+              v-model="background.shadowY"
+              :min="-100"
+              :max="200"
+              :step="1"
+              :precision="0"
+              controls-position="right"
+            />
+          </div>
+          <div class="shadow-config-item">
+            <span class="shadow-config-item_label">虚化距离</span>
+            <el-input-number
+              v-model="background.shadowBlur"
+              :min="0"
+              :max="200"
+              :step="1"
+              :precision="0"
+              controls-position="right"
+            />
+          </div>
+          <div class="shadow-config-item">
+            <span class="shadow-config-item_label">扩散距离</span>
+            <el-input-number
+              v-model="background.shadowDiff"
+              :min="0"
+              :max="200"
+              :step="1"
+              :precision="0"
+              controls-position="right"
+            />
+          </div>
+        </div>
+      </config-form-item>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, toRaw, watch } from 'vue';
+import { computed, defineComponent, shallowReactive, watch } from 'vue';
 import { useStore } from 'vuex';
 import { objectDeepClone } from '@/utils/commonUtils';
 
@@ -73,47 +152,40 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
-    const activityComponent = computed(() => store.state.activity.component);
+    const activityComponent = computed(() => store.state.activatedComponent).value;
 
     const defaultBackground = {
       color: '',
       borderRadius: 0,
-      border: {
-        width: 0,
-        type: 'solid',
-        color: ''
-      },
+      borderWidth: 0,
+      borderStyle: 'solid',
+      borderColor: '#000000',
+      borderOpacity: 0.6,
       opacity: 0.8,
-      shadow: {
-        color: '',
-        x: 0,
-        y: 0,
-        blur: 0
-      }
+      shadowColor: '#000000',
+      shadowX: 0,
+      shadowY: 0,
+      shadowBlur: 0,
+      shadowDiff: 0
     };
-    const background = reactive({ ...JSON.parse(JSON.stringify(defaultBackground)) });
+    const background = shallowReactive({});
 
     // 监听id 变化重新赋值
     watch(
-      () => activityComponent.value?.id,
+      () => activityComponent.id,
       () => {
-        console.log(activityComponent.value);
-        if (activityComponent.value && activityComponent.value.background) {
-          objectDeepClone(background, toRaw(activityComponent.value.background));
-        } else {
-          objectDeepClone(background, defaultBackground);
-        }
-      }
+        // if (activityComponent && activityComponent.background) {
+        objectDeepClone(background, activityComponent.background);
+        // } else {
+        //   objectDeepClone(background, defaultBackground);
+        // }
+      },
+      { immediate: true }
     );
 
     watch(
       () => background,
-      () => {
-        store.commit('updateComponent', {
-          ...activityComponent.value,
-          background: JSON.parse(JSON.stringify(toRaw(background)))
-        });
-      },
+      () => store.commit('updateComponent', { newState: background, key: 'background' }),
       { deep: true }
     );
 

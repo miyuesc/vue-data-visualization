@@ -65,6 +65,5 @@ export default defineComponent({
 .cp {
   position: absolute;
   box-sizing: border-box;
-  overflow: hidden;
 }
 </style>

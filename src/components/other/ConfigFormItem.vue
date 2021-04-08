@@ -35,10 +35,9 @@ export default defineComponent({
 <style lang="scss">
 .config-form-item {
   width: 100%;
-  height: 28px;
+  //height: 28px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   box-sizing: border-box;
   .config-form-item__label {
     overflow: hidden;
@@ -47,6 +46,8 @@ export default defineComponent({
     word-break: break-word;
     text-align: right;
     font-size: 12px;
+    line-height: 28px;
+    align-self: flex-start;
   }
   .config-form-item__content {
     flex: 1;

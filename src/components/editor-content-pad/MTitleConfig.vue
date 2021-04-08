@@ -2,13 +2,13 @@
   <div class="component-base-config">
     <div class="content-pad-item__title">标题与单位</div>
     <div class="content-pad-row">
-      <config-form-item label="显示状态" :label-width="64">
-        <el-switch v-model="titleConfig.visible" />
+      <config-form-item label="显示标题" :label-width="64">
+        <el-switch v-model="titleConfig.titleVisible" />
       </config-form-item>
     </div>
     <el-collapse-transition>
-      <div v-show="titleConfig.visible">
-        <div class="content-pad-row" style="margin-top: 8px">
+      <div v-show="titleConfig.titleVisible">
+        <div class="content-pad-row">
           <config-form-item label="标题" :label-width="64">
             <el-input v-model="titleConfig.titleContent" :maxlength="20" />
           </config-form-item>
@@ -36,12 +36,16 @@
             />
           </config-form-item>
         </div>
+      </div>
+    </el-collapse-transition>
+    <div class="content-pad-row" style="margin-top: 8px">
+      <config-form-item label="显示单位" :label-width="64">
+        <el-switch v-model="titleConfig.unitVisible" />
+      </config-form-item>
+    </div>
+    <el-collapse-transition>
+      <div v-show="titleConfig.unitVisible">
         <div class="content-pad-row">
-          <config-form-item label="显示单位" :label-width="64">
-            <el-switch v-model="titleConfig.unitVisible" />
-          </config-form-item>
-        </div>
-        <div class="content-pad-row" style="margin-top: 8px" v-show="titleConfig.unitVisible">
           <config-form-item label="单位" :label-width="64">
             <el-input v-model="titleConfig.unitContent" :maxlength="6" />
           </config-form-item>
@@ -80,20 +84,13 @@ import { useStore } from 'vuex';
 import { objectDeepClone } from '@/utils/commonUtils';
 
 export default defineComponent({
-  name: 'MTitle',
-  props: {
-    config: {
-      required: true,
-      type: Object,
-      default: () => ({})
-    }
-  },
+  name: 'MTitleConfig',
   setup() {
     const store = useStore();
-    const activityComponent = computed(() => store.state.activity.component);
+    const activityComponent = computed(() => store.state.activatedComponent).value;
     // 默认配置
     const defaultConfig = {
-      visible: false,
+      titleVisible: false,
       titleContent: '',
       titleColor: '#eeeeee',
       titleBold: false,
@@ -111,13 +108,10 @@ export default defineComponent({
 
     // 监听id 变化重新赋值
     watch(
-      () => activityComponent.value?.id,
+      () => activityComponent.id,
       () => {
-        if (activityComponent.value?.titleConfig) {
-          objectDeepClone(titleConfig, toRaw(activityComponent.value.titleConfig));
-        } else {
-          objectDeepClone(titleConfig, defaultConfig);
-        }
+        console.log(toRaw(store.state.activatedComponent));
+        objectDeepClone(titleConfig, toRaw(store.state.activatedComponent.titleConfig));
       },
       { immediate: true }
     );
@@ -126,7 +120,8 @@ export default defineComponent({
     watch(
       () => titleConfig,
       () => {
-        store.commit('updateComponent', { ...activityComponent.value, titleConfig: { ...titleConfig } });
+        console.log(toRaw(titleConfig));
+        store.commit('updateComponent', { newState: titleConfig, key: 'titleConfig' });
       },
       { deep: true }
     );

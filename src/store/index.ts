@@ -1,14 +1,19 @@
 import { createStore } from 'vuex';
 import { objectDeepClone, uuid } from '@/utils/commonUtils';
+import defaultConfig from "@/assets/components/defaultConfig";
 
-function updateComponent(state: any, component: any) {
-  state.activity.component = JSON.parse(JSON.stringify(component));
-  if (component) {
-    state.activity.isLocked = component?.isLocked || false;
-    const index = state.components.findIndex((cp: any) => cp.id === component.id);
-    if (index !== -1) {
-      state.components.splice(index, 1, JSON.parse(JSON.stringify(component)));
-    }
+function setActivatedComponent(state: any, component: any) {
+  state.activatedFlag.isMoving = false;
+  state.activatedFlag.indicatorVisible = true;
+  state.activatedFlag.zIndex = component.zIndex;
+  objectDeepClone(state.activatedComponent, component);
+}
+
+function presetComponent(component: any) {
+  for (let key of component.config) {
+    component[key] = {};
+    // @ts-ignore
+    objectDeepClone(component[key], defaultConfig[key]);
   }
 }
 
@@ -58,10 +63,13 @@ export default createStore({
   mutations: {
     setActivated(state: any, { type, component }: any) {
       state.activatedFlag.type = type;
-      state.activatedFlag.isMoving = false;
-      state.activatedFlag.indicatorVisible = !!component;
-      state.activatedFlag.zIndex = component?.zIndex ?? 0;
-      objectDeepClone(state.activatedComponent, component);
+      if (!component) {
+        state.activatedFlag.indicatorVisible = false;
+        state.activatedFlag.zIndex = 0;
+        state.activatedComponent = {};
+      } else {
+        setActivatedComponent(state, component);
+      }
     },
     setMoving(state: any, { zIndex, status }: any) {
       if (!state.components[zIndex].isLocked) {
@@ -76,18 +84,25 @@ export default createStore({
       objectDeepClone(state.draggedConfig, config)
     },
     createComponent(state: any, { component, position, size }: any) {
-      const newCompo = JSON.parse(component);
-      newCompo.position = { ...position };
-      newCompo.size = { ...size };
-      newCompo.zIndex = state.componentsTotal + 1;
-      newCompo.id = uuid(16);
+      const newCompo = {
+        ...JSON.parse(component),
+        position: { ...position },
+        size: { ...size },
+        zIndex: state.componentsTotal + 1,
+        id: uuid(16)
+      };
       state.components[newCompo.zIndex] = {};
-      objectDeepClone(state.components[newCompo.zIndex], newCompo)
+      objectDeepClone(state.components[newCompo.zIndex], newCompo);
       state.componentsTotal = state.componentsTotal + 1;
+      presetComponent(state.components[newCompo.zIndex]);
+      state.activatedFlag.type = 'component';
+      setActivatedComponent(state, state.components[newCompo.zIndex]);
     },
     // key: 配置项的 key
     updateComponent(state: any, { newState, key }: any) {
+      !state.activatedComponent[key] && (state.activatedComponent[key] = {});
       objectDeepClone(state.activatedComponent[key], newState);
+      !state.components[state.activatedComponent.zIndex][key] && (state.components[state.activatedComponent.zIndex][key] = {});
       objectDeepClone(state.components[state.activatedComponent.zIndex][key], newState);
     },
     updateComponentPAS(state: any, newState: any) {

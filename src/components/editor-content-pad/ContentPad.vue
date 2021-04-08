@@ -1,48 +1,59 @@
 <template>
   <div class="editor-content-pad">
-    <MBaseConfig v-if="activatedFlag.type !== 'background'" />
-    <!--    <component v-for="c in configComponent" :key="c" :is="c" v-bind="componentDetails" />-->
+    <template v-if="activatedFlag !== 'background'">
+      <MBaseConfig />
+      <component v-for="c in configComponent" :key="c" :is="c" />
+    </template>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
+import { defineComponent, ref, watch } from 'vue';
 import { useStore } from 'vuex';
 import MBaseConfig from '@/components/editor-content-pad/MBaseConfig.vue';
-// import MBackground from '@/components/editor-content-pad/MBackground.vue';
-// import MLegend from '@/components/editor-content-pad/MLegend.vue';
-// import MLineConfig from '@/components/editor-content-pad/MLineConfig.vue';
-// import MTitle from '@/components/editor-content-pad/MTitle.vue';
-// import MXAxis from '@/components/editor-content-pad/MXAxis.vue';
-// import MYAxis from '@/components/editor-content-pad/MYAxis.vue';
+import MBackground from '@/components/editor-content-pad/MBackground.vue';
+import MLegend from '@/components/editor-content-pad/MLegend.vue';
+import MLineConfig from '@/components/editor-content-pad/MLineConfig.vue';
+import MTitleConfig from '@/components/editor-content-pad/MTitleConfig.vue';
+import MXAxis from '@/components/editor-content-pad/MXAxis.vue';
+import MYAxis from '@/components/editor-content-pad/MYAxis.vue';
 
 export default defineComponent({
   name: 'ContentPad',
   components: {
-    //   MBackground,
-    MBaseConfig
-    //   MLegend,
-    //   MLineConfig,
-    // MTitle
-    //   MXAxis,
-    //   MYAxis
+    MBackground,
+    MBaseConfig,
+    MLegend,
+    MLineConfig,
+    MTitleConfig,
+    MXAxis,
+    MYAxis
   },
   setup() {
     const store = useStore();
-    //
-    const activatedFlag = computed(() => store.state.activatedFlag);
-    const activatedComponent = computed(() => store.state.activatedComponent).value;
-    //
-    const configComponent = computed(() => {
-      if (activatedComponent?.config?.length) {
-        return activatedComponent.config.map((o: string) => `M${o.replace(o[0], o[0].toUpperCase())}`);
-      }
-      return [];
-    });
+
+    const activatedFlag = ref('background');
+    const configComponent = ref([]);
+
+    watch(
+      () => store.state.activatedFlag.type,
+      (val: string) => (activatedFlag.value = val),
+      { immediate: true, deep: true }
+    );
+    watch(
+      () => store.state.activatedComponent.config,
+      (config: any) => {
+        if (config) {
+          configComponent.value = config.map((o: string) => `M${o.replace(o[0], o[0].toUpperCase())}`);
+        } else {
+          configComponent.value = [];
+        }
+      },
+      { immediate: true, deep: true }
+    );
 
     return {
       activatedFlag,
-      activatedComponent,
       configComponent
     };
   }

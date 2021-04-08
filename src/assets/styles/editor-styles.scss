@@ -43,11 +43,15 @@
 }
 .editor-content-pad {
   width: 356px;
-  height: 100%;
+  height: calc(100vh - 42px);
   background: #1b1b20;
   box-sizing: border-box;
   z-index: 2;
   padding: 6px;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   .component-base-config {
     border-top: 1px solid #303247;
     margin-top: 16px;
@@ -78,6 +82,27 @@
       height: 28px;
       margin-left: 8px;
     }
+  }
+  .shadow-config-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .shadow-config-item {
+    display: inline-flex;
+    height: 28px;
+    align-items: center;
+    & + .shadow-config-item {
+      margin-top: 8px;
+    }
+  }
+  .shadow-config-item_label {
+    display: inline-block;
+    width: 60px;
+    font-size: 12px;
+    text-align: right;
+    box-sizing: border-box;
+    padding-right: 8px;
   }
 }
 .editor-content {
