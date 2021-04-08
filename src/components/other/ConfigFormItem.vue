@@ -55,8 +55,7 @@ export default defineComponent({
     padding-left: 16px;
     display: flex;
     align-items: center;
-    > .el-select,
-    > .el-input {
+    > .el-select {
       width: 100px;
     }
     > .el-input-number {

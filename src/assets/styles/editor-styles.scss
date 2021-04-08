@@ -68,6 +68,12 @@
     line-height: 32px;
     padding: 0 8px;
     color: #b6b8cc;
+    position: relative;
+    &:after {
+      font-family: 'element-icons' !important;
+      content: "\e791"
+    }
+    &.is-open {}
   }
   .content-pad-row {
     display: flex;
