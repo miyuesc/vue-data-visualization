@@ -20,10 +20,9 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const size: ComputedRef = computed(() => props.info?.size);
-    const titleConfig: ComputedRef = computed(() => props.info?.titleConfig);
-    const background: ComputedRef = computed(() => props.info?.background);
+    let lineChart: any = null;
 
+    const background: ComputedRef = computed(() => props.info?.background);
     const lineChartRef: any = ref(null);
 
     const options = {
@@ -58,26 +57,15 @@ export default defineComponent({
         {
           name: '最高气温',
           type: 'line',
-          data: [10, 11, 13, 11, 12, 12, 9],
-          markPoint: {
-            data: [
-              { type: 'max', name: '最大值' },
-              { type: 'min', name: '最小值' }
-            ]
-          }
+          data: [10, 11, 13, 11, 12, 12, 9]
         },
         {
           name: '最低气温',
           type: 'line',
-          data: [1, -2, 2, 5, 3, 2, 0],
-          markPoint: {
-            data: [{ name: '周最低', value: -2, xAxis: 1, yAxis: -1.5 }]
-          }
+          data: [1, -2, 2, 5, 3, 2, 0]
         }
       ]
     };
-
-    let lineChart: any = null;
 
     const createChart = () => {
       if (lineChartRef.value) {
@@ -85,8 +73,6 @@ export default defineComponent({
         lineChart.setOption(options);
       }
     };
-
-    onMounted(() => createChart());
 
     const debounceResize = debounce(() => {
       if (lineChart) {
@@ -97,26 +83,23 @@ export default defineComponent({
     }, 200);
 
     watch(
-      () => size.value,
-      (newVal: any, oldVal: any) => {
-        (newVal.width !== oldVal.width || newVal.height !== oldVal.height) && debounceResize();
-      }
-    );
-    watch(
-      () => background.value,
-      (val: any, oldVal: any) => {
-        if (val?.border?.width || val?.border?.width !== oldVal?.border?.width) debounceResize();
-      }
-    );
-
-    watch(
-      () => titleConfig.value && titleConfig.value.visible,
-      () => debounceResize()
+      () => {
+        return {
+          size: props.info?.size,
+          borderWidth: props.info?.background?.borderWidth,
+          titleVisible: props.info?.titleConfig?.titleVisible,
+          unitVisible: props.info?.titleConfig?.unitVisible
+        };
+      },
+      () => debounceResize(),
+      { deep: true }
     );
 
     const backgroundStyle = computed(() => {
       return computedBackgroundStyle(background.value);
     });
+
+    onMounted(() => createChart());
 
     return {
       lineChartRef,

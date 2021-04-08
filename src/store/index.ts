@@ -64,7 +64,6 @@ export default createStore({
       objectDeepClone(state.activatedComponent, component);
     },
     setMoving(state: any, { zIndex, status }: any) {
-      console.log(state.components[zIndex]);
       if (!state.components[zIndex].isLocked) {
         state.activatedFlag.isMoving = status;
       }

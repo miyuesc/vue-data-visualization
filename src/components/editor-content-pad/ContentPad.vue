@@ -1,15 +1,15 @@
 <template>
   <div class="editor-content-pad">
-    <!--    <MBaseConfig v-if="activity.type !== 'background'" :config="componentDetails" />-->
+    <MBaseConfig v-if="activatedFlag.type !== 'background'" />
     <!--    <component v-for="c in configComponent" :key="c" :is="c" v-bind="componentDetails" />-->
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
-// import { useStore } from 'vuex';
+import { useStore } from 'vuex';
+import MBaseConfig from '@/components/editor-content-pad/MBaseConfig.vue';
 // import MBackground from '@/components/editor-content-pad/MBackground.vue';
-// import MBaseConfig from '@/components/editor-content-pad/MBaseConfig.vue';
 // import MLegend from '@/components/editor-content-pad/MLegend.vue';
 // import MLineConfig from '@/components/editor-content-pad/MLineConfig.vue';
 // import MTitle from '@/components/editor-content-pad/MTitle.vue';
@@ -17,34 +17,34 @@ import { defineComponent, computed } from 'vue';
 // import MYAxis from '@/components/editor-content-pad/MYAxis.vue';
 
 export default defineComponent({
-  name: 'ContentPad'
-  // components: {
-  //   MBackground,
-  //   MBaseConfig,
-  //   MLegend,
-  //   MLineConfig,
-  //   MTitle,
-  //   MXAxis,
-  //   MYAxis
-  // },
-  // setup() {
-  //   const store = useStore();
-  //   const activity = store.state.activity;
-  //
-  //   const componentDetails = computed(() => activity.component);
-  //
-  //   const configComponent = computed(() => {
-  //     if (activity.component?.config?.length) {
-  //       return activity.component.config.map((o: string) => `M${o.replace(o[0], o[0].toUpperCase())}`);
-  //     }
-  //     return [];
-  //   });
-  //
-  //   return {
-  //     activity,
-  //     componentDetails,
-  //     configComponent
-  //   };
-  // }
+  name: 'ContentPad',
+  components: {
+    //   MBackground,
+    MBaseConfig
+    //   MLegend,
+    //   MLineConfig,
+    // MTitle
+    //   MXAxis,
+    //   MYAxis
+  },
+  setup() {
+    const store = useStore();
+    //
+    const activatedFlag = computed(() => store.state.activatedFlag);
+    const activatedComponent = computed(() => store.state.activatedComponent).value;
+    //
+    const configComponent = computed(() => {
+      if (activatedComponent?.config?.length) {
+        return activatedComponent.config.map((o: string) => `M${o.replace(o[0], o[0].toUpperCase())}`);
+      }
+      return [];
+    });
+
+    return {
+      activatedFlag,
+      activatedComponent,
+      configComponent
+    };
+  }
 });
 </script>

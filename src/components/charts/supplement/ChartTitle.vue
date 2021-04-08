@@ -1,5 +1,5 @@
 <template>
-  <div class="chart-title-component" v-show="titleConfig && titleConfig.visible">
+  <div class="chart-title-component" v-show="titleConfig && (titleConfig.titleVisible || titleConfig.unitVisible)">
     <span class="chart-title" :style="titleStyle">{{ titleContent }}</span>
     <span class="chart-unit" :style="unitStyle">{{ unitContent }}</span>
   </div>
@@ -17,11 +17,12 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const titleContent = computed(() => props.titleConfig.titleContent ?? '请输入标题');
-    const unitContent = computed(() => props.titleConfig.unitContent ?? '单位');
+    const titleContent = computed(() => props.titleConfig?.titleContent || '请输入标题');
+    const unitContent = computed(() => props.titleConfig?.unitContent || '单位');
 
     const titleStyle = computed(() => {
       return {
+        display: props.titleConfig.titleVisible ? 'inline' : 'none',
         fontWeight: props.titleConfig.titleBold ? 'bold' : 'normal',
         fontSize: props.titleConfig.titleSize ? `${props.titleConfig.titleSize}px` : '12px',
         fontStyle: props.titleConfig.titleItalic ? 'italic' : 'normal',
