@@ -78,6 +78,9 @@
       right: 20px;
       transition: all ease 0.2s;
     }
+    &:hover {
+      cursor: pointer;
+    }
     &.is-open {
       &:after {
         transform: rotate(90deg);

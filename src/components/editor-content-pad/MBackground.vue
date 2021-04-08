@@ -1,6 +1,10 @@
 <template>
   <div class="component-base-config">
-    <div class="content-pad-item__title with-tag" :class="{ 'is-open': backgroundContentVisible }" @click.stop="changeVisible">
+    <div
+      class="content-pad-item__title with-tag"
+      :class="{ 'is-open': backgroundContentVisible }"
+      @click.stop="changeVisible"
+    >
       背景与边框
     </div>
     <el-collapse-transition>
@@ -8,7 +12,7 @@
         <div class="content-pad-row">
           <config-form-item label="填充色" :label-width="64">
             <el-color-picker v-model="background.color" />
-            <el-input v-model="background.color" :maxlength="6" style="width: 120px; margin-left: 8px" />
+            <el-input v-model="background.color" :maxlength="6" style="width: 100px; margin-left: 8px" />
           </config-form-item>
         </div>
         <div class="content-pad-row">

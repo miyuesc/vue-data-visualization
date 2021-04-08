@@ -1,6 +1,10 @@
 <template>
   <div class="component-base-config">
-    <div class="content-pad-item__title with-tag" :class="{ 'is-open': titleContentVisible }" @click.stop="changeVisible">
+    <div
+      class="content-pad-item__title with-tag"
+      :class="{ 'is-open': titleContentVisible }"
+      @click.stop="changeVisible"
+    >
       标题与单位
     </div>
     <el-collapse-transition>
@@ -113,7 +117,7 @@ export default defineComponent({
     watch(
       () => activityComponent.id,
       () => {
-        titleContentVisible.value = false;
+        titleContentVisible.value = true;
         objectDeepClone(titleConfig, toRaw(store.state.activatedComponent.titleConfig));
       },
       { immediate: true }

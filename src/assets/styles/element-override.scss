@@ -1042,4 +1042,8 @@ $--font-path: '~element-plus/lib/theme-chalk/fonts';
 }
 .el-slider__runway {
   background-color: #363742;
+  margin: 11px 0;
+}
+.el-slider__input.el-input-number--mini {
+  margin-top: 0;
 }
