@@ -1,6 +1,6 @@
 <template>
   <div class="component-base-config">
-    <div class="content-pad-item__title">折线设置</div>
+    <div class="content-pad-item__title with-tag">折线设置</div>
   </div>
 </template>
 

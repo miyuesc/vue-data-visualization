@@ -1,6 +1,6 @@
 <template>
   <div class="component-base-config">
-    <div class="content-pad-item__title">位置与尺寸</div>
+    <div class="content-pad-item__title not-tag">位置与尺寸</div>
     <div class="content-pad-row">
       <config-form-item label="X" :label-width="20">
         <el-input-number

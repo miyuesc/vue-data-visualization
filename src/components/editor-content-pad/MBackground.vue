@@ -1,6 +1,6 @@
 <template>
   <div class="component-base-config">
-    <div class="content-pad-item__title" :class="{ 'is-open': backgroundContentVisible }" @click.stop="changeVisible">
+    <div class="content-pad-item__title with-tag" :class="{ 'is-open': backgroundContentVisible }" @click.stop="changeVisible">
       背景与边框
     </div>
     <el-collapse-transition>

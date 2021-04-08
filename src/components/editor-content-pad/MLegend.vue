@@ -1,6 +1,6 @@
 <template>
   <div class="component-base-config">
-    <div class="content-pad-item__title">图例</div>
+    <div class="content-pad-item__title with-tag">图例</div>
   </div>
 </template>
 

@@ -69,6 +69,8 @@
     padding: 0 8px;
     color: #b6b8cc;
     position: relative;
+  }
+  .content-pad-item__title.with-tag {
     &:after {
       font-family: 'element-icons', sans-serif !important;
       content: "\e791";

@@ -1,6 +1,6 @@
 <template>
   <div class="component-base-config">
-    <div class="content-pad-item__title">X轴</div>
+    <div class="content-pad-item__title with-tag">X轴</div>
   </div>
 </template>
 

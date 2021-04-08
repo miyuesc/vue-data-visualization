@@ -1,6 +1,6 @@
 <template>
   <div class="component-base-config">
-    <div class="content-pad-item__title">Y轴</div>
+    <div class="content-pad-item__title with-tag">Y轴</div>
   </div>
 </template>
 
