@@ -70,10 +70,17 @@
     color: #b6b8cc;
     position: relative;
     &:after {
-      font-family: 'element-icons' !important;
-      content: "\e791"
+      font-family: 'element-icons', sans-serif !important;
+      content: "\e791";
+      position: absolute;
+      right: 20px;
+      transition: all ease 0.2s;
     }
-    &.is-open {}
+    &.is-open {
+      &:after {
+        transform: rotate(90deg);
+      }
+    }
   }
   .content-pad-row {
     display: flex;
