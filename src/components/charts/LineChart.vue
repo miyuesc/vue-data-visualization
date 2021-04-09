@@ -72,7 +72,7 @@ export default defineComponent({
         ...defaultOptions,
         grid: grid.value,
         xAxis: { ...defaultOptions.xAxis, ...xAxis.value },
-        yAxis: yAxis.value
+        yAxis: { ...yAxis.value }
       };
     });
 
@@ -105,7 +105,7 @@ export default defineComponent({
       { deep: true }
     );
 
-    watch([props.info?.xAxis], () => debounceResize(), { deep: true, immediate: true });
+    watch([props.info?.xAxis, props.info?.yAxis], () => debounceResize(), { deep: true, immediate: true });
 
     onMounted(() => createChart());
 
