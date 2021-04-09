@@ -15,13 +15,13 @@ export const titleConfig = {
 
 export const background = {
   color: '',
+  opacity: 0.8,
   borderRadius: 8,
   borderWidth: 0,
   borderStyle: 'solid',
-  borderColor: '#000000',
-  borderOpacity: 0,
-  opacity: 0.8,
-  shadowColor: '#000000',
+  borderColor: '#6f6ff5',
+  borderOpacity: 1,
+  shadowColor: '#E6A23C',
   shadowX: 0,
   shadowY: 0,
   shadowBlur: 0,
@@ -41,6 +41,13 @@ export const fontStyle = {
   color: null,
   fontSize: 12,
   fontWeight: 'normal' // bold, bolder, lighter
+}
+
+export const grid = {
+  top: 60,
+  right: 60,
+  bottom: 60,
+  left: 60
 }
 
 export const xAxis = {
