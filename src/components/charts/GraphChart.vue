@@ -1,8 +1,5 @@
 <template>
-  <div class="chart-component graph-chart-component">
-    <ChartTitle :title-config="info.titleConfig || {}" />
-    <div ref="graphChartRef" class="chart-canvas graph-chart-canvas"></div>
-  </div>
+  <div ref="graphChartRef" class="chart-canvas graph-chart-canvas"></div>
 </template>
 
 <script lang="ts">

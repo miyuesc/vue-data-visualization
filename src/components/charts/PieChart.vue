@@ -1,8 +1,5 @@
 <template>
-  <div class="chart-component pie-chart-component">
-    <ChartTitle :title-config="info.titleConfig || {}" />
-    <div ref="pieChartRef" class="chart-canvas pie-chart-canvas"></div>
-  </div>
+  <div ref="pieChartRef" class="chart-canvas pie-chart-canvas"></div>
 </template>
 
 <script lang="ts">

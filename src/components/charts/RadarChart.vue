@@ -1,8 +1,5 @@
 <template>
-  <div class="chart-component radar-chart-component">
-    <ChartTitle :title-config="info.titleConfig || {}" />
-    <div ref="radarChartRef" class="chart-canvas bar-chart-canvas"></div>
-  </div>
+  <div ref="radarChartRef" class="chart-canvas bar-chart-canvas"></div>
 </template>
 
 <script lang="ts">

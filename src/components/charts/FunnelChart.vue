@@ -1,8 +1,5 @@
 <template>
-  <div class="chart-component funnel-chart-component">
-    <ChartTitle :title-config="info.titleConfig || {}" />
-    <div ref="funnelChartRef" class="chart-canvas funnel-chart-canvas"></div>
-  </div>
+  <div ref="funnelChartRef" class="chart-canvas funnel-chart-canvas"></div>
 </template>
 
 <script lang="ts">

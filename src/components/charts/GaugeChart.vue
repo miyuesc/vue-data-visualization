@@ -1,8 +1,5 @@
 <template>
-  <div class="chart-component gauge-chart-component">
-    <ChartTitle :title-config="info.titleConfig || {}" />
-    <div ref="gaugeChartRef" class="chart-canvas gauge-chart-canvas"></div>
-  </div>
+  <div ref="gaugeChartRef" class="chart-canvas gauge-chart-canvas"></div>
 </template>
 
 <script lang="ts">

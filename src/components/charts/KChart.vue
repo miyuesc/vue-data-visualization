@@ -1,8 +1,5 @@
 <template>
-  <div class="chart-component k-chart-component">
-    <ChartTitle :title-config="info.titleConfig || {}" />
-    <div ref="kChartRef" class="chart-canvas bar-chart-canvas"></div>
-  </div>
+  <div ref="kChartRef" class="chart-canvas bar-chart-canvas"></div>
 </template>
 
 <script lang="ts">
