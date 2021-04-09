@@ -122,6 +122,18 @@
     box-sizing: border-box;
     padding-right: 8px;
   }
+  .rotate-number-input {
+    &:before {
+      font-family: 'element-icons' !important;
+      content: '\e6c8';
+      position: absolute;
+      left: 4px;
+      color: #999999;
+      font-size: 14px;
+      top: 2px;
+      z-index: 1;
+    }
+  }
 }
 .editor-content {
   position: absolute;

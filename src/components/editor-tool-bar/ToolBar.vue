@@ -1,5 +1,7 @@
 <template>
-  <div class="editor-tools-bar"></div>
+  <div class="editor-tools-bar" style="color: #999999; font-size: 12px; text-align: center">
+    目前只有折线图是具有最多的配置项，体验最好。其他的图表及元素正在开发中~~~
+  </div>
 </template>
 
 <script lang="ts">

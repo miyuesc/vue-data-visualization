@@ -56,14 +56,17 @@ export default defineComponent({
     display: flex;
     align-items: center;
     > .el-select {
-      width: 100px;
+      width: 80px;
     }
     > .el-input-number {
-      width: 120px;
+      width: 96px;
     }
     > .el-slider .el-input,
     > .el-slider .el-input-number {
-      width: 120px;
+      width: 80px;
+    }
+    .el-slider__runway.show-input {
+      margin-right: 96px;
     }
   }
 }

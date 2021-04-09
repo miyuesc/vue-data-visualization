@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, onMounted } from 'vue';
+import { defineComponent, ref, watch, computed, onMounted, toRaw } from 'vue';
 import * as echarts from 'echarts';
 import { debounce } from '@/utils/commonUtils';
 
@@ -20,15 +20,15 @@ export default defineComponent({
 
     const lineChartRef: any = ref(null);
 
-    const options = {
+    const defaultOptions = {
       tooltip: {
         trigger: 'axis'
       },
       grid: {
-        left: 20,
-        top: 20,
-        right: 20,
-        bottom: 20,
+        left: 60,
+        top: 60,
+        right: 60,
+        bottom: 60,
         containLabel: true
       },
       legend: {
@@ -62,10 +62,25 @@ export default defineComponent({
       ]
     };
 
+    const grid = computed(() => props.info.grid || defaultOptions.grid);
+    const xAxis = computed(() => props.info.xAxis || defaultOptions.xAxis);
+    const yAxis = computed(() => props.info.yAxis || defaultOptions.yAxis);
+
+    const options = computed(() => {
+      console.log(toRaw(xAxis.value));
+      return {
+        ...defaultOptions,
+        grid: grid.value,
+        xAxis: { ...defaultOptions.xAxis, ...xAxis.value },
+        yAxis: yAxis.value
+      };
+    });
+
     const createChart = () => {
       if (lineChartRef.value) {
+        console.log(options.value.xAxis);
         lineChart = echarts.init(lineChartRef.value);
-        lineChart.setOption(options);
+        lineChart.setOption(options.value);
       }
     };
 
@@ -89,6 +104,8 @@ export default defineComponent({
       () => debounceResize(),
       { deep: true }
     );
+
+    watch([props.info?.xAxis], () => debounceResize(), { deep: true, immediate: true });
 
     onMounted(() => createChart());
 
