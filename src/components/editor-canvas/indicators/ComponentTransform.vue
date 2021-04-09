@@ -1,9 +1,13 @@
 <template>
-  <component :is="componentType" v-bind="$props" />
+  <div class="chart-component" :style="backgroundStyle">
+    <ChartTitle :title-config="info.titleConfig || {}" />
+    <component :is="componentType" v-bind="$props" />
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
+import { defineComponent, computed, ComputedRef } from 'vue';
+import computedBackgroundStyle from '@/components/charts/supplement/computedBackgroundStyle';
 import BarChart from '@/components/charts/BarChart.vue';
 import FunnelChart from '@/components/charts/FunnelChart.vue';
 import GaugeChart from '@/components/charts/GaugeChart.vue';
@@ -32,11 +36,17 @@ export default defineComponent({
   },
   setup(props) {
     const componentType = computed(() => props.info?.code || '');
+
+    const background: ComputedRef = computed(() => props.info?.background);
+
+    const backgroundStyle = computed(() => {
+      return computedBackgroundStyle(background.value);
+    });
+
     return {
-      componentType
+      componentType,
+      backgroundStyle
     };
   }
 });
 </script>
-
-<style lang="scss" scoped></style>

@@ -1,15 +1,11 @@
 <template>
-  <div class="chart-component line-chart-component" :style="backgroundStyle">
-    <ChartTitle :title-config="info.titleConfig || {}" />
-    <div ref="lineChartRef" class="chart-canvas line-chart-canvas"></div>
-  </div>
+  <div ref="lineChartRef" class="chart-canvas line-chart-canvas"></div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, watch, ComputedRef, onMounted } from 'vue';
+import { defineComponent, ref, watch, onMounted } from 'vue';
 import * as echarts from 'echarts';
 import { debounce } from '@/utils/commonUtils';
-import computedBackgroundStyle from '@/components/charts/supplement/computedBackgroundStyle';
 
 export default defineComponent({
   name: 'LineChart',
@@ -22,7 +18,6 @@ export default defineComponent({
   setup(props) {
     let lineChart: any = null;
 
-    const background: ComputedRef = computed(() => props.info?.background);
     const lineChartRef: any = ref(null);
 
     const options = {
@@ -95,15 +90,10 @@ export default defineComponent({
       { deep: true }
     );
 
-    const backgroundStyle = computed(() => {
-      return computedBackgroundStyle(background.value);
-    });
-
     onMounted(() => createChart());
 
     return {
-      lineChartRef,
-      backgroundStyle
+      lineChartRef
     };
   }
 });

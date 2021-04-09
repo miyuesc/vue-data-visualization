@@ -1,15 +1,11 @@
 <template>
-  <div class="chart-component bar-chart-component" :style="backgroundStyle">
-    <ChartTitle :title-config="info.titleConfig || {}" />
-    <div ref="barChartRef" class="chart-canvas bar-chart-canvas"></div>
-  </div>
+  <div ref="barChartRef" class="chart-canvas bar-chart-canvas"></div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, watch, ComputedRef, onMounted, ref } from 'vue';
+import { defineComponent, watch, onMounted, ref } from 'vue';
 import * as echarts from 'echarts';
 import { debounce } from '@/utils/commonUtils';
-import computedBackgroundStyle from '@/components/charts/supplement/computedBackgroundStyle';
 
 export default defineComponent({
   name: 'BarChart',
@@ -17,7 +13,6 @@ export default defineComponent({
     info: Object
   },
   setup(props) {
-    const background: ComputedRef = computed(() => props.info?.background);
     const barChartRef: any = ref(null);
 
     const options = {
@@ -73,15 +68,10 @@ export default defineComponent({
       { deep: true }
     );
 
-    const backgroundStyle = computed(() => {
-      return computedBackgroundStyle(background.value);
-    });
-
     onMounted(() => createChart());
 
     return {
-      barChartRef,
-      backgroundStyle
+      barChartRef
     };
   }
 });
