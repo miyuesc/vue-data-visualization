@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, computed, onMounted, toRaw } from 'vue';
+import { defineComponent, ref, watch, computed, onMounted } from 'vue';
 import * as echarts from 'echarts';
 import { debounce } from '@/utils/commonUtils';
 
@@ -67,10 +67,9 @@ export default defineComponent({
     const yAxis = computed(() => props.info.yAxis || defaultOptions.yAxis);
 
     const options = computed(() => {
-      console.log(toRaw(xAxis.value));
       return {
         ...defaultOptions,
-        grid: grid.value,
+        grid: { ...grid.value },
         xAxis: { ...defaultOptions.xAxis, ...xAxis.value },
         yAxis: { ...yAxis.value }
       };
@@ -78,7 +77,6 @@ export default defineComponent({
 
     const createChart = () => {
       if (lineChartRef.value) {
-        console.log(options.value.xAxis);
         lineChart = echarts.init(lineChartRef.value);
         lineChart.setOption(options.value);
       }

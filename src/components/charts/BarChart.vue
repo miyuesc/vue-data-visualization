@@ -3,24 +3,29 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, onMounted, ref } from 'vue';
+import { defineComponent, watch, onMounted, ref, computed } from 'vue';
 import * as echarts from 'echarts';
 import { debounce } from '@/utils/commonUtils';
 
 export default defineComponent({
   name: 'BarChart',
   props: {
-    info: Object
+    info: {
+      type: Object,
+      default: () => ({})
+    }
   },
   setup(props) {
+    let barChart: any = null;
+
     const barChartRef: any = ref(null);
 
-    const options = {
+    const defaultOptions = {
       grid: {
-        left: 20,
-        top: 20,
-        right: 20,
-        bottom: 20,
+        left: 60,
+        top: 60,
+        right: 60,
+        bottom: 60,
         containLabel: true
       },
       xAxis: {
@@ -38,12 +43,23 @@ export default defineComponent({
       ]
     };
 
-    let barChart: any = null;
+    const grid = computed(() => props.info.grid || defaultOptions.grid);
+    const xAxis = computed(() => props.info.xAxis || defaultOptions.xAxis);
+    const yAxis = computed(() => props.info.yAxis || defaultOptions.yAxis);
+
+    const options = computed(() => {
+      return {
+        ...defaultOptions,
+        grid: { ...grid.value },
+        xAxis: { ...defaultOptions.xAxis, ...xAxis.value },
+        yAxis: { ...yAxis.value }
+      };
+    });
 
     const createChart = () => {
       if (barChartRef.value) {
         barChart = echarts.init(barChartRef.value);
-        barChart.setOption(options);
+        barChart.setOption(options.value);
       }
     };
 
@@ -67,6 +83,8 @@ export default defineComponent({
       () => debounceResize(),
       { deep: true }
     );
+
+    watch([props.info?.xAxis, props.info?.yAxis], () => debounceResize(), { deep: true, immediate: true });
 
     onMounted(() => createChart());
 

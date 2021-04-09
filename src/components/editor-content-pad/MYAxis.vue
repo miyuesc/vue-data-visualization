@@ -107,8 +107,8 @@
                 <el-input-number
                   v-model="yAxis.axisLabel.rotate"
                   :step="1"
-                  :min="1"
-                  :max="10"
+                  :min="0"
+                  :max="360"
                   controls-position="right"
                   class="rotate-number-input"
                   style="margin-left: 8px"
