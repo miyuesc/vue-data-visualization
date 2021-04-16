@@ -6,10 +6,9 @@ export default function DropEventHook() {
   const drop: any = (event: MouseEvent) => {
     // @ts-ignore
     const { offsetX, offsetY, target, path } = event;
-
+    // 默认配置项
+    const defaultSize = { width: 400, height: 260 }; // const defaultSize = store.state.defaultConfig.size;
     const copied = store.state.draggedComponent;
-    const defaultSize = { width: 400, height: 260 };
-    // const defaultSize = store.state.defaultConfig.size;
     const canvasSize = store.state.canvas.size;
     const draggedConfig = store.state.draggedConfig || {};
 
@@ -33,7 +32,7 @@ export default function DropEventHook() {
 
     const newComponent = {
       component: copied,
-      size: {...defaultSize},
+      size: { ...defaultSize },
       position: { left, top }
     }
 

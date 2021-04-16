@@ -97,7 +97,7 @@ export default defineComponent({
   name: 'MTitleConfig',
   setup() {
     const store = useStore();
-    const activityComponent = computed(() => store.state.activatedComponent).value;
+    const activityComponent = computed(() => store.state.acComponent).value;
 
     const titleContentVisible = ref(false);
 
@@ -118,7 +118,7 @@ export default defineComponent({
       () => activityComponent.id,
       () => {
         titleContentVisible.value = true;
-        objectDeepClone(titleConfig, toRaw(store.state.activatedComponent.titleConfig));
+        objectDeepClone(titleConfig, toRaw(store.state.acComponent.titleConfig));
       },
       { immediate: true }
     );

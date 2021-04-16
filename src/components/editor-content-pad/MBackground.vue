@@ -141,7 +141,7 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
-    const activityComponent = computed(() => store.state.activatedComponent).value;
+    const activityComponent = computed(() => store.state.acComponent).value;
 
     const background = shallowReactive({});
     const backgroundContentVisible = ref(false);

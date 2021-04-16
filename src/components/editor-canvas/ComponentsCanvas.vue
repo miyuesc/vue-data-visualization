@@ -9,7 +9,7 @@
     @drop="drop"
   >
     <div
-      v-for="cpt in componentsList"
+      v-for="(cpt, index) in componentsList"
       :key="cpt.id"
       :class="`cp cp__${cpt.id}`"
       :style="{
@@ -17,9 +17,9 @@
         height: `${cpt.size.height}px`,
         left: `${cpt.position.left}px`,
         top: `${cpt.position.top}px`,
-        zIndex: cpt.zIndex
+        zIndex: index + 1
       }"
-      @mousedown.stop="dragStart($event, cpt)"
+      @mousedown.stop="dragStart($event, cpt, index)"
     >
       <ComponentTransform :info="cpt" />
     </div>

@@ -51,7 +51,7 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const canvasScale = ref(store.state.canvas.scale * 100);
-    const activated = computed(() => store.state.activatedComponent);
+    const activated = computed(() => store.state.acComponent);
 
     const updateCanvasScale = () => {
       store.commit('updateCanvas', { scale: canvasScale.value / 100 });

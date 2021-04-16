@@ -2,11 +2,13 @@ import { createStore } from 'vuex';
 import { objectDeepClone, uuid } from '@/utils/commonUtils';
 import defaultConfig from "@/assets/components/defaultConfig";
 
-function setActivatedComponent(state: any, component: any) {
-  state.activatedFlag.isMoving = false;
-  state.activatedFlag.indicatorVisible = true;
-  state.activatedFlag.zIndex = component.zIndex;
-  objectDeepClone(state.activatedComponent, component);
+function setAcComponent(state: any, index: number) {
+  state.acFlag.isMoving = false;
+  state.acFlag.indicatorVisible = true;
+  state.acFlag.acIndex = index;
+  state.acComponent = state.components[index];
+  console.log(state.acComponent, index);
+  // objectDeepClone(state.acComponent, component);
 }
 
 function presetComponent(component: any) {
@@ -41,18 +43,16 @@ export default createStore({
         image: ''
       }
     },
-    // 组件(以 ZIndex 为键的， 组件状态为值的对象)
-    // ZIndex 方便更改层级
-    components: {},
+    components: [],
     componentsTotal: 0,
     // 激活组件
-    activatedFlag: {
+    acFlag: {
       type: 'background',
-      zIndex: "0", // zIndex映射，当前选中的组件
+      acIndex: 0, // zIndex映射，当前选中的组件
       isMoving: false, // 是否移动中 => 是否显示指示线
       indicatorVisible: false
     },
-    activatedComponent: {},
+    acComponent: {},
     // 复制的组件
     copiedComponent: {},
     copiedConfig: {},
@@ -61,19 +61,19 @@ export default createStore({
     draggedConfig: {}
   }),
   mutations: {
-    setActivated(state: any, { type, component }: any) {
-      state.activatedFlag.type = type;
+    setActivated(state: any, { type, component, index }: any) {
+      state.acFlag.type = type;
       if (!component) {
-        state.activatedFlag.indicatorVisible = false;
-        state.activatedFlag.zIndex = 0;
-        state.activatedComponent = {};
+        state.acFlag.indicatorVisible = false;
+        state.acFlag.acIndex = -1;
+        state.acComponent = {};
       } else {
-        setActivatedComponent(state, component);
+        setAcComponent(state, index);
       }
     },
-    setMoving(state: any, { zIndex, status }: any) {
-      if (!state.components[zIndex].isLocked) {
-        state.activatedFlag.isMoving = status;
+    setMoving(state: any, { status }: any) {
+      if (!state.acComponent || !state.acComponent.isLocked) {
+        state.acFlag.isMoving = status;
       }
     },
     setCopiedComponent(state: any, compo: any) {
@@ -83,47 +83,48 @@ export default createStore({
       state.draggedComponent = JSON.stringify(component);
       objectDeepClone(state.draggedConfig, config)
     },
+    // 创建新图表
     createComponent(state: any, { component, position, size }: any) {
       const newCompo = {
         ...JSON.parse(component),
         position: { ...position },
         size: { ...size },
-        zIndex: state.componentsTotal + 1,
         id: uuid(16)
       };
-      state.components[newCompo.zIndex] = {};
-      objectDeepClone(state.components[newCompo.zIndex], newCompo);
+      // 合成 默认初始数据
+      presetComponent(newCompo);
+      state.components.push(newCompo);
+      setAcComponent(state, state.componentsTotal);
       state.componentsTotal = state.componentsTotal + 1;
-      presetComponent(state.components[newCompo.zIndex]);
-      state.activatedFlag.type = 'component';
-      setActivatedComponent(state, state.components[newCompo.zIndex]);
+      state.acFlag.type = 'component';
     },
-    // key: 配置项的 key
+    // 更新图表：key: 配置项的 key
     updateComponent(state: any, { newState, key }: any) {
-      !state.activatedComponent[key] && (state.activatedComponent[key] = {});
-      objectDeepClone(state.activatedComponent[key], newState);
-      !state.components[state.activatedComponent.zIndex][key] && (state.components[state.activatedComponent.zIndex][key] = {});
-      objectDeepClone(state.components[state.activatedComponent.zIndex][key], newState);
+      !state.acComponent[key] && (state.acComponent[key] = {});
+      objectDeepClone(state.acComponent[key], newState);
+      // !state.components[state.acFlag.acIndex][key] && (state.components[state.acFlag.acIndex][key] = {});
+      // objectDeepClone(state.components[state.acFlag.acIndex][key], newState);
     },
+    // 更新元素 位置与大小
     updateComponentPAS(state: any, newState: any) {
-      objectDeepClone(state.activatedComponent.position, newState.position);
-      objectDeepClone(state.components[state.activatedComponent.zIndex].position, newState.position);
-      objectDeepClone(state.activatedComponent.size, newState.size);
-      objectDeepClone(state.components[state.activatedComponent.zIndex].size, newState.size);
+      objectDeepClone(state.acComponent.position, newState.position);
+      objectDeepClone(state.acComponent.size, newState.size);
+      // objectDeepClone(state.components[state.acFlag.acIndex].position, newState.position);
+      // objectDeepClone(state.components[state.acFlag.acIndex].size, newState.size);
     },
-    updateComponentAll(state: any, newCompo: any) {
-      objectDeepClone(state.activatedComponent, newCompo);
-      objectDeepClone(state.components[newCompo.zIndex], newCompo);
+    // 更新元素 所有属性
+    updateComponentAll(state: any, {detail, index}: any) {
+      objectDeepClone(state.acComponent, detail);
+      // objectDeepClone(state.components[index], detail);
     },
     // a: activated, t: target
     swapComponent(state: any, { a, t }: {  a: number; t: number }) {
-      state.components[t].zIndex = a;
-      state.components[a].zIndex = t;
-      const compA = state.components[a];
-      const compT = state.components[t];
-      state.components[t] = compA;
-      state.components[a] = compT;
-      setActivatedComponent(state, compA);
+      // state.components[t].zIndex = a;
+      // state.components[a].zIndex = t;
+      // const compA = state.components[a];
+      // const compT = state.components[t];
+      // state.components[t] = compA;
+      // state.components[a] = compT;
     },
     // 画布相关
     updateCanvas(state: any, newState: any) {

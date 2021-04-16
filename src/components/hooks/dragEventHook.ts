@@ -10,8 +10,10 @@ export default function dragEventHook () {
     store.commit('updateComponent', { newState: { ...position }, key: 'position' });
   }, 8);
 
-  const dragStart: any = (event: any, component: any) => {
-    store.commit('setActivated', { type: 'component', component: component });
+  const dragStart: any = (event: any, component: any, index: number) => {
+    console.log('mouse down');
+    // 将激活组件设置为当前鼠标所在的组件
+    store.commit('setActivated', { type: 'component', component, index });
 
     const { path } = event;
     const target = path.find((el: HTMLElement) => el.className && el.className.indexOf('cp cp__') !== -1);
@@ -25,7 +27,7 @@ export default function dragEventHook () {
 
     const moving = (event: MouseEvent) => {
       if (first) {
-        store.commit('setMoving', { zIndex: component.zIndex, status: true});
+        store.commit('setMoving', { status: true});
         first = false;
       }
       const { size: { width, height } } = component;
@@ -45,7 +47,7 @@ export default function dragEventHook () {
     }
 
     const moveEnd = () => {
-      store.commit('setMoving', { zIndex: component.zIndex, status: false});
+      store.commit('setMoving', { status: false});
       first = true;
       document.documentElement.removeEventListener('mousemove', moving);
       document.documentElement.removeEventListener('mouseup', moveEnd);

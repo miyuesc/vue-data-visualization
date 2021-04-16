@@ -1,6 +1,6 @@
 <template>
   <div class="editor-content-pad">
-    <template v-if="activatedFlag !== 'background'">
+    <template v-if="acFlag !== 'background'">
       <MBaseConfig />
       <component v-for="c in configComponent" :key="c" :is="c" />
     </template>
@@ -32,16 +32,16 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    const activatedFlag = ref('background');
+    const acFlag = ref('background');
     const configComponent = ref([]);
 
     watch(
-      () => store.state.activatedFlag.type,
-      (val: string) => (activatedFlag.value = val),
+      () => store.state.acFlag.type,
+      (val: string) => (acFlag.value = val),
       { immediate: true, deep: true }
     );
     watch(
-      () => store.state.activatedComponent.config,
+      () => store.state.acComponent.config,
       (config: any) => {
         if (config) {
           configComponent.value = config.map((o: string) => `M${o.replace(o[0], o[0].toUpperCase())}`);
@@ -53,7 +53,7 @@ export default defineComponent({
     );
 
     return {
-      activatedFlag,
+      acFlag,
       configComponent
     };
   }

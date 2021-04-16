@@ -41,7 +41,7 @@ export default defineComponent({
   name: 'MBaseConfig',
   setup() {
     const store = useStore();
-    const activatedComponent = store.state.activatedComponent;
+    const acComponent = store.state.acComponent;
 
     const left = ref(0);
     const top = ref(0);
@@ -49,7 +49,7 @@ export default defineComponent({
     const height = ref(0);
 
     watch(
-      () => activatedComponent?.position,
+      () => acComponent?.position,
       (val: any) => {
         left.value = val?.left || 0;
         top.value = val?.top || 0;
@@ -58,7 +58,7 @@ export default defineComponent({
     );
 
     watch(
-      () => activatedComponent?.size,
+      () => acComponent?.size,
       (val: any) => {
         width.value = val?.width || 0;
         height.value = val?.height || 0;

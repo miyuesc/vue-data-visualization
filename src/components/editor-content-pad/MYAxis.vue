@@ -160,7 +160,7 @@ export default defineComponent({
   name: 'MXAxis',
   setup() {
     const store = useStore();
-    const activityComponent = computed(() => store.state.activatedComponent).value;
+    const activityComponent = computed(() => store.state.acComponent).value;
 
     const yAxisContentVisible = ref(false);
     const changeVisible = () => (yAxisContentVisible.value = !yAxisContentVisible.value);
@@ -172,7 +172,7 @@ export default defineComponent({
       () => activityComponent.id,
       () => {
         yAxisContentVisible.value = false;
-        objectDeepClone(yAxis, toRaw(store.state.activatedComponent.yAxis));
+        objectDeepClone(yAxis, toRaw(store.state.acComponent.yAxis));
       },
       { immediate: true }
     );

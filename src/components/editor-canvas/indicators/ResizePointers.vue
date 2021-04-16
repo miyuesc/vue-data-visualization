@@ -29,15 +29,15 @@ export default defineComponent({
     const points: string[] = ['tl', 'tc', 'tr', 'ml', 'mr', 'bl', 'bc', 'br'];
 
     const store = useStore();
-    const activatedComponent = computed(() => store.state.activatedComponent);
-    const activatedFlag = computed(() => store.state.activatedFlag);
+    const acComponent = computed(() => store.state.acComponent);
+    const acFlag = computed(() => store.state.acFlag);
     const canvas = computed(() => store.state.canvas);
 
     // border 样式
     const indicatorAreaStyle = computed(() => {
-      const { indicatorVisible } = activatedFlag.value;
-      if (!activatedComponent.value || !indicatorVisible) return { display: 'none' };
-      const { size, position, zIndex = 0 } = activatedComponent.value;
+      const { indicatorVisible } = acFlag.value;
+      if (!acComponent.value || !indicatorVisible) return { display: 'none' };
+      const { size, position, zIndex = 0 } = acComponent.value;
       const width = size?.width || 0;
       const height = size?.height || 0;
       const left = position?.left || 0;
@@ -56,7 +56,7 @@ export default defineComponent({
     });
     // points 样式
     const pointsStyle: ComputedRef<string> = computed(() => {
-      const display = activatedFlag.value.indicatorVisible ? 'block' : 'none';
+      const display = acFlag.value.indicatorVisible ? 'block' : 'none';
       return `transform: scale(${1 / canvas.value.scale}); display: ${display}`;
     });
 
