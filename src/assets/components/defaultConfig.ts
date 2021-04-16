@@ -1,3 +1,18 @@
+// echarts 轴线、分割线 等 连线 设置
+export const lineStyle = {
+  color: '#aaaaaa',
+  width: 1,
+  type: 'solid',
+  opacity: 1
+}
+
+// echarts 轴线、分割线 等 文字相关 设置
+export const fontStyle = {
+  color: null,
+  fontSize: 12,
+  fontWeight: 'normal' // bold, bolder, lighter
+}
+
 export const titleConfig = {
   titleVisible: false,
   titleContent: '',
@@ -28,26 +43,24 @@ export const background = {
   shadowDiff: 0
 }
 
-// echarts 轴线、分割线 等 连线 设置
-export const lineStyle = {
-  color: '#aaaaaa',
-  width: 1,
-  type: 'solid',
-  opacity: 1
-}
-
-// echarts 轴线、分割线 等 文字相关 设置
-export const fontStyle = {
-  color: null,
-  fontSize: 12,
-  fontWeight: 'normal' // bold, bolder, lighter
-}
-
 export const grid = {
   top: 60,
   right: 60,
   bottom: 60,
   left: 60
+}
+
+export const legend = {
+  show: true,
+  orient: "vertical",
+  align: "auto",
+  itemWidth: 25,
+  itemHeight: 14,
+  selectedMode: true,
+  icon: '',
+  textStyle: {
+    ...fontStyle
+  }
 }
 
 export const xAxis = {
@@ -139,10 +152,12 @@ export const yAxis = {
     lineStyle: { ...lineStyle}
   }
 }
-// position: "top", // 标签位置 top / left / right / bottom / inside / insideLeft / insideRight / insideTop / insideBottom / insideTopLeft / insideBottomLeft / insideTopRight / insideBottomRight
 
 export default {
   titleConfig,
   background,
-  xAxis
+  grid,
+  legend,
+  xAxis,
+  yAxis
 }

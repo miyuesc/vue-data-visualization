@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
+import { defineComponent, computed, watchEffect, ref } from 'vue';
 import { useStore } from 'vuex';
 import dragEventHook from '@/components/hooks/dragEventHook';
 import dropEventHook from '@/components/hooks/dropEventHook';
@@ -42,7 +42,10 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    const componentsList = computed(() => Object.values(store.state.components ?? {}));
+    const components = computed(() => store.state.components);
+    const componentsList = ref({});
+
+    watchEffect(() => (componentsList.value = components.value));
 
     const clearActivity = () => {
       store.commit('setActivated', { type: 'background', component: null });

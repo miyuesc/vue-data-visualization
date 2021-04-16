@@ -17,14 +17,14 @@ function presetComponent(component: any) {
   }
 }
 
-const defaultComponentState = {
-  size: { width: 400, height: 260 },
-  position: { left: 700, top: 400 },
-  isLocked: false, // 是否锁定
-  id: 0,
-  index: "",
-  zIndex: 1,
-}
+// const defaultComponentState = {
+//   size: { width: 400, height: 260 },
+//   position: { left: 700, top: 400 },
+//   isLocked: false, // 是否锁定
+//   id: 0,
+//   index: "",
+//   zIndex: 1,
+// }
 
 export default createStore({
   state: () => ({
@@ -115,34 +115,19 @@ export default createStore({
       objectDeepClone(state.activatedComponent, newCompo);
       objectDeepClone(state.components[newCompo.zIndex], newCompo);
     },
-    // setActivity(state: any, { type, component }: any) {
-    //   state.activity.type = type;
-    //   updateComponent(state, component);
-    // },
-    // updateActivity(state: any, component: any) {
-    //   updateComponent(state, component);
-    // },
-    // setMoving(state: any, status: boolean) {
-    //   state.activity.isMoving = status;
-    // },
-    // setCopied(state: any, component: any) {
-    //   state.copiedComponent = JSON.parse(JSON.stringify(component));
-    // },
-    // setCopiedConfig(state: any, config: any) {
-    //   state.copiedConfig = JSON.parse(JSON.stringify(config));
-    // },
-    // createComponent(state: any, component: any){
-    //   state.components.push(JSON.parse(JSON.stringify(component)));
-    //   state.activity.component = JSON.parse(JSON.stringify(component));
-    //   state.activity.component.visible = true;
-    //   state.activity.type = 'component';
-    //   state.componentsTotal = state.componentsTotal + 1;
-    // },
-    // updateComponent(state: any, component: any) {
-    //   const index = state.components.findIndex((cp: any) => cp.id === component.id);
-    //   if (index !== -1) {
-    //     state.components.splice(index, 1, JSON.parse(JSON.stringify(component)));
-    //   }
-    // }
+    // a: activated, t: target
+    swapComponent(state: any, { a, t }: {  a: number; t: number }) {
+      state.components[t].zIndex = a;
+      state.components[a].zIndex = t;
+      const compA = state.components[a];
+      const compT = state.components[t];
+      state.components[t] = compA;
+      state.components[a] = compT;
+      setActivatedComponent(state, compA);
+    },
+    // 画布相关
+    updateCanvas(state: any, newState: any) {
+      objectDeepClone(state.canvas, newState);
+    }
   }
 });
