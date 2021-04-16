@@ -11,7 +11,7 @@ export default function dragEventHook () {
   }, 8);
 
   const dragStart: any = (event: any, component: any, index: number) => {
-    console.log('mouse down');
+    console.log(component.position, index)
     // 将激活组件设置为当前鼠标所在的组件
     store.commit('setActivated', { type: 'component', component, index });
 

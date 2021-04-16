@@ -7,7 +7,6 @@ function setAcComponent(state: any, index: number) {
   state.acFlag.indicatorVisible = true;
   state.acFlag.acIndex = index;
   state.acComponent = state.components[index];
-  console.log(state.acComponent, index);
   // objectDeepClone(state.acComponent, component);
 }
 

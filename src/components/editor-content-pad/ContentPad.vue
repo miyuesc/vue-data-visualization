@@ -43,6 +43,7 @@ export default defineComponent({
     watch(
       () => store.state.acComponent.config,
       (config: any) => {
+        console.log('pad', config);
         if (config) {
           configComponent.value = config.map((o: string) => `M${o.replace(o[0], o[0].toUpperCase())}`);
         } else {

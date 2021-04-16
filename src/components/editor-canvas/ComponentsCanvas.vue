@@ -48,7 +48,7 @@ export default defineComponent({
     watchEffect(() => (componentsList.value = components.value));
 
     const clearActivity = () => {
-      store.commit('setActivated', { type: 'background', component: null });
+      store.commit('setActivated', { type: 'background', component: {} });
     };
 
     const { dragStart } = dragEventHook();

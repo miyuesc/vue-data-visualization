@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from 'vue';
+import { defineComponent, ref, watch, computed } from 'vue';
 import { useStore } from 'vuex';
 import { debounce } from '@/utils/commonUtils';
 
@@ -41,7 +41,7 @@ export default defineComponent({
   name: 'MBaseConfig',
   setup() {
     const store = useStore();
-    const acComponent = store.state.acComponent;
+    const acComponent = computed(() => store.state.acComponent).value;
 
     const left = ref(0);
     const top = ref(0);
@@ -49,8 +49,9 @@ export default defineComponent({
     const height = ref(0);
 
     watch(
-      () => acComponent?.position,
+      () => acComponent.position,
       (val: any) => {
+        console.log(1);
         left.value = val?.left || 0;
         top.value = val?.top || 0;
       },
@@ -58,8 +59,9 @@ export default defineComponent({
     );
 
     watch(
-      () => acComponent?.size,
+      () => acComponent.size,
       (val: any) => {
+        console.log(2);
         width.value = val?.width || 0;
         height.value = val?.height || 0;
       },
