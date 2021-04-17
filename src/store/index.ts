@@ -1,17 +1,16 @@
 import { createStore } from 'vuex';
 import { objectDeepClone, uuid } from '@/utils/commonUtils';
-import defaultConfig from "@/assets/components/defaultConfig";
+import defaultConfig from '@/assets/components/defaultConfig';
 
 function setAcComponent(state: any, index: number) {
   state.acFlag.isMoving = false;
   state.acFlag.indicatorVisible = true;
   state.acFlag.acIndex = index;
   state.acComponent = state.components[index];
-  // objectDeepClone(state.acComponent, component);
 }
 
 function presetComponent(component: any) {
-  for (let key of component.config) {
+  for (const key of component.config) {
     component[key] = {};
     // @ts-ignore
     objectDeepClone(component[key], defaultConfig[key]);
@@ -78,9 +77,9 @@ export default createStore({
     setCopiedComponent(state: any, compo: any) {
       state.copiedConfig = JSON.stringify(compo);
     },
-    setDraggedComponent(state: any, { component, config}: any) {
+    setDraggedComponent(state: any, { component, config }: any) {
       state.draggedComponent = JSON.stringify(component);
-      objectDeepClone(state.draggedConfig, config)
+      objectDeepClone(state.draggedConfig, config);
     },
     // 创建新图表
     createComponent(state: any, { component, position, size }: any) {
@@ -93,37 +92,54 @@ export default createStore({
       // 合成 默认初始数据
       presetComponent(newCompo);
       state.components.push(newCompo);
-      setAcComponent(state, state.componentsTotal);
-      state.componentsTotal = state.componentsTotal + 1;
       state.acFlag.type = 'component';
+      setAcComponent(state, state.components.length - 1);
     },
     // 更新图表：key: 配置项的 key
     updateComponent(state: any, { newState, key }: any) {
       !state.acComponent[key] && (state.acComponent[key] = {});
       objectDeepClone(state.acComponent[key], newState);
-      // !state.components[state.acFlag.acIndex][key] && (state.components[state.acFlag.acIndex][key] = {});
-      // objectDeepClone(state.components[state.acFlag.acIndex][key], newState);
     },
     // 更新元素 位置与大小
     updateComponentPAS(state: any, newState: any) {
       objectDeepClone(state.acComponent.position, newState.position);
       objectDeepClone(state.acComponent.size, newState.size);
-      // objectDeepClone(state.components[state.acFlag.acIndex].position, newState.position);
-      // objectDeepClone(state.components[state.acFlag.acIndex].size, newState.size);
     },
     // 更新元素 所有属性
-    updateComponentAll(state: any, {detail, index}: any) {
+    updateComponentAll(state: any, { detail }: any) {
       objectDeepClone(state.acComponent, detail);
-      // objectDeepClone(state.components[index], detail);
     },
     // a: activated, t: target
-    swapComponent(state: any, { a, t }: {  a: number; t: number }) {
-      // state.components[t].zIndex = a;
-      // state.components[a].zIndex = t;
-      // const compA = state.components[a];
-      // const compT = state.components[t];
-      // state.components[t] = compA;
-      // state.components[a] = compT;
+    swapComponent(state: any, type: string) {
+      // 浅拷贝复制目标元素, 避免改变元素组长度
+      const comp = state.components.slice(state.acFlag.acIndex, state.acFlag.acIndex + 1)[0];
+      const index = state.acFlag.acIndex;
+      if (type === 'lowest') {
+        state.components.splice(index, 1);
+        state.components.unshift(comp);
+        setAcComponent(state, 0);
+      }
+      if (type === 'highest') {
+        state.components.splice(index, 1);
+        state.components.push(comp);
+        setAcComponent(state, state.components.length - 1);
+      }
+      if (type === 'down') {
+        if (index > 0) {
+          // 非底层元素
+          state.components.splice(index, 1); // 删除
+          state.components.splice(index - 1, 0, comp);
+          setAcComponent(state, index - 1);
+        }
+      }
+      if (type === 'up') {
+        if (index < state.components.length - 1) {
+          // 非顶层元素
+          state.components.splice(index, 1);
+          state.components.splice(index + 1, 0, comp);
+          setAcComponent(state, index + 1);
+        }
+      }
     },
     // 画布相关
     updateCanvas(state: any, newState: any) {

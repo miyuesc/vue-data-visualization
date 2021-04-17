@@ -11,21 +11,21 @@
       </svg>
     </span>
     <span class="tool-bar-button">
-      <svg aria-hidden="true" @click="swapComponent(1)">
+      <svg aria-hidden="true" @click="swapComponent('lowest')">
         <use xlink:href="#dv-zhidi"></use>
       </svg>
     </span>
     <span class="tool-bar-button">
-      <svg aria-hidden="true">
+      <svg aria-hidden="true" @click="swapComponent('highest')">
         <use xlink:href="#dv-zhiding"></use>
       </svg>
     </span>
-    <span class="tool-bar-button">
+    <span class="tool-bar-button" @click="swapComponent('up')">
       <svg aria-hidden="true">
         <use xlink:href="#dv-shangyi"></use>
       </svg>
     </span>
-    <span class="tool-bar-button">
+    <span class="tool-bar-button" @click="swapComponent('down')">
       <svg aria-hidden="true">
         <use xlink:href="#dv-xiayi"></use>
       </svg>
@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { useStore } from 'vuex';
 
 export default defineComponent({
@@ -51,15 +51,13 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const canvasScale = ref(store.state.canvas.scale * 100);
-    const activated = computed(() => store.state.acComponent);
 
     const updateCanvasScale = () => {
       store.commit('updateCanvas', { scale: canvasScale.value / 100 });
     };
 
-    const swapComponent = (targetIndex: number) => {
-      console.log(activated.value.zIndex, targetIndex);
-      store.commit('swapComponent', { a: activated.value.zIndex, t: targetIndex });
+    const swapComponent = (type: string) => {
+      store.commit('swapComponent', type);
     };
 
     return {

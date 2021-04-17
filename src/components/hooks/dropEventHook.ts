@@ -1,4 +1,4 @@
-import { useStore } from "vuex";
+import { useStore } from 'vuex';
 
 export default function DropEventHook() {
   const store = useStore();
@@ -15,11 +15,11 @@ export default function DropEventHook() {
     let left, top;
 
     // 拖放结束时鼠标在画布上
-    if ((target as HTMLElement).tagName === "DIV" && (target as HTMLElement).className === "editor-canvas-area") {
+    if ((target as HTMLElement).tagName === 'DIV' && (target as HTMLElement).className === 'editor-canvas-area') {
       left = offsetX - (draggedConfig?.offsetX || 0);
       top = offsetY - (draggedConfig?.offsetY || 0);
     } else {
-      let targetDiv = (path as HTMLElement[]).find((el: HTMLElement) => el.className.indexOf("cp cp") !==-1);
+      const targetDiv = (path as HTMLElement[]).find((el: HTMLElement) => el.className.indexOf('cp cp') !== -1);
       // 拖拽放置的目标位置在组件上
       left = (targetDiv as HTMLElement).offsetLeft + offsetX - (draggedConfig?.offsetX || 0);
       top = (targetDiv as HTMLElement).offsetTop + offsetY - (draggedConfig?.offsetY || 0);
@@ -34,12 +34,12 @@ export default function DropEventHook() {
       component: copied,
       size: { ...defaultSize },
       position: { left, top }
-    }
+    };
 
     store.commit('createComponent', newComponent);
-  }
+  };
 
   return {
     drop
-  }
+  };
 }

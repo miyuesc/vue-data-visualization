@@ -2,7 +2,7 @@ import { useStore } from 'vuex';
 import { computed } from 'vue';
 import { throttle } from '@/utils/commonUtils';
 
-export default function dragEventHook () {
+export default function dragEventHook() {
   const store = useStore();
   const canvas = computed(() => store.state.canvas).value;
 
@@ -11,7 +11,6 @@ export default function dragEventHook () {
   }, 8);
 
   const dragStart: any = (event: any, component: any, index: number) => {
-    console.log(component.position, index)
     // 将激活组件设置为当前鼠标所在的组件
     store.commit('setActivated', { type: 'component', component, index });
 
@@ -22,15 +21,17 @@ export default function dragEventHook () {
       y: target.offsetTop,
       clientX: event.clientX,
       clientY: event.clientY
-    }
+    };
     let first = true;
 
     const moving = (event: MouseEvent) => {
       if (first) {
-        store.commit('setMoving', { status: true});
+        store.commit('setMoving', { status: true });
         first = false;
       }
-      const { size: { width, height } } = component;
+      const {
+        size: { width, height }
+      } = component;
       // 根据鼠标移动距离更新元素的当前位置
       const { x, y, clientX, clientY } = currentPAS;
       let newLeft: number = x + (event.clientX - clientX) / canvas.scale;
@@ -44,19 +45,19 @@ export default function dragEventHook () {
       const position = { left: Math.floor(newLeft), top: Math.floor(newTop) };
 
       throttleUpdate(position);
-    }
+    };
 
     const moveEnd = () => {
-      store.commit('setMoving', { status: false});
+      store.commit('setMoving', { status: false });
       first = true;
       document.documentElement.removeEventListener('mousemove', moving);
       document.documentElement.removeEventListener('mouseup', moveEnd);
-    }
+    };
     document.documentElement.addEventListener('mousemove', moving);
     document.documentElement.addEventListener('mouseup', moveEnd);
-  }
+  };
 
   return {
     dragStart
-  }
+  };
 }

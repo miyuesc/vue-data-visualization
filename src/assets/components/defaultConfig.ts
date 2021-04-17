@@ -4,14 +4,14 @@ export const lineStyle = {
   width: 1,
   type: 'solid',
   opacity: 1
-}
+};
 
 // echarts 轴线、分割线 等 文字相关 设置
 export const fontStyle = {
   color: null,
   fontSize: 12,
   fontWeight: 'normal' // bold, bolder, lighter
-}
+};
 
 export const titleConfig = {
   titleVisible: false,
@@ -26,7 +26,7 @@ export const titleConfig = {
   unitBold: false,
   unitItalic: false,
   unitSize: 14
-}
+};
 
 export const background = {
   color: '',
@@ -41,19 +41,19 @@ export const background = {
   shadowY: 0,
   shadowBlur: 0,
   shadowDiff: 0
-}
+};
 
 export const grid = {
   top: 60,
   right: 60,
   bottom: 60,
   left: 60
-}
+};
 
 export const legend = {
   show: true,
-  orient: "vertical",
-  align: "auto",
+  orient: 'vertical',
+  align: 'auto',
   itemWidth: 25,
   itemHeight: 14,
   selectedMode: true,
@@ -61,7 +61,7 @@ export const legend = {
   textStyle: {
     ...fontStyle
   }
-}
+};
 
 export const xAxis = {
   show: true,
@@ -79,7 +79,7 @@ export const xAxis = {
   axisLine: {
     show: true,
     onZero: true,
-    lineStyle: { ...lineStyle}
+    lineStyle: { ...lineStyle }
   },
   // 刻度线段设置
   axisTick: {
@@ -87,7 +87,7 @@ export const xAxis = {
     alignWidthLabel: false,
     inside: false,
     length: 5,
-    lineStyle: { ...lineStyle}
+    lineStyle: { ...lineStyle }
   },
   // 刻度名称设置
   axisLabel: {
@@ -104,9 +104,9 @@ export const xAxis = {
   // 刻度分割线设置
   splitLine: {
     show: false,
-    lineStyle: { ...lineStyle}
+    lineStyle: { ...lineStyle }
   }
-}
+};
 
 export const yAxis = {
   show: true,
@@ -124,7 +124,7 @@ export const yAxis = {
   axisLine: {
     show: true,
     onZero: true,
-    lineStyle: { ...lineStyle}
+    lineStyle: { ...lineStyle }
   },
   // 刻度线段设置
   axisTick: {
@@ -132,7 +132,7 @@ export const yAxis = {
     alignWidthLabel: false,
     inside: false,
     length: 5,
-    lineStyle: { ...lineStyle}
+    lineStyle: { ...lineStyle }
   },
   // 刻度名称设置
   axisLabel: {
@@ -149,9 +149,9 @@ export const yAxis = {
   // 刻度分割线设置
   splitLine: {
     show: false,
-    lineStyle: { ...lineStyle}
+    lineStyle: { ...lineStyle }
   }
-}
+};
 
 export default {
   titleConfig,
@@ -160,4 +160,4 @@ export default {
   legend,
   xAxis,
   yAxis
-}
+};

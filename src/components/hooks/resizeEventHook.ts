@@ -1,6 +1,6 @@
-import { useStore } from "vuex";
-import { computed } from "vue";
-import { throttle } from "@/utils/commonUtils";
+import { useStore } from 'vuex';
+import { computed } from 'vue';
+import { throttle } from '@/utils/commonUtils';
 
 export default function resizeEventHook() {
   const store = useStore();
@@ -20,7 +20,7 @@ export default function resizeEventHook() {
       height: event.target.parentNode.clientHeight,
       clientX: event.clientX,
       clientY: event.clientY
-    }
+    };
 
     const resizing = (event: MouseEvent) => {
       const { x, y, width, height, clientX, clientY } = currentPAS;
@@ -125,16 +125,16 @@ export default function resizeEventHook() {
       };
 
       throttleUpdate(newPAS);
-    }
+    };
 
     const resizeEnd = () => {
       document.documentElement.removeEventListener('mousemove', resizing);
       document.documentElement.removeEventListener('mouseup', resizeEnd);
-    }
+    };
     document.documentElement.addEventListener('mousemove', resizing);
     document.documentElement.addEventListener('mouseup', resizeEnd);
-  }
+  };
   return {
     resizeStart
-  }
+  };
 }

@@ -130,7 +130,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, shallowReactive, watch, ref } from 'vue';
+import { defineComponent, shallowReactive, watch, ref } from 'vue';
 import { useStore } from 'vuex';
 import { objectDeepClone } from '@/utils/commonUtils';
 
@@ -141,21 +141,16 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
-    const activityComponent = computed(() => store.state.acComponent).value;
 
     const background = shallowReactive({});
     const backgroundContentVisible = ref(false);
 
     // 监听id 变化重新赋值
     watch(
-      () => activityComponent.id,
-      () => {
-        // if (activityComponent && activityComponent.background) {
-        objectDeepClone(background, activityComponent.background);
+      () => store.state.acComponent?.id,
+      (val: string) => {
+        !!val && objectDeepClone(background, store.state.acComponent.background);
         backgroundContentVisible.value = false;
-        // } else {
-        //   objectDeepClone(background, defaultBackground);
-        // }
       },
       { immediate: true }
     );

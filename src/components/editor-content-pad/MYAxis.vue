@@ -151,7 +151,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, reactive, watch, toRaw } from 'vue';
+import { defineComponent, ref, reactive, watch, toRaw } from 'vue';
 import { useStore } from 'vuex';
 import { yAxis as defaultConfig } from '@/assets/components/defaultConfig';
 import { objectDeepClone } from '@/utils/commonUtils';
@@ -160,7 +160,6 @@ export default defineComponent({
   name: 'MXAxis',
   setup() {
     const store = useStore();
-    const activityComponent = computed(() => store.state.acComponent).value;
 
     const yAxisContentVisible = ref(false);
     const changeVisible = () => (yAxisContentVisible.value = !yAxisContentVisible.value);
@@ -169,10 +168,10 @@ export default defineComponent({
 
     // 监听id 变化重新赋值
     watch(
-      () => activityComponent.id,
-      () => {
+      () => store.state.acComponent?.id,
+      (val: string) => {
         yAxisContentVisible.value = false;
-        objectDeepClone(yAxis, toRaw(store.state.acComponent.yAxis));
+        !!val && objectDeepClone(yAxis, toRaw(store.state.acComponent.yAxis));
       },
       { immediate: true }
     );

@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, computed } from 'vue';
+import { defineComponent, ref, watchEffect } from 'vue';
 import { useStore } from 'vuex';
 import { debounce } from '@/utils/commonUtils';
 
@@ -41,31 +41,23 @@ export default defineComponent({
   name: 'MBaseConfig',
   setup() {
     const store = useStore();
-    const acComponent = computed(() => store.state.acComponent).value;
+    // const acComponent = computed(() => store.state.acComponent).value;
 
     const left = ref(0);
     const top = ref(0);
     const width = ref(0);
     const height = ref(0);
 
-    watch(
-      () => acComponent.position,
-      (val: any) => {
-        console.log(1);
-        left.value = val?.left || 0;
-        top.value = val?.top || 0;
+    watchEffect(
+      () => {
+        if (store.state.acComponent && store.state.acComponent.id) {
+          left.value = store.state.acComponent.position.left;
+          top.value = store.state.acComponent.position.top;
+          width.value = store.state.acComponent.size.width;
+          height.value = store.state.acComponent.size.height;
+        }
       },
-      { immediate: true, deep: true }
-    );
-
-    watch(
-      () => acComponent.size,
-      (val: any) => {
-        console.log(2);
-        width.value = val?.width || 0;
-        height.value = val?.height || 0;
-      },
-      { immediate: true, deep: true }
+      { flush: 'sync' }
     );
 
     const debounceUpdatePosition = debounce(function () {

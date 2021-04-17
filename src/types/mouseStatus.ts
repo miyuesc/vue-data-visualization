@@ -7,9 +7,9 @@ export interface MouseDownCoordinator {
   mouseY: number;
 }
 
-export type MouseActiveType = "move" | "resize" | "create" | null;
+export type MouseActiveType = 'move' | 'resize' | 'create' | null;
 
-export type ActivePoint = "tl" | "tc" | "tr" | "ml" | "mr" | "bl" | "bc" | "br" | null;
+export type ActivePoint = 'tl' | 'tc' | 'tr' | 'ml' | 'mr' | 'bl' | 'bc' | 'br' | null;
 
 export interface MouseStatus {
   mouseDownCoordinator: MouseDownCoordinator;

@@ -21,9 +21,6 @@ export default defineComponent({
     const lineChartRef: any = ref(null);
 
     const defaultOptions = {
-      tooltip: {
-        trigger: 'axis'
-      },
       grid: {
         left: 60,
         top: 60,

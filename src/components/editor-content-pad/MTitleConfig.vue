@@ -89,7 +89,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, shallowReactive, computed, watch, toRaw, ref } from 'vue';
+import { defineComponent, shallowReactive, watch, toRaw, ref } from 'vue';
 import { useStore } from 'vuex';
 import { objectDeepClone } from '@/utils/commonUtils';
 
@@ -97,7 +97,6 @@ export default defineComponent({
   name: 'MTitleConfig',
   setup() {
     const store = useStore();
-    const activityComponent = computed(() => store.state.acComponent).value;
 
     const titleContentVisible = ref(false);
 
@@ -115,10 +114,10 @@ export default defineComponent({
 
     // 监听id 变化重新赋值
     watch(
-      () => activityComponent.id,
-      () => {
+      () => store.state.acComponent?.id,
+      (val: string) => {
         titleContentVisible.value = true;
-        objectDeepClone(titleConfig, toRaw(store.state.acComponent.titleConfig));
+        !!val && objectDeepClone(titleConfig, toRaw(store.state.acComponent.titleConfig));
       },
       { immediate: true }
     );
