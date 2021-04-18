@@ -12,6 +12,8 @@
 
 国内同步镜像: [https://miyuesc.gitee.io/data-visualization/](https://miyuesc.gitee.io/data-visualization/)
 
+> 预览地址可能会存在版本不符的问题, 建议下载运行
+
 ## 主要功能
 
 已实现 缩放/拖拽, 标题单位, 背景边框, 坐标轴, 层级移动, 画布缩放 等.
