@@ -1,15 +1,17 @@
 import { createStore } from 'vuex';
 import { objectDeepClone, uuid } from '@/utils/commonUtils';
 import defaultConfig from '@/assets/components/defaultConfig';
+import { AcFlagType, StoreState } from '@/types/store';
+import type { Component, ComponentConfig, Position, Size } from '@/types/component';
 
-function setAcComponent(state: any, index: number) {
+function setAcComponent(state: StoreState, index: number) {
   state.acFlag.isMoving = false;
   state.acFlag.indicatorVisible = true;
   state.acFlag.acIndex = index;
   state.acComponent = state.components[index];
 }
 
-function presetComponent(component: any) {
+function presetComponent(component: Component) {
   for (const key of component.config) {
     component[key] = {};
     objectDeepClone(component[key], (defaultConfig as any)[key]);
@@ -25,8 +27,8 @@ function presetComponent(component: any) {
 //   zIndex: 1,
 // }
 
-export default createStore({
-  state: () => ({
+export default createStore<StoreState>({
+  state: {
     // 画布
     canvas: {
       size: {
@@ -49,39 +51,45 @@ export default createStore({
       isMoving: false, // 是否移动中 => 是否显示指示线
       indicatorVisible: false
     },
-    acComponent: {},
+    acComponent: null,
     // 复制的组件
-    copiedComponent: {},
+    copiedComponent: '',
     copiedConfig: {},
     // 拖拽的组件
-    draggedComponent: {},
+    draggedComponent: '',
     draggedConfig: {}
-  }),
+  },
   mutations: {
-    setActivated(state: any, { type, component, index }: any) {
+    setActivated(
+      state: StoreState,
+      { type, component, index }: { component: string; type: AcFlagType; index: number }
+    ) {
       state.acFlag.type = type;
       if (!component) {
         state.acFlag.indicatorVisible = false;
         state.acFlag.acIndex = -1;
-        state.acComponent = {};
+        state.acComponent = null;
       } else {
         setAcComponent(state, index);
       }
     },
-    setMoving(state: any, { status }: any) {
+    setMoving(state: StoreState, { status }: { status: boolean }) {
       if (!state.acComponent || !state.acComponent.isLocked) {
         state.acFlag.isMoving = status;
       }
     },
-    setCopiedComponent(state: any, compo: any) {
-      state.copiedConfig = JSON.stringify(compo);
+    setCopiedComponent(state: StoreState, compo: any) {
+      state.copiedComponent = JSON.stringify(compo);
     },
-    setDraggedComponent(state: any, { component, config }: any) {
+    setDraggedComponent(state: StoreState, { component, config }: any) {
       state.draggedComponent = JSON.stringify(component);
       objectDeepClone(state.draggedConfig, config);
     },
     // 创建新图表
-    createComponent(state: any, { component, position, size }: any) {
+    createComponent(
+      state: StoreState,
+      { component, position, size }: { component: string; position: Position; size: Size }
+    ) {
       const newCompo = {
         ...JSON.parse(component),
         position: { ...position },
@@ -95,21 +103,24 @@ export default createStore({
       setAcComponent(state, state.components.length - 1);
     },
     // 更新图表：key: 配置项的 key
-    updateComponent(state: any, { newState, key }: any) {
+    updateComponent(state: StoreState, { newState, key }: { newState: Component; key: ComponentConfig }) {
+      if (!state.acComponent) return;
       !state.acComponent[key] && (state.acComponent[key] = {});
       objectDeepClone(state.acComponent[key], newState);
     },
     // 更新元素 位置与大小
-    updateComponentPAS(state: any, newState: any) {
+    updateComponentPAS(state: StoreState, newState: Component) {
+      if (!state.acComponent) return;
       objectDeepClone(state.acComponent.position, newState.position);
       objectDeepClone(state.acComponent.size, newState.size);
     },
     // 更新元素 所有属性
-    updateComponentAll(state: any, { detail }: any) {
+    updateComponentAll(state: StoreState, { detail }: { detail: Component }) {
+      if (!state.acComponent) return;
       objectDeepClone(state.acComponent, detail);
     },
     // a: activated, t: target
-    swapComponent(state: any, type: string) {
+    swapComponent(state: StoreState, type: string) {
       // 浅拷贝复制目标元素, 避免改变元素组长度
       const comp = state.components.slice(state.acFlag.acIndex, state.acFlag.acIndex + 1)[0];
       const index = state.acFlag.acIndex;
@@ -140,7 +151,7 @@ export default createStore({
         }
       }
     },
-    removeComponent(state: any) {
+    removeComponent(state: StoreState) {
       state.components.splice(state.acFlag.acIndex, 1);
       if (state.components.length) {
         setAcComponent(state, state.components.length - 1);
@@ -148,11 +159,11 @@ export default createStore({
         state.acFlag.type = 'background';
         state.acFlag.indicatorVisible = false;
         state.acFlag.acIndex = -1;
-        state.acComponent = {};
+        state.acComponent = null;
       }
     },
     // 画布相关
-    updateCanvas(state: any, newState: any) {
+    updateCanvas(state: StoreState, newState: Component) {
       objectDeepClone(state.canvas, newState);
     }
   }

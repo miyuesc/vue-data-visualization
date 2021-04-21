@@ -79,22 +79,22 @@ export function setLocal(key: string, data?: any) {
   localStorage.setItem(key, localData);
 }
 
-export function isObject(data: any) {
+export function isObject(data: any): boolean {
   return Object.prototype.toString.call(data) === '[object Object]';
 }
 
-export function hexToRgb(hex: string) {
+export function hexToRgb(hex: string): string {
   return 'rgb(' + parseInt('0x' + hex.slice(1, 3)) + ',' + parseInt('0x' + hex.slice(3, 5))
     + ',' + parseInt('0x' + hex.slice(5, 7)) + ')';
 }
 
 //hex -> rgba
-export function hexToRgba(hex:string, opacity: number) {
+export function hexToRgba(hex:string, opacity: number): string {
   return 'rgba(' + parseInt('0x' + hex.slice(1, 3)) + ',' + parseInt('0x' + hex.slice(3, 5)) + ','
     + parseInt('0x' + hex.slice(5, 7)) + ',' + opacity + ')';
 }
 
-export function objectDeepClone(target: any, source: { [key: string]: any }) {
+export function objectDeepClone(target: { [key: string]: any }, source: { [key: string]: any }) {
   if (!isObject(target)) {
     target = {};
   }

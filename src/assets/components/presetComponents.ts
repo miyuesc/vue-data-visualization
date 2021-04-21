@@ -53,7 +53,7 @@ const presetComponents: any = {
         name: "关系图",
         code: "graphChart",
         componentName: "关系图",
-        config: ["titleConfig", "background", "legend", "funnelConfig"]
+        config: ["titleConfig", "background", "legend", "graphConfig"]
       }, // 关系图
       funnelCharts: {
         name: "漏斗图",
