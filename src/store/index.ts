@@ -141,6 +141,17 @@ export default createStore({
         }
       }
     },
+    removeComponent(state: any) {
+      state.components.splice(state.acFlag.acIndex, 1);
+      if (state.components.length) {
+        setAcComponent(state, state.components.length - 1);
+      } else {
+        state.acFlag.type = 'background';
+        state.acFlag.indicatorVisible = false;
+        state.acFlag.acIndex = -1;
+        state.acComponent = {};
+      }
+    },
     // 画布相关
     updateCanvas(state: any, newState: any) {
       objectDeepClone(state.canvas, newState);

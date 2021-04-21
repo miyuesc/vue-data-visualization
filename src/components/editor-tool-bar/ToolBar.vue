@@ -11,6 +11,11 @@
       </svg>
     </span>
     <span class="tool-bar-button">
+      <svg aria-hidden="true" @click="removeComponent()">
+        <use xlink:href="#dv-delete"></use>
+      </svg>
+    </span>
+    <span class="tool-bar-button">
       <svg aria-hidden="true" @click="swapComponent('lowest')">
         <use xlink:href="#dv-zhidi"></use>
       </svg>
@@ -60,10 +65,15 @@ export default defineComponent({
       store.commit('swapComponent', type);
     };
 
+    const removeComponent = () => {
+      store.commit('removeComponent');
+    };
+
     return {
       canvasScale,
       updateCanvasScale,
-      swapComponent
+      swapComponent,
+      removeComponent
     };
   }
 });
