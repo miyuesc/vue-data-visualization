@@ -50,22 +50,25 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { useStore } from 'vuex';
+import type { Ref } from 'vue';
+import type { Store } from 'vuex';
+import type { StoreState } from '@/types/store';
 
 export default defineComponent({
   name: 'ToolBar',
   setup() {
-    const store = useStore();
-    const canvasScale = ref(store.state.canvas.scale * 100);
+    const store: Store<StoreState> = useStore();
+    const canvasScale: Ref<number> = ref(store.state.canvas.scale * 100);
 
-    const updateCanvasScale = () => {
+    const updateCanvasScale = (): void => {
       store.commit('updateCanvas', { scale: canvasScale.value / 100 });
     };
 
-    const swapComponent = (type: string) => {
+    const swapComponent = (type: string): void => {
       store.commit('swapComponent', type);
     };
 
-    const removeComponent = () => {
+    const removeComponent = (): void => {
       store.commit('removeComponent');
     };
 

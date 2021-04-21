@@ -1,16 +1,20 @@
 import { useStore } from 'vuex';
 import { computed } from 'vue';
 import { throttle } from '@/utils/commonUtils';
+import type { Store } from 'vuex';
+import type { StoreState } from '@/types/store';
+import type { Canvas } from '@/types/canvas';
+import type { Component, Position } from '@/types/component';
 
 export default function dragEventHook() {
-  const store = useStore();
-  const canvas = computed(() => store.state.canvas).value;
+  const store: Store<StoreState> = useStore();
+  const canvas: Canvas = computed(() => store.state.canvas).value;
 
   const throttleUpdate: any = throttle((position: any) => {
     store.commit('updateComponent', { newState: { ...position }, key: 'position' });
   }, 8);
 
-  const dragStart: any = (event: any, component: any, index: number) => {
+  const dragStart: any = (event: any, component: Component, index: number) => {
     // 将激活组件设置为当前鼠标所在的组件
     store.commit('setActivated', { type: 'component', component, index });
 
@@ -42,7 +46,7 @@ export default function dragEventHook() {
       if (newTop < 0) newTop = 0;
       if (newTop + height > canvas.size.height) newTop = canvas.size.height - height;
 
-      const position = { left: Math.floor(newLeft), top: Math.floor(newTop) };
+      const position: Position = { left: Math.floor(newLeft), top: Math.floor(newTop) };
 
       throttleUpdate(position);
     };

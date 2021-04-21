@@ -35,11 +35,11 @@ export default defineComponent({
     TreeChart
   },
   setup(props) {
-    const componentType = computed(() => props.info?.code || '');
+    const componentType: ComputedRef = computed(() => props.info?.code || '');
 
     const background: ComputedRef = computed(() => props.info?.background);
 
-    const backgroundStyle = computed(() => {
+    const backgroundStyle: ComputedRef = computed(() => {
       return computedBackgroundStyle(background.value);
     });
 

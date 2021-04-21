@@ -1,10 +1,23 @@
 import { useStore } from 'vuex';
 import { computed } from 'vue';
 import { throttle } from '@/utils/commonUtils';
+import type { Store } from 'vuex';
+import type { Canvas } from '@/types/canvas';
+import type { StoreState } from '@/types/store';
+import type { Position, Size } from '@/types/component';
+
+interface PAS {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  clientX: number;
+  clientY: number;
+}
 
 export default function resizeEventHook() {
-  const store = useStore();
-  const canvas = computed(() => store.state.canvas).value;
+  const store: Store<StoreState> = useStore();
+  const canvas: Canvas = computed(() => store.state.canvas).value;
 
   const throttleUpdate: any = throttle((newState: any) => {
     store.commit('updateComponentPAS', newState);
@@ -13,7 +26,7 @@ export default function resizeEventHook() {
   const resizeStart = (event: any, point: string) => {
     const activePoint = point;
     // 记录点所在的父元素的 状态， 与点的当前位置
-    const currentPAS = {
+    const currentPAS: PAS = {
       x: event.target.parentNode.offsetLeft,
       y: event.target.parentNode.offsetTop,
       width: event.target.parentNode.clientWidth,
@@ -24,15 +37,15 @@ export default function resizeEventHook() {
 
     const resizing = (event: MouseEvent) => {
       const { x, y, width, height, clientX, clientY } = currentPAS;
-      let newWidth = width;
-      let newHeight = height;
-      let newLeft = x;
-      let newTop = y;
-      const offsetX = (event.clientX - clientX) / canvas.scale; // x 方向偏移量
-      const offsetY = (event.clientY - clientY) / canvas.scale; // y 方向偏移量
+      let newWidth: number = width;
+      let newHeight: number = height;
+      let newLeft: number = x;
+      let newTop: number = y;
+      const offsetX: number = (event.clientX - clientX) / canvas.scale; // x 方向偏移量
+      const offsetY: number = (event.clientY - clientY) / canvas.scale; // y 方向偏移量
       // 边界判断
-      const isLegalX = offsetX + x > 0 && offsetX + x < canvas.size.width;
-      const isLegalY = offsetY + y > 0 && offsetY + y < canvas.size.height;
+      const isLegalX: boolean = offsetX + x > 0 && offsetX + x < canvas.size.width;
+      const isLegalY: boolean = offsetY + y > 0 && offsetY + y < canvas.size.height;
       // 根据 鼠标移动距离 设置 新的高宽
       // 左上, 均会改变
       if (activePoint === 'tl') {
@@ -63,7 +76,7 @@ export default function resizeEventHook() {
       }
       // 右上, newLeft 不变
       if (activePoint === 'tr') {
-        const maxWidth = canvas.size.width - x;
+        const maxWidth: number = canvas.size.width - x;
         newWidth = width + offsetX > maxWidth ? maxWidth : width + offsetX;
         if (newWidth <= 0) newWidth = 0;
         newHeight = isLegalY ? height - offsetY : height + y;
@@ -76,7 +89,7 @@ export default function resizeEventHook() {
       }
       // 左中, newTop、newHeight 不变
       if (activePoint === 'ml') {
-        const maxWidth = width + x;
+        const maxWidth: number = width + x;
         newWidth = width - offsetX > maxWidth ? maxWidth : width - offsetX;
         newLeft = width - offsetX > maxWidth ? 0 : newLeft + offsetX;
         if (newWidth <= 0) {
@@ -86,40 +99,40 @@ export default function resizeEventHook() {
       }
       // 右中, newTop、newHeight、newLeft 不变
       if (activePoint === 'mr') {
-        const maxWidth = canvas.size.width - x;
+        const maxWidth: number = canvas.size.width - x;
         newWidth = width + offsetX < maxWidth ? width + offsetX : maxWidth;
         if (newWidth <= 0) newWidth = 0;
       }
       // 下左, newTop 不变
       if (activePoint === 'bl') {
-        const maxWidth = width + x;
+        const maxWidth: number = width + x;
         newWidth = width - offsetX > maxWidth ? maxWidth : width - offsetX;
         newLeft = width - offsetX > maxWidth ? 0 : newLeft + offsetX;
         if (newWidth <= 0) {
           newWidth = 0;
           newLeft = maxWidth;
         }
-        const maxHeight = canvas.size.height - y;
+        const maxHeight: number = canvas.size.height - y;
         newHeight = height + offsetY < maxHeight ? height + offsetY : maxHeight;
         if (newHeight <= 0) newHeight = 0;
       }
       // 下中, newWidth, newTop 不变
       if (activePoint === 'bc') {
-        const maxHeight = canvas.size.height - y;
+        const maxHeight: number = canvas.size.height - y;
         newHeight = height + offsetY < maxHeight ? height + offsetY : maxHeight;
         if (newHeight <= 0) newHeight = 0;
       }
       // 下右, newTop, newLeft 不变
       if (activePoint === 'br') {
-        const maxWidth = canvas.size.width - x;
+        const maxWidth: number = canvas.size.width - x;
         newWidth = width + offsetX < maxWidth ? width + offsetX : maxWidth;
         if (newWidth <= 0) newWidth = 0;
-        const maxHeight = canvas.size.height - y;
+        const maxHeight: number = canvas.size.height - y;
         newHeight = height + offsetY < maxHeight ? height + offsetY : maxHeight;
         if (newHeight <= 0) newHeight = 0;
       }
 
-      const newPAS = {
+      const newPAS: { position: Position; size: Size } = {
         position: { left: Math.floor(newLeft), top: Math.floor(newTop) },
         size: { width: Math.floor(newWidth) || 0, height: Math.floor(newHeight) || 0 }
       };

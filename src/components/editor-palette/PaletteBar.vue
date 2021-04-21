@@ -32,23 +32,26 @@ import presetComponents from '@/assets/components/presetComponents';
 import images from '@/assets/components/componentImages';
 import { defineComponent, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
+import type { Ref } from 'vue';
+import type { Store } from 'vuex';
+import type { StoreState } from '@/types/store';
 
 export default defineComponent({
   name: 'PaletteBar',
   setup() {
-    const store = useStore();
-    const presetComponentsList = presetComponents;
-    const imagesObject = images;
+    const store: Store<StoreState> = useStore();
+    const presetComponentsList: any = presetComponents;
+    const imagesObject: { [key: string]: string } = images;
     const selectedComponentType = reactive({ list: [], activeKey: '' });
-    const showPanel = ref(false);
+    const showPanel: Ref<boolean> = ref(false);
 
-    const openChildrenPenal = (i: any) => {
+    const openChildrenPenal = (i: any): void => {
       showPanel.value = !(selectedComponentType.activeKey === i.icon);
       selectedComponentType.activeKey = selectedComponentType.activeKey === i.icon ? '' : i.icon;
       selectedComponentType.list = Object.values(i.children || {});
     };
 
-    const dragToCreate = (event: any, component: any) => {
+    const dragToCreate = (event: any, component: any): void => {
       const { offsetX, offsetY } = event;
       store.commit('setDraggedComponent', { component, config: { offsetX, offsetY } });
     };

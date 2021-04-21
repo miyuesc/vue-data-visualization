@@ -29,9 +29,13 @@
 <script lang="ts">
 import { defineComponent, computed, watchEffect, ref } from 'vue';
 import { useStore } from 'vuex';
+import ComponentTransform from './indicators/ComponentTransform.vue';
 import dragEventHook from '@/components/hooks/dragEventHook';
 import dropEventHook from '@/components/hooks/dropEventHook';
-import ComponentTransform from './indicators/ComponentTransform.vue';
+import type { ComputedRef, Ref } from 'vue';
+import type { Store } from 'vuex';
+import type { Component } from '@/types/component';
+import type { StoreState } from '@/types/store';
 
 export default defineComponent({
   name: 'ComponentsCanvas',
@@ -40,14 +44,14 @@ export default defineComponent({
     ComponentTransform
   },
   setup() {
-    const store = useStore();
+    const store: Store<StoreState> = useStore();
 
-    const components = computed(() => store.state.components);
-    const componentsList = ref({});
+    const components: ComputedRef<Component[]> = computed(() => store.state.components);
+    const componentsList: Ref = ref({});
 
     watchEffect(() => (componentsList.value = components.value));
 
-    const clearActivity = () => {
+    const clearActivity = (): void => {
       store.commit('setActivated', { type: 'background', component: {} });
     };
 

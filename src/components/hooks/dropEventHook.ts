@@ -1,17 +1,20 @@
 import { useStore } from 'vuex';
+import type { Store } from 'vuex';
+import type { StoreState } from '@/types/store';
+import type { Size } from '@/types/component';
 
 export default function DropEventHook() {
-  const store = useStore();
+  const store: Store<StoreState> = useStore();
 
   const drop: any = (event: MouseEvent) => {
     const { offsetX, offsetY, target, path } = event as any;
     // 默认配置项
     const defaultSize = { width: 400, height: 260 }; // const defaultSize = store.state.defaultConfig.size;
-    const copied = store.state.draggedComponent;
-    const canvasSize = store.state.canvas.size;
-    const draggedConfig = store.state.draggedConfig || {};
+    const copied: string = store.state.draggedComponent ?? '';
+    const canvasSize: Size = store.state.canvas.size;
+    const draggedConfig: any = store.state.draggedConfig || {};
 
-    let left, top;
+    let left: number, top: number;
 
     // 拖放结束时鼠标在画布上
     if ((target as HTMLElement).tagName === 'DIV' && (target as HTMLElement).className === 'editor-canvas-area') {

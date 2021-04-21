@@ -8,6 +8,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
+import type { ComputedRef } from 'vue';
 
 export default defineComponent({
   name: 'ConfigFormItem',
@@ -21,7 +22,7 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const labelWidthStyle = computed(() => {
+    const labelWidthStyle: ComputedRef<string> = computed(() => {
       return `width: ${props.labelWidth}px; min-width: ${props.labelWidth}px`;
     });
 

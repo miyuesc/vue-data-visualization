@@ -25,14 +25,17 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
-import { Store, useStore } from 'vuex';
-import { Canvas } from '@/types/canvas';
+import { useStore } from 'vuex';
 import ToolBar from '../../components/editor-tool-bar/ToolBar.vue';
 import ComponentsCanvas from '../../components/editor-canvas/ComponentsCanvas.vue';
 import ScenesCanvas from '../../components/editor-canvas/ScenesCanvas.vue';
 import HandlersCanvas from '../../components/editor-canvas/HanldersCanvas.vue';
 import PaletteBar from '../../components/editor-palette/PaletteBar.vue';
 import ContentPad from '../../components/editor-content-pad/ContentPad.vue';
+import type { ComputedRef } from 'vue';
+import type { Store } from 'vuex';
+import type { Canvas } from '@/types/canvas';
+import type { StoreState } from '@/types/store';
 
 export default defineComponent({
   name: 'Editor',
@@ -45,10 +48,10 @@ export default defineComponent({
     ContentPad
   },
   setup() {
-    const store: Store<any> = useStore();
+    const store: Store<StoreState> = useStore();
     const canvasState: Canvas = store.state.canvas;
 
-    const screenStyle = computed(() => `transform: scale(${canvasState.scale});`);
+    const screenStyle: ComputedRef<string> = computed(() => `transform: scale(${canvasState.scale});`);
 
     return {
       screenStyle
