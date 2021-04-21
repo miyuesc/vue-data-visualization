@@ -12,8 +12,7 @@ function setAcComponent(state: any, index: number) {
 function presetComponent(component: any) {
   for (const key of component.config) {
     component[key] = {};
-    // @ts-ignore
-    objectDeepClone(component[key], defaultConfig[key]);
+    objectDeepClone(component[key], (defaultConfig as any)[key]);
   }
 }
 
