@@ -155,13 +155,16 @@ import { defineComponent, ref, reactive, watch, toRaw } from 'vue';
 import { useStore } from 'vuex';
 import { xAxis as defaultConfig } from '@/assets/components/defaultConfig';
 import { objectDeepClone } from '@/utils/commonUtils';
+import type { Ref } from 'vue';
+import type { Store } from 'vuex';
+import type { StoreState } from '@/types/store';
 
 export default defineComponent({
   name: 'MXAxis',
   setup() {
-    const store = useStore();
+    const store: Store<StoreState> = useStore();
 
-    const xAxisContentVisible = ref(false);
+    const xAxisContentVisible: Ref<boolean> = ref(false);
     const changeVisible = () => (xAxisContentVisible.value = !xAxisContentVisible.value);
 
     const xAxis = reactive(defaultConfig);
@@ -169,9 +172,9 @@ export default defineComponent({
     // 监听id 变化重新赋值
     watch(
       () => store.state.acComponent?.id,
-      (val: string) => {
+      (val: string | undefined) => {
         xAxisContentVisible.value = false;
-        !!val && objectDeepClone(xAxis, toRaw(store.state.acComponent.xAxis));
+        !!val && store.state.acComponent && objectDeepClone(xAxis, toRaw(store.state.acComponent.xAxis));
       },
       { immediate: true }
     );

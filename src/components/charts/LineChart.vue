@@ -60,12 +60,14 @@ export default defineComponent({
     };
 
     const grid = computed(() => props.info.grid || defaultOptions.grid);
+    const legend = computed(() => props.info.legend || defaultOptions.legend);
     const xAxis = computed(() => props.info.xAxis || defaultOptions.xAxis);
     const yAxis = computed(() => props.info.yAxis || defaultOptions.yAxis);
 
     const options = computed(() => {
       return {
         ...defaultOptions,
+        legend: { ...defaultOptions.legend, ...legend.value },
         grid: { ...grid.value },
         xAxis: { ...defaultOptions.xAxis, ...xAxis.value },
         yAxis: { ...yAxis.value }
@@ -79,7 +81,7 @@ export default defineComponent({
       }
     };
 
-    const debounceResize = debounce(() => {
+    const debounceRerender = debounce(() => {
       if (lineChart) {
         lineChart.dispose();
         lineChart = null;
@@ -88,19 +90,19 @@ export default defineComponent({
     }, 200);
 
     watch(
-      () => {
-        return {
-          size: props.info?.size,
-          borderWidth: props.info?.background?.borderWidth,
-          titleVisible: props.info?.titleConfig?.titleVisible,
-          unitVisible: props.info?.titleConfig?.unitVisible
-        };
-      },
-      () => debounceResize(),
-      { deep: true }
+      [
+        () => props.info?.size,
+        () => props.info?.grid,
+        () => props.info?.legend,
+        () => props.info?.xAxis,
+        () => props.info?.yAxis,
+        () => props.info?.background?.borderWidth,
+        () => props.info?.titleConfig?.titleVisible,
+        () => props.info?.titleConfig?.unitVisible
+      ],
+      () => debounceRerender(),
+      { deep: true, immediate: true }
     );
-
-    watch([props.info?.xAxis, props.info?.yAxis], () => debounceResize(), { deep: true, immediate: true });
 
     onMounted(() => createChart());
 

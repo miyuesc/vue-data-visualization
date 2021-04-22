@@ -52,7 +52,7 @@ export const grid = {
 
 export const legend = {
   show: true,
-  orient: 'vertical',
+  orient: 'horizontal',
   align: 'auto',
   itemWidth: 25,
   itemHeight: 14,

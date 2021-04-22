@@ -103,7 +103,7 @@ export default createStore<StoreState>({
       setAcComponent(state, state.components.length - 1);
     },
     // 更新图表：key: 配置项的 key
-    updateComponent(state: StoreState, { newState, key }: { newState: Component; key: ComponentConfig }) {
+    updateComponent(state: StoreState, { newState, key }: { newState: any; key: ComponentConfig }) {
       if (!state.acComponent) return;
       !state.acComponent[key] && (state.acComponent[key] = {});
       objectDeepClone(state.acComponent[key], newState);
