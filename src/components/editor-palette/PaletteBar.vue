@@ -21,7 +21,8 @@
         draggable
         @dragstart.stop="dragToCreate($event, p)"
       >
-        <img :src="imagesObject[p.code]" alt="test" />
+        <img :src="imagesObject[p.code]" :alt="p.code" />
+        <div>{{ p.name }}</div>
       </a>
     </div>
   </div>
@@ -141,15 +142,39 @@ export default defineComponent({
       min-height: 128px;
       max-height: 128px;
       display: block;
-      background: #f4f9f9;
       overflow: hidden;
-      filter: invert(1);
+      border-radius: 4px;
+      position: relative;
       img {
         width: 100%;
         height: 100%;
+        filter: invert(1);
+      }
+      div {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 40px;
+        width: 100%;
+        font-size: 12px;
+        color: #ffffff;
+        z-index: 2;
+        line-height: 36px;
+        box-sizing: border-box;
+        padding-left: 8px;
+        background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 1));
+        transition: all ease 0.2s;
+        transform: translateY(100%);
       }
       & + .component-support-item {
         margin-top: 16px;
+      }
+      &:hover {
+        box-shadow: 0 0 0 1px #335ae9;
+        cursor: pointer;
+        div {
+          transform: translateY(0);
+        }
       }
     }
   }
