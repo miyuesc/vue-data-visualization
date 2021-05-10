@@ -68,9 +68,34 @@ const presetComponents: any = {
     name: "文本",
     icon: "dv-text",
     children: {
-      title: {},
-      area: {},
-      content: {}
+      // 普通标题
+      normalTitle: {
+        name: "标题",
+        code: "normalTitle",
+        componentName: "标题",
+        config: ["background", "font"]
+      },
+      // 大标题
+      headline: {
+        name: "大标题",
+        code: "headline",
+        componentName: "大标题",
+        config: ["background", "font"]
+      },
+      // 小标题
+      subhead: {
+        name: "小标题",
+        code: "subhead",
+        componentName: "小标题",
+        config: ["background", "font"]
+      },
+      // 正文
+      content: {
+        name: "正文",
+        code: "content",
+        componentName: "正文",
+        config: ["background", "font"]
+      },
     }
   },
   // 多媒体
@@ -88,9 +113,27 @@ const presetComponents: any = {
     name: "形状",
     icon: "dv-shape",
     children: {
-      rectangle: {},
-      circle: {},
-      triangle: {}
+      // 矩形
+      rectangle: {
+        name: "矩形",
+        code: "rectangle",
+        componentName: "矩形",
+        config: ["background", "font"]
+      },
+      // 圆形 / 椭圆
+      circle: {
+        name: "圆形",
+        code: "circle",
+        componentName: "圆形",
+        config: ["background", "font"]
+      },
+      // 三角形
+      triangle: {
+        name: "三角形",
+        code: "triangle",
+        componentName: "三角形",
+        config: ["background", "font"]
+      }
     }
   },
   // 数据展示
