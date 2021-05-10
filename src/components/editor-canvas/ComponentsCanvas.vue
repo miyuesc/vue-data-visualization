@@ -15,8 +15,7 @@
       :style="{
         width: `${cpt.size.width}px`,
         height: `${cpt.size.height}px`,
-        left: `${cpt.position.left}px`,
-        top: `${cpt.position.top}px`,
+        transform: `translateX(${cpt.position.left}px) translateY(${cpt.position.top}px)`,
         zIndex: index + 1
       }"
       @mousedown.stop="dragStart($event, cpt, index)"
@@ -72,5 +71,7 @@ export default defineComponent({
 .cp {
   position: absolute;
   box-sizing: border-box;
+  left: 0;
+  top: 0;
 }
 </style>

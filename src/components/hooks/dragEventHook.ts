@@ -18,11 +18,13 @@ export default function dragEventHook() {
     // 将激活组件设置为当前鼠标所在的组件
     store.commit('setActivated', { type: 'component', component, index });
 
-    const { path } = event;
-    const target = path.find((el: HTMLElement) => el.className && el.className.indexOf('cp cp__') !== -1);
+    // const { path } = event;
+    // const target = path.find((el: HTMLElement) => el.className && el.className.indexOf('cp cp__') !== -1);
     const currentPAS = {
-      x: target.offsetLeft,
-      y: target.offsetTop,
+      // x: target.offsetLeft,
+      // y: target.offsetTop,
+      x: component.position.left,
+      y: component.position.top,
       clientX: event.clientX,
       clientY: event.clientY
     };
