@@ -14,9 +14,11 @@ export default function (props: any) {
 
   const boxShadow = `${background.shadowX}px ${background.shadowY}px ${background.shadowBlur}px ${background.shadowDiff}px ${background.shadowColor}`;
 
+  const borderRadius = props.info.code === 'circle' ? '50%' : `${background?.borderRadius ?? 0}px`;
+
   return {
     backgroundColor: hexToRgba(background?.color || '#121212', background?.opacity ?? 0.6),
-    borderRadius: `${background?.borderRadius ?? 0}px`,
+    borderRadius: borderRadius,
     ...borderStyle,
     boxShadow
   };

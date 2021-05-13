@@ -6,10 +6,10 @@
   position: relative;
   box-sizing: border-box;
   overflow: hidden;
-}
-.chart-canvas {
-  flex: 1;
-  width: 100%;
+  .chart-canvas {
+    flex: 1;
+    width: 100%;
+  }
 }
 .shape-canvas {
   width: 100%;
