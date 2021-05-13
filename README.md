@@ -1,8 +1,12 @@
 # Vue 3 Data Visualization
 
-# Vue 3 数据可视化
-
 ## 项目简介
+
+<a href="https://github.com/miyuesc/vue-data-visualization" target="__blank"><img alt="GitHub stars" src="https://img.shields.io/github/stars/miyuesc/vue-data-visualization?style=flat&logo=github" /></a>
+<a href="https://github.com/miyuesc/vue-data-visualization" target="__blank"><img alt="GitHub stars" src="https://img.shields.io/github/forks/miyuesc/vue-data-visualization?style=flat&logo=github" /></a>
+
+<a href='https://gitee.com/miyuesc/vue-data-visualization'><img src='https://gitee.com/miyuesc/vue-data-visualization/badge/star.svg?theme=dark' alt='star' /></a>
+<a href='https://gitee.com/miyuesc/vue-data-visualization'><img src='https://gitee.com/miyuesc/vue-data-visualization/badge/fork.svg?theme=dark' alt='fork' /></a>
 
 本项目为个人项目, 主要使用 `Vue 3`, `Echarts 5`, `Element Plus` 进行开发. 使用原生 `JavaScript` 实现元素的拖拽与缩放.
 
@@ -16,7 +20,22 @@
 
 ## 主要功能
 
-已实现 缩放/拖拽, 标题单位, 背景边框, 坐标轴, 层级移动, 画布缩放 等.
+- [x] ECharts常用图表
+- [x] 标题单位
+- [x] 组件拖拽/缩放
+- [x] 边框背景
+- [x] 图表坐标轴配置
+- [x] 图例设置
+- [x] 画布整体缩放
+- [x] 组件层级调整
+- [ ] 常用形状组件
+- [ ] 标题/文字组件
+- [ ] 图表的不同设置
+- [ ] 高德地图组件
+- [ ] 常用列表/轮播/数字动画等组件
+- [ ] 预览/导出json
+- [ ] 数据源配置
+- [ ] ...
 
 ## 使用
 
@@ -40,8 +59,6 @@ npm run install
 npm run build
 ```
 
-
-
 ## 运行预览
 
 ### 1. 初始界面
@@ -63,3 +80,21 @@ npm run build
 ### 5. X轴/Y轴配置
 
 ![image-20210418154052623](README/static/image-20210418154052623.png)
+
+
+
+## 友情赞助
+
+偷偷丢个赞赏码吧~~~~
+
+微信：[如果对您有帮助，您可以请我喝杯咖啡~~](https://images.weserv.nl/?url=https://i0.hdslb.com/bfs/article/fcf8ffa7f5a1dad34c3c9066e6b0f1d2a181c981.jpg)
+
+支付宝：[如果对您有帮助，您可以请我喝杯咖啡~~
+
+## 学习交流
+
+如果您觉得这些文章对您有帮助，想和我一起学习，欢迎您关注我的微信订阅号。
+
+订阅号名称：前端小白MiyueFE
+
+订阅号：[前端小白MiyueFE](
