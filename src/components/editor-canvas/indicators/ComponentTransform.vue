@@ -18,6 +18,10 @@ import PieChart from '@/components/charts/PieChart.vue';
 import RadarChart from '@/components/charts/RadarChart.vue';
 import TreeChart from '@/components/charts/TreeChart.vue';
 
+import Circle from '@/components/shapes/Circle.vue';
+import Rectangle from '@/components/shapes/Rectangle.vue';
+import Triangle from '@/components/shapes/Triangle.vue';
+
 export default defineComponent({
   name: 'ComponentTransform',
   props: {
@@ -32,7 +36,10 @@ export default defineComponent({
     LineChart,
     PieChart,
     RadarChart,
-    TreeChart
+    TreeChart,
+    Circle,
+    Rectangle,
+    Triangle
   },
   setup(props) {
     const componentType: ComputedRef = computed(() => props.info?.code || '');
