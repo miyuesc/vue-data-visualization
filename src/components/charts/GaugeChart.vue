@@ -1,11 +1,15 @@
 <template>
+  <div class="chart-component" :style="backgroundStyle">
+    <ChartTitle :title-config="info.titleConfig || {}" />
   <div ref="gaugeChartRef" class="chart-canvas gauge-chart-canvas"></div>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed, watch, ComputedRef, onMounted, ref } from 'vue';
 import * as echarts from 'echarts';
 import { debounce } from '@/utils/commonUtils';
+import computedBackgroundStyle from "@/components/charts/supplement/computedBackgroundStyle";
 
 export default defineComponent({
   name: 'GaugeChart',
@@ -13,6 +17,10 @@ export default defineComponent({
     info: Object
   },
   setup(props) {
+    const backgroundStyle: ComputedRef = computed(() => {
+      return computedBackgroundStyle(props);
+    });
+
     const size: ComputedRef = computed(() => props.info?.size);
     const gaugeChartRef: any = ref(null);
 
@@ -79,7 +87,8 @@ export default defineComponent({
     );
 
     return {
-      gaugeChartRef
+      gaugeChartRef,
+      backgroundStyle
     };
   }
 });

@@ -1,6 +1,9 @@
 import { hexToRgba } from '@/utils/commonUtils';
+import { computed } from 'vue';
 
-export default function (background: any) {
+export default function (props: any) {
+  const background: any = computed(() => props.info?.background).value;
+
   if (!background) return '';
 
   const borderStyle = {
