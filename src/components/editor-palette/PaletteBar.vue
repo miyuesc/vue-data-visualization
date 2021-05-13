@@ -21,8 +21,13 @@
         draggable
         @dragstart.stop="dragToCreate($event, p)"
       >
-        <img :src="imagesObject[p.code]" :alt="p.code" />
-        <div>{{ p.name }}</div>
+        <img
+          v-if="!!imagesObject[p.code]"
+          :src="imagesObject[p.code]"
+          :class="`item-image-${selectedComponentType.activeKey}`"
+          :alt="p.code"
+        />
+        <div class="component-support-item__name">{{ p.name }}</div>
       </a>
     </div>
   </div>
@@ -54,6 +59,7 @@ export default defineComponent({
 
     const dragToCreate = (event: any, component: any): void => {
       const { offsetX, offsetY } = event;
+      console.log(component);
       store.commit('setDraggedComponent', { component, config: { offsetX, offsetY } });
     };
 
@@ -145,12 +151,17 @@ export default defineComponent({
       overflow: hidden;
       border-radius: 4px;
       position: relative;
+      text-align: center;
       img {
+        height: 100px;
+        margin-top: 14px;
+      }
+      .item-image-dv-xuritu {
+        filter: invert(1);
         width: 100%;
         height: 100%;
-        filter: invert(1);
       }
-      div {
+      .component-support-item__name {
         position: absolute;
         left: 0;
         bottom: 0;
@@ -172,7 +183,7 @@ export default defineComponent({
       &:hover {
         box-shadow: 0 0 0 1px #335ae9;
         cursor: pointer;
-        div {
+        .component-support-item__name {
           transform: translateY(0);
         }
       }
