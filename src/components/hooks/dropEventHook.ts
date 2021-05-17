@@ -23,8 +23,14 @@ export default function DropEventHook() {
     } else {
       const targetDiv = (path as HTMLElement[]).find((el: HTMLElement) => el.className.indexOf('cp cp') !== -1);
       // 拖拽放置的目标位置在组件上
-      left = (targetDiv as HTMLElement).offsetLeft + offsetX - (draggedConfig?.offsetX || 0);
-      top = (targetDiv as HTMLElement).offsetTop + offsetY - (draggedConfig?.offsetY || 0);
+      console.log((targetDiv as HTMLElement).style);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // @ts-ignore
+      const [x, y]: (string | undefined)[] | undefined = (targetDiv as HTMLElement).style.transform
+        .match(/translate[X|Y]\((\d+)(?:px)?\)/g)
+        ?.map(d => d?.match(/translate[X|Y]\((\d+)(?:px)?\)/)?.[1]);
+      left = Number(x) + offsetX - (draggedConfig?.offsetX || 0);
+      top = Number(y) + offsetY - (draggedConfig?.offsetY || 0);
     }
     // 边界判定
     if (left < 0) left = 0;
