@@ -11,8 +11,8 @@ import { defineComponent, onMounted, ref, computed, watchEffect } from 'vue';
 import type { ComputedRef, Ref } from 'vue';
 import computedBackgroundStyle from '@/components/charts/supplement/computedBackgroundStyle';
 import { Store, useStore } from 'vuex';
-import { StoreState } from '@/types/store';
-import { Canvas } from '@/types/canvas';
+import type { StoreState } from '@/types/store';
+import type { Canvas } from '@/types/canvas';
 
 export default defineComponent({
   name: 'triangle',
@@ -35,18 +35,20 @@ export default defineComponent({
     const renderTriangle = () => {
       const width = Math.floor(props.info.size.width * canvasState.scale);
       const height = Math.floor(props.info.size.height * canvasState.scale);
-      console.log(width, height);
+      // const middle = width / 2;
       if (triangleShapeRef.value) {
         const ctx: CanvasRenderingContext2D | null = triangleShapeRef.value.getContext('2d');
         if (ctx) {
+          console.log(width, height);
+          console.log(width / 2, height / 2);
           triangleShapeRef.value.height = height;
           ctx.beginPath();
-          ctx.moveTo(width / 2, 0);
-          ctx.lineTo(0, height / 2);
-          ctx.lineTo(width, height / 2);
-          ctx.closePath();
+          ctx.moveTo(0, 0);
+          ctx.lineTo(0, height);
+          ctx.lineTo(width, height);
           ctx.lineWidth = 0;
           ctx.fillStyle = backgroundStyle.value.backgroundColor;
+          ctx.closePath();
           ctx.fill();
         }
       }
