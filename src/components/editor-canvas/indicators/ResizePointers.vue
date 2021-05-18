@@ -4,7 +4,7 @@
       v-for="point in points"
       :key="point"
       :class="`indicator-point indicator-point-${point}`"
-      :style="pointsStyle"
+      :style="pointsStyle(point)"
       @mousedown.stop="resizeStart($event, point)"
     ></span>
   </div>
@@ -29,9 +29,9 @@ export default defineComponent({
     const points: string[] = ['tl', 'tc', 'tr', 'ml', 'mr', 'bl', 'bc', 'br'];
 
     const store = useStore();
-    const acComponent = computed(() => store.state.acComponent);
     const acFlag = computed(() => store.state.acFlag);
     const canvas = computed(() => store.state.canvas);
+    const acComponent = computed(() => store.state.acComponent);
 
     // border 样式
     const indicatorAreaStyle = computed(() => {
@@ -55,9 +55,17 @@ export default defineComponent({
       };
     });
     // points 样式
-    const pointsStyle: ComputedRef<string> = computed(() => {
-      const display = acFlag.value.indicatorVisible ? 'block' : 'none';
-      return `transform: scale(${1 / canvas.value.scale}); display: ${display}`;
+    const pointsStyle: ComputedRef = computed(() => {
+      return (point: string) => {
+        const display = acFlag.value.indicatorVisible ? 'block' : 'none';
+        if (point === 'tc' || point === 'bc') {
+          return `transform: scale(${1 / canvas.value.scale}) translateX(-50%); display: ${display}`;
+        }
+        if (point === 'ml' || point === 'mr') {
+          return `transform: scale(${1 / canvas.value.scale}) translateY(-50%);; display: ${display}`;
+        }
+        return `transform: scale(${1 / canvas.value.scale}); display: ${display}`;
+      };
     });
 
     const { resizeStart } = resizeEventHook();
