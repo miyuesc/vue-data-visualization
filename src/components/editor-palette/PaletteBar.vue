@@ -154,7 +154,7 @@ export default defineComponent({
       text-align: center;
       img {
         height: 100px;
-        margin-top: 14px;
+        //margin-top: 14px;
       }
       .item-image-dv-xuritu {
         filter: invert(1);
