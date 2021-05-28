@@ -1,7 +1,7 @@
 <template>
   <div class="chart-component" :style="backgroundStyle">
     <ChartTitle :title-config="info.titleConfig || {}" />
-  <div ref="graphChartRef" class="chart-canvas graph-chart-canvas"></div>
+    <div ref="graphChartRef" class="chart-canvas graph-chart-canvas"></div>
   </div>
 </template>
 
@@ -9,7 +9,7 @@
 import { defineComponent, computed, watch, ComputedRef, onMounted, ref } from 'vue';
 import * as echarts from 'echarts';
 import { debounce } from '@/utils/commonUtils';
-import computedBackgroundStyle from "@/components/charts/supplement/computedBackgroundStyle";
+import computedBackgroundStyle from '@/components/charts/supplement/computedBackgroundStyle';
 
 export default defineComponent({
   name: 'GraphChart',

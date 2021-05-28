@@ -37,6 +37,8 @@ export default defineComponent({
       const height = Math.floor(props.info.size.height * canvasState.scale);
       // const middle = width / 2;
       if (triangleShapeRef.value) {
+        triangleShapeRef.value.width = width;
+        triangleShapeRef.value.height = height;
         const ctx: CanvasRenderingContext2D | null = triangleShapeRef.value.getContext('2d');
         if (ctx) {
           console.log(width, height);
