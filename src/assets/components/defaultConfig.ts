@@ -59,7 +59,8 @@ export const legend = {
   selectedMode: true,
   icon: '',
   textStyle: {
-    ...fontStyle
+    ...fontStyle,
+    color: '#ffffff'
   }
 };
 

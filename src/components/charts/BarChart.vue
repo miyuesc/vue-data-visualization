@@ -36,6 +36,9 @@ export default defineComponent({
         bottom: 60,
         containLabel: true
       },
+      legend: {
+        data: ['最高气温', '最低气温']
+      },
       xAxis: {
         type: 'category',
         data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
@@ -45,13 +48,20 @@ export default defineComponent({
       },
       series: [
         {
-          data: [120, 200, 150, 80, 70, 110, 130],
-          type: 'bar'
+          name: '最高气温',
+          type: 'bar',
+          data: [10, 11, 13, 11, 12, 12, 9]
+        },
+        {
+          name: '最低气温',
+          type: 'bar',
+          data: [1, -2, 2, 5, 3, 2, 0]
         }
       ]
     };
 
     const grid = computed(() => props.info.grid || defaultOptions.grid);
+    const legend = computed(() => props.info.legend || defaultOptions.legend);
     const xAxis = computed(() => props.info.xAxis || defaultOptions.xAxis);
     const yAxis = computed(() => props.info.yAxis || defaultOptions.yAxis);
 
@@ -59,6 +69,7 @@ export default defineComponent({
       return {
         ...defaultOptions,
         grid: { ...grid.value },
+        legend: { ...defaultOptions.legend, ...legend.value },
         xAxis: { ...defaultOptions.xAxis, ...xAxis.value },
         yAxis: { ...yAxis.value }
       };
@@ -80,19 +91,19 @@ export default defineComponent({
     }, 200);
 
     watch(
-      () => {
-        return {
-          size: props.info?.size,
-          borderWidth: props.info?.background?.borderWidth,
-          titleVisible: props.info?.titleConfig?.titleVisible,
-          unitVisible: props.info?.titleConfig?.unitVisible
-        };
-      },
+      [
+        () => props.info?.size,
+        () => props.info?.grid,
+        () => props.info?.legend,
+        () => props.info?.xAxis,
+        () => props.info?.yAxis,
+        () => props.info?.background?.borderWidth,
+        () => props.info?.titleConfig?.titleVisible,
+        () => props.info?.titleConfig?.unitVisible
+      ],
       () => debounceResize(),
-      { deep: true }
+      { deep: true, immediate: true }
     );
-
-    watch([props.info?.xAxis, props.info?.yAxis], () => debounceResize(), { deep: true, immediate: true });
 
     onMounted(() => createChart());
 
