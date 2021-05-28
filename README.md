@@ -89,7 +89,7 @@ npm run build
 
 微信：[如果对您有帮助，您可以请我喝杯咖啡~~](https://images.weserv.nl/?url=https://i0.hdslb.com/bfs/article/fcf8ffa7f5a1dad34c3c9066e6b0f1d2a181c981.jpg)
 
-支付宝：[如果对您有帮助，您可以请我喝杯咖啡~~
+支付宝：[如果对您有帮助，您可以请我喝杯咖啡~~](https://images.weserv.nl/?url=https://i0.hdslb.com/bfs/article/8236f07c5d73175acbed49937020ed05127d0de9.jpg)
 
 ## 学习交流
 
@@ -97,4 +97,4 @@ npm run build
 
 订阅号名称：前端小白MiyueFE
 
-订阅号：[前端小白MiyueFE](
+订阅号：[前端小白MiyueFE](https://images.weserv.nl/?url=https://i0.hdslb.com/bfs/article/fdef0d8f1731ed03b4123d22b7d82acacb6ca10c.jpg)
