@@ -1047,3 +1047,11 @@ $--font-path: '~element-plus/lib/theme-chalk/fonts';
 .el-slider__input.el-input-number--mini {
   margin-top: 0;
 }
+
+.el-overlay {
+  overflow: hidden;
+}
+.el-dialog {
+  margin-top: 50vh !important;
+  transform: translateY(-50%);
+}

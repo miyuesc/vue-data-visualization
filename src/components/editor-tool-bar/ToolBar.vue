@@ -44,7 +44,20 @@
       controls-position="right"
       @change="updateCanvasScale"
     />
+    <span class="tool-bar-button" @click="previewConfig">
+      <svg aria-hidden="true">
+        <use xlink:href="#dv-yulan"></use>
+      </svg>
+    </span>
   </div>
+
+  <el-dialog v-model="previewModelVisible" title="预览" width="80vw" destroy-on-close append-to-body>
+    <pre class="preview-code-style">
+      <code>
+        {{ componentsConfig }}
+      </code>
+    </pre>
+  </el-dialog>
 </template>
 
 <script lang="ts">
@@ -59,6 +72,8 @@ export default defineComponent({
   setup() {
     const store: Store<StoreState> = useStore();
     const canvasScale: Ref<number> = ref(store.state.canvas.scale * 100);
+    const previewModelVisible: Ref<boolean> = ref(false);
+    const componentsConfig = ref('');
 
     const updateCanvasScale = (): void => {
       store.commit('updateCanvas', { scale: canvasScale.value / 100 });
@@ -72,11 +87,19 @@ export default defineComponent({
       store.commit('removeComponent');
     };
 
+    const previewConfig = (): void => {
+      componentsConfig.value = JSON.stringify(store.state.components, null, 2);
+      previewModelVisible.value = true;
+    };
+
     return {
       canvasScale,
+      previewModelVisible,
+      componentsConfig,
       updateCanvasScale,
       swapComponent,
-      removeComponent
+      removeComponent,
+      previewConfig
     };
   }
 });
@@ -109,5 +132,12 @@ export default defineComponent({
       cursor: pointer;
     }
   }
+}
+.preview-code-style {
+  width: 100%;
+  height: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  font-family: Menlo, Monaco, Consolas, Courier, monospace;
 }
 </style>
