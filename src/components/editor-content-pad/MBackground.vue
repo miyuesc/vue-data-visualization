@@ -8,7 +8,7 @@
       背景与边框
     </div>
     <el-collapse-transition>
-      <div v-show="backgroundContentVisible">
+      <div v-show="backgroundContentVisible" style="margin-top: 8px">
         <config-form-item label="填充色" :label-width="64">
           <el-color-picker v-model="background.color" />
           <el-input v-model="background.color" :maxlength="6" style="width: 100px; margin-left: 8px" />

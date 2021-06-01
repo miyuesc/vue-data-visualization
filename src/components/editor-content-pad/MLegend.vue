@@ -4,7 +4,7 @@
       图例
     </div>
     <el-collapse-transition>
-      <div v-show="contentVisible">
+      <div v-show="contentVisible" style="margin-top: 8px">
         <config-form-item label="显示图例" :label-width="64">
           <el-switch v-model="legend.show" />
         </config-form-item>

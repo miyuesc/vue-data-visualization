@@ -10,8 +10,13 @@ export interface AcFlag {
   indicatorVisible: boolean;
 }
 
+export interface EditorConfig {
+  overviewPadVisible: boolean;
+}
+
 export interface StoreState {
   canvas: Canvas;
+  editorConfig: EditorConfig;
   components: Component[];
   componentsTotal: number;
   // 激活组件

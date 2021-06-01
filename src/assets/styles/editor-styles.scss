@@ -47,7 +47,6 @@
   background: #1b1b20;
   box-sizing: border-box;
   z-index: 2;
-  padding: 6px;
   overflow-y: auto;
   &::-webkit-scrollbar {
     display: none;
@@ -68,6 +67,7 @@
     line-height: 32px;
     padding: 0 8px;
     color: #b6b8cc;
+    background: rgba(111, 111, 245, 0.05);
     position: relative;
   }
   .content-pad-item__title.with-tag {
@@ -93,9 +93,7 @@
     align-items: center;
     justify-content: space-between;
     flex-wrap: nowrap;
-    & +.content-pad-row {
-      margin-top: 8px;
-    }
+    margin-top: 8px;
     .el-button-mini {
       height: 28px;
       margin-left: 8px;

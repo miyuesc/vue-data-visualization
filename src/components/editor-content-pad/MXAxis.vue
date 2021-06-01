@@ -8,12 +8,12 @@
       X 轴
     </div>
     <el-collapse-transition>
-      <div v-show="xAxisContentVisible">
+      <div v-show="xAxisContentVisible" style="margin-top: 8px">
         <config-form-item label="显示坐标轴" :label-width="80">
           <el-switch v-model="xAxis.show" />
         </config-form-item>
         <el-collapse-transition>
-          <div style="margin-top: 8px" v-show="xAxis.show">
+          <div v-show="xAxis.show">
             <config-form-item label="坐标轴名称" :label-width="80">
               <el-input v-model="xAxis.name" :maxlength="20" />
             </config-form-item>

@@ -1,14 +1,12 @@
 <template>
   <div class="editor-container">
     <header class="editor-header">
-      <span style="color: #999999; font-size: 12px; text-align: center">
-        目前只有折线图和柱状图具有最多的配置项，体验最好。其他的图表及元素正在开发中~~~
-      </span>
       <ToolBar />
     </header>
     <main class="editor-main">
       <PaletteBar />
       <ContentPad />
+      <OverviewPad />
       <div class="editor-content">
         <div class="screen">
           <!-- 场景元素区域 Scenes-->
@@ -32,6 +30,7 @@ import ScenesCanvas from '../../components/editor-canvas/ScenesCanvas.vue';
 import HandlersCanvas from '../../components/editor-canvas/HanldersCanvas.vue';
 import PaletteBar from '../../components/editor-palette/PaletteBar.vue';
 import ContentPad from '../../components/editor-content-pad/ContentPad.vue';
+import OverviewPad from '@/components/editor-overview-pad/OverviewPad.vue';
 import type { ComputedRef } from 'vue';
 import type { Store } from 'vuex';
 import type { Canvas } from '@/types/canvas';
@@ -40,6 +39,7 @@ import type { StoreState } from '@/types/store';
 export default defineComponent({
   name: 'Editor',
   components: {
+    OverviewPad,
     PaletteBar,
     HandlersCanvas,
     ComponentsCanvas,

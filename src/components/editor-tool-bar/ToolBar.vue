@@ -44,11 +44,8 @@
       controls-position="right"
       @change="updateCanvasScale"
     />
-    <span class="tool-bar-button" @click="previewConfig">
-      <svg aria-hidden="true">
-        <use xlink:href="#dv-yulan"></use>
-      </svg>
-    </span>
+    <span class="tool-bar-button with-text" @click="previewConfig"> 预览 </span>
+    <span class="tool-bar-button with-text" @click="changeOverviewPadVisible"> 图层 </span>
   </div>
 
   <el-dialog v-model="previewModelVisible" title="预览" width="80vw" destroy-on-close append-to-body>
@@ -92,6 +89,10 @@ export default defineComponent({
       previewModelVisible.value = true;
     };
 
+    const changeOverviewPadVisible = (): void => {
+      store.commit('changeOverviewPadVisible');
+    };
+
     return {
       canvasScale,
       previewModelVisible,
@@ -99,7 +100,8 @@ export default defineComponent({
       updateCanvasScale,
       swapComponent,
       removeComponent,
-      previewConfig
+      previewConfig,
+      changeOverviewPadVisible
     };
   }
 });
@@ -122,6 +124,17 @@ export default defineComponent({
     width: 24px;
     height: 24px;
     color: #e4e4e4;
+    &:hover {
+      cursor: pointer;
+    }
+    &.with-text {
+      font-size: 12px;
+      line-height: 24px;
+      color: #666666;
+      &:hover {
+        color: #aaaaaa;
+      }
+    }
   }
   svg {
     width: 100%;
@@ -136,7 +149,7 @@ export default defineComponent({
 .preview-code-style {
   width: 100%;
   height: 100%;
-  max-height: 80vh;
+  max-height: 72vh;
   overflow-y: auto;
   font-family: Menlo, Monaco, Consolas, Courier, monospace;
 }

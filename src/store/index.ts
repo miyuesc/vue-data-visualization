@@ -42,6 +42,11 @@ export default createStore<StoreState>({
         image: ''
       }
     },
+    // 页面控制
+    editorConfig: {
+      overviewPadVisible: false
+    },
+    // 组件列表
     components: [],
     componentsTotal: 0,
     // 激活组件
@@ -165,6 +170,9 @@ export default createStore<StoreState>({
     // 画布相关
     updateCanvas(state: StoreState, newState: Component) {
       objectDeepClone(state.canvas, newState);
+    },
+    changeOverviewPadVisible(state: StoreState) {
+      state.editorConfig.overviewPadVisible = !state.editorConfig.overviewPadVisible;
     }
   }
 });

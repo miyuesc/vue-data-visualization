@@ -46,7 +46,7 @@
             </div>
           </div>
         </el-collapse-transition>
-        <div class="content-pad-row" style="margin-top: 8px">
+        <div class="content-pad-row">
           <config-form-item label="显示单位" :label-width="64">
             <el-switch v-model="titleConfig.unitVisible" />
           </config-form-item>
