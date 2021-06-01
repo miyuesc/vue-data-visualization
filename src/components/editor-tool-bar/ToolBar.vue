@@ -16,6 +16,11 @@
       </svg>
     </span>
     <span class="tool-bar-button">
+      <svg aria-hidden="true" @click="changeComponentLock()">
+        <use v-bind:xlink:href="activeIsLocked ? '#dv-unlock' : '#dv-lock'"></use>
+      </svg>
+    </span>
+    <span class="tool-bar-button">
       <svg aria-hidden="true" @click="swapComponent('lowest')">
         <use xlink:href="#dv-zhidi"></use>
       </svg>
@@ -58,7 +63,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import { useStore } from 'vuex';
 import type { Ref } from 'vue';
 import type { Store } from 'vuex';
@@ -71,6 +76,9 @@ export default defineComponent({
     const canvasScale: Ref<number> = ref(store.state.canvas.scale * 100);
     const previewModelVisible: Ref<boolean> = ref(false);
     const componentsConfig = ref('');
+
+    // const activeComponent = computed(() => store.state.acComponent);
+    const activeIsLocked = computed(() => store.state.acComponent?.isLocked ?? false);
 
     const updateCanvasScale = (): void => {
       store.commit('updateCanvas', { scale: canvasScale.value / 100 });
@@ -89,6 +97,11 @@ export default defineComponent({
       previewModelVisible.value = true;
     };
 
+    const changeComponentLock = (): void => {
+      console.log(activeIsLocked.value);
+      store.commit('updateComponent', { newState: !activeIsLocked.value, key: 'isLocked' });
+    };
+
     const changeOverviewPadVisible = (): void => {
       store.commit('changeOverviewPadVisible');
     };
@@ -97,10 +110,12 @@ export default defineComponent({
       canvasScale,
       previewModelVisible,
       componentsConfig,
+      activeIsLocked,
       updateCanvasScale,
       swapComponent,
       removeComponent,
       previewConfig,
+      changeComponentLock,
       changeOverviewPadVisible
     };
   }

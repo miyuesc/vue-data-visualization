@@ -18,12 +18,16 @@ interface PAS {
 export default function resizeEventHook() {
   const store: Store<StoreState> = useStore();
   const canvas: Canvas = computed(() => store.state.canvas).value;
+  const activeIsLocked = computed(() => store.state.acComponent?.isLocked ?? false);
 
   const throttleUpdate: any = throttle((newState: any) => {
     store.commit('updateComponentPAS', newState);
   }, 8);
 
   const resizeStart = (event: any, point: string) => {
+    // 锁定时禁止缩放
+    if (activeIsLocked.value) return;
+
     const activePoint = point;
     // 记录点所在的父元素的 状态， 与点的当前位置
     const currentPAS: PAS = {

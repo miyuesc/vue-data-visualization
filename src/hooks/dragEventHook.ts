@@ -18,6 +18,9 @@ export default function dragEventHook() {
     // 将激活组件设置为当前鼠标所在的组件
     store.commit('setActivated', { type: 'component', component, index });
 
+    // 锁定时禁止拖动
+    if (component.isLocked) return;
+
     // const { path } = event;
     // const target = path.find((el: HTMLElement) => el.className && el.className.indexOf('cp cp__') !== -1);
     const currentPAS = {

@@ -29,8 +29,8 @@
 import { defineComponent, computed, watchEffect, ref } from 'vue';
 import { useStore } from 'vuex';
 import ComponentTransform from './indicators/ComponentTransform.vue';
-import dragEventHook from '@/components/hooks/dragEventHook';
-import dropEventHook from '@/components/hooks/dropEventHook';
+import dragEventHook from '@/hooks/dragEventHook';
+import dropEventHook from '@/hooks/dropEventHook';
 import type { ComputedRef, Ref } from 'vue';
 import type { Store } from 'vuex';
 import type { Component } from '@/types/component';

@@ -13,7 +13,7 @@
 <script lang="ts">
 import { defineComponent, computed, ComputedRef } from 'vue';
 import { useStore } from 'vuex';
-import resizeEventHook from '@/components/hooks/resizeEventHook';
+import resizeEventHook from '@/hooks/resizeEventHook';
 
 export default defineComponent({
   name: 'ResizePointers',

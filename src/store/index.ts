@@ -114,8 +114,12 @@ export default createStore<StoreState>({
     // 更新图表：key: 配置项的 key
     updateComponent(state: StoreState, { newState, key }: { newState: any; key: ComponentConfig }) {
       if (!state.acComponent) return;
-      !state.acComponent[key] && (state.acComponent[key] = {});
-      objectDeepClone(state.acComponent[key], newState);
+      if (typeof newState !== 'object') {
+        state.acComponent[key] = newState;
+      } else {
+        !state.acComponent[key] && (state.acComponent[key] = {});
+        objectDeepClone(state.acComponent[key], newState);
+      }
     },
     // 更新元素 位置与大小
     updateComponentPAS(state: StoreState, newState: Component) {

@@ -10,13 +10,13 @@
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue';
 import { useStore } from 'vuex';
-import MBaseConfig from '@/components/editor-content-pad/MBaseConfig.vue';
-import MBackground from '@/components/editor-content-pad/MBackground.vue';
-import MLegend from '@/components/editor-content-pad/MLegend.vue';
-import MLineConfig from '@/components/editor-content-pad/MLineConfig.vue';
-import MTitleConfig from '@/components/editor-content-pad/MTitleConfig.vue';
-import MXAxis from '@/components/editor-content-pad/MXAxis.vue';
-import MYAxis from '@/components/editor-content-pad/MYAxis.vue';
+import MBaseConfig from '@/components/editor-content-pad/configuration/MBaseConfig.vue';
+import MBackground from '@/components/editor-content-pad/configuration/MBackground.vue';
+import MLegend from '@/components/editor-content-pad/configuration/MLegend.vue';
+import MLineConfig from '@/components/editor-content-pad/configuration/MLineConfig.vue';
+import MTitleConfig from '@/components/editor-content-pad/configuration/MTitleConfig.vue';
+import MXAxis from '@/components/editor-content-pad/configuration/MXAxis.vue';
+import MYAxis from '@/components/editor-content-pad/configuration/MYAxis.vue';
 
 export default defineComponent({
   name: 'ContentPad',
