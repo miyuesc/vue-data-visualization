@@ -3,20 +3,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ComputedRef } from 'vue';
-import BarChart from '@/components/charts/BarChart.vue';
-import FunnelChart from '@/components/charts/FunnelChart.vue';
-import GaugeChart from '@/components/charts/GaugeChart.vue';
-import GraphChart from '@/components/charts/GraphChart.vue';
-import KChart from '@/components/charts/KChart.vue';
-import LineChart from '@/components/charts/LineChart.vue';
-import PieChart from '@/components/charts/PieChart.vue';
-import RadarChart from '@/components/charts/RadarChart.vue';
-import TreeChart from '@/components/charts/TreeChart.vue';
+import { defineComponent, defineAsyncComponent, computed, ComputedRef } from 'vue';
 
-import Circle from '@/components/shapes/Circle.vue';
-import Rectangle from '@/components/shapes/Rectangle.vue';
-import Triangle from '@/components/shapes/Triangle.vue';
+// 图表
+const BarChart = defineAsyncComponent(() => import('../../charts/BarChart.vue'));
+const FunnelChart = defineAsyncComponent(() => import('../../charts/FunnelChart.vue'));
+const GaugeChart = defineAsyncComponent(() => import('../../charts/GaugeChart.vue'));
+const GraphChart = defineAsyncComponent(() => import('../../charts/GraphChart.vue'));
+const KChart = defineAsyncComponent(() => import('../../charts/KChart.vue'));
+const LineChart = defineAsyncComponent(() => import('../../charts/LineChart.vue'));
+const PieChart = defineAsyncComponent(() => import('../../charts/PieChart.vue'));
+const RadarChart = defineAsyncComponent(() => import('../../charts/RadarChart.vue'));
+const TreeChart = defineAsyncComponent(() => import('../../charts/TreeChart.vue'));
+// 形状
+const Circle = defineAsyncComponent(() => import('../../shapes/Circle.vue'));
+const Rectangle = defineAsyncComponent(() => import('../../shapes/Rectangle.vue'));
+const Triangle = defineAsyncComponent(() => import('../../shapes/Triangle.vue'));
 
 export default defineComponent({
   name: 'ComponentTransform',
