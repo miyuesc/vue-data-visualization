@@ -1,13 +1,16 @@
 <template>
   <div class="editor-overview-pad" ref="paletteRef" v-show="overviewPadVisible">
-    <div class="editor-overview-pad__title">图层预览</div>
+    <div class="editor-overview-pad__title">图层管理</div>
     <div
       v-for="(cp, index) in componentList"
       :class="{ 'editor-overview-pad__item': true, 'is-active': acId === cp.id }"
       :key="cp.id"
       @click.stop="setActiveComponent(cp, index)"
     >
-      {{ `${cp.name} - ${cp.id}` }}
+      <span class="editor-overview-pad__item-name">{{ `${cp.name} - ${cp.id}` }}</span>
+      <span v-show="cp.isLocked" class="editor-overview-pad__item-lock">
+        <i class="el-icon-lock"></i>
+      </span>
     </div>
   </div>
 </template>
@@ -66,11 +69,14 @@ export default defineComponent({
     top: 0;
   }
   .editor-overview-pad__item {
+    display: flex;
     font-size: 12px;
     line-height: 24px;
     height: 24px;
     box-sizing: border-box;
     padding: 0 8px;
+    gap: 8px;
+    justify-content: space-between;
     &:hover {
       cursor: pointer;
       background: #20202a;
@@ -79,6 +85,8 @@ export default defineComponent({
       background: linear-gradient(143deg, #335ae9, #6f6ff5);
       color: #ffffff;
     }
+  }
+  .editor-overview-pad__item-lock {
   }
 }
 </style>

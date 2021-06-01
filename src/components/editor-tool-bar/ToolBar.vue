@@ -98,7 +98,6 @@ export default defineComponent({
     };
 
     const changeComponentLock = (): void => {
-      console.log(activeIsLocked.value);
       store.commit('updateComponent', { newState: !activeIsLocked.value, key: 'isLocked' });
     };
 
