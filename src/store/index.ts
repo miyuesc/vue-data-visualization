@@ -44,7 +44,11 @@ export default createStore<StoreState>({
     },
     // 页面控制
     editorConfig: {
-      overviewPadVisible: false
+      overviewPadVisible: false,
+      defaultComponentSize: {
+        width: 400,
+        height: 260
+      }
     },
     // 组件列表
     components: [],

@@ -19,7 +19,8 @@
         class="component-support-item"
         :key="p.code"
         draggable
-        @dragstart.stop="dragToCreate($event, p)"
+        @dragstart="dragToCreate($event, p)"
+        @click="clickToCreate(p)"
       >
         <img
           v-if="!!imagesObject[p.code]"
@@ -27,6 +28,7 @@
           :class="`item-image-${selectedComponentType.activeKey}`"
           :alt="p.code"
         />
+        <div v-else draggable style="width: 100%; height: 100%; background: #b6b8cc"></div>
         <div class="component-support-item__name">{{ p.name }}</div>
       </a>
     </div>
@@ -41,6 +43,7 @@ import { useStore } from 'vuex';
 import type { Ref } from 'vue';
 import type { Store } from 'vuex';
 import type { StoreState } from '@/types/store';
+import { Size } from '@/types/component';
 
 export default defineComponent({
   name: 'PaletteBar',
@@ -59,8 +62,23 @@ export default defineComponent({
 
     const dragToCreate = (event: any, component: any): void => {
       const { offsetX, offsetY } = event;
-      console.log(component);
       store.commit('setDraggedComponent', { component, config: { offsetX, offsetY } });
+    };
+
+    const clickToCreate = (component: any): void => {
+      const canvasSize: Size = store.state.canvas.size;
+      const defaultSize = { ...store.state.editorConfig.defaultComponentSize };
+
+      const newComponent = {
+        component: JSON.stringify(component),
+        size: defaultSize,
+        position: {
+          left: (canvasSize.width - defaultSize.width) / 2,
+          top: (canvasSize.height - defaultSize.height) / 2
+        }
+      };
+
+      store.commit('createComponent', newComponent);
     };
 
     return {
@@ -69,7 +87,8 @@ export default defineComponent({
       selectedComponentType,
       showPanel,
       openChildrenPenal,
-      dragToCreate
+      dragToCreate,
+      clickToCreate
     };
   }
 });

@@ -1,5 +1,5 @@
 import { Canvas } from '@/types/canvas';
-import { Component } from '@/types/component';
+import { Component, Size } from '@/types/component';
 
 export type AcFlagType = 'background' | 'component';
 
@@ -12,6 +12,7 @@ export interface AcFlag {
 
 export interface EditorConfig {
   overviewPadVisible: boolean;
+  defaultComponentSize: Size;
 }
 
 export interface StoreState {
