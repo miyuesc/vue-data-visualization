@@ -19,6 +19,11 @@ const TreeChart = defineAsyncComponent(() => import('../../charts/TreeChart.vue'
 const Circle = defineAsyncComponent(() => import('../../shapes/Circle.vue'));
 const Rectangle = defineAsyncComponent(() => import('../../shapes/Rectangle.vue'));
 const Triangle = defineAsyncComponent(() => import('../../shapes/Triangle.vue'));
+// 标题
+const Content = defineAsyncComponent(() => import('../../text-area/Content.vue'));
+const Headline = defineAsyncComponent(() => import('../../text-area/Headline.vue'));
+const NormalTitle = defineAsyncComponent(() => import('../../text-area/NormalTitle.vue'));
+const Subhead = defineAsyncComponent(() => import('../../text-area/Subhead.vue'));
 
 export default defineComponent({
   name: 'ComponentTransform',
@@ -37,7 +42,11 @@ export default defineComponent({
     TreeChart,
     Circle,
     Rectangle,
-    Triangle
+    Triangle,
+    Content,
+    Headline,
+    NormalTitle,
+    Subhead
   },
   setup(props) {
     const componentType: ComputedRef = computed(() => props.info?.code || '');
