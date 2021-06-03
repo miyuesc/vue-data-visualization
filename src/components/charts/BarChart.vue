@@ -7,7 +7,10 @@
 
 <script lang="ts">
 import { defineComponent, watch, onMounted, ref, computed, ComputedRef } from 'vue';
-import * as echarts from 'echarts';
+import * as echarts from 'echarts/core';
+import { BarChart, BarSeriesOption } from 'echarts/charts';
+import { GridComponent, GridComponentOption, LegendComponent, LegendComponentOption } from 'echarts/components';
+import { CanvasRenderer } from 'echarts/renderers';
 import { debounce } from '@/utils/commonUtils';
 import computedBackgroundStyle from '@/components/charts/supplement/computedBackgroundStyle';
 
@@ -20,15 +23,19 @@ export default defineComponent({
     }
   },
   setup(props) {
+    echarts.use([GridComponent, BarChart, LegendComponent, CanvasRenderer]);
+
     const backgroundStyle: ComputedRef = computed(() => {
       return computedBackgroundStyle(props);
     });
+
+    type ECOption = echarts.ComposeOption<BarSeriesOption | GridComponentOption | LegendComponentOption>;
 
     let barChart: any = null;
 
     const barChartRef: any = ref(null);
 
-    const defaultOptions = {
+    const defaultOptions: ECOption = {
       grid: {
         left: 60,
         top: 60,
@@ -61,15 +68,18 @@ export default defineComponent({
     };
 
     const grid = computed(() => props.info.grid || defaultOptions.grid);
-    const legend = computed(() => props.info.legend || defaultOptions.legend);
+    const legend: ComputedRef<LegendComponentOption> = computed(() => props.info.legend || defaultOptions.legend);
     const xAxis = computed(() => props.info.xAxis || defaultOptions.xAxis);
     const yAxis = computed(() => props.info.yAxis || defaultOptions.yAxis);
 
-    const options = computed(() => {
+    const options: ComputedRef<ECOption> = computed(() => {
       return {
         ...defaultOptions,
         grid: { ...grid.value },
-        legend: { ...defaultOptions.legend, ...legend.value },
+        legend: {
+          ...defaultOptions.legend,
+          ...legend.value
+        },
         xAxis: { ...defaultOptions.xAxis, ...xAxis.value },
         yAxis: { ...yAxis.value }
       };

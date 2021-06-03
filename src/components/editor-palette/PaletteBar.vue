@@ -23,12 +23,10 @@
         @click="clickToCreate(p)"
       >
         <img
-          v-if="!!imagesObject[p.code]"
-          :src="imagesObject[p.code]"
+          :src="imagesObject[p.code] ?? require('../../assets/images/no-image.png')"
           :class="`item-image-${selectedComponentType.activeKey}`"
           :alt="p.code"
         />
-        <div v-else draggable style="width: 100%; height: 100%; background: #b6b8cc"></div>
         <div class="component-support-item__name">{{ p.name }}</div>
       </a>
     </div>

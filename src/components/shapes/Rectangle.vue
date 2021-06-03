@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, onMounted, ref, computed, ComputedRef } from 'vue';
+import { defineComponent, computed, ComputedRef } from 'vue';
 import computedBackgroundStyle from '@/components/charts/supplement/computedBackgroundStyle';
 
 export default defineComponent({

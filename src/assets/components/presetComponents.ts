@@ -150,7 +150,36 @@ const presetComponents: any = {
     name: "地图",
     icon: "dv-map",
     children: {
-      worldMap: {}
+      worldMap: {
+        name: "世界地图",
+        code: "worldMap",
+        componentName: "世界地图",
+        config: []
+      },
+      markerCluster: {
+        name: "点聚合",
+        code: "markerCluster",
+        componentName: "点聚合",
+        config: []
+      },
+      massMarks: {
+        name: "海量点",
+        code: "massMarks",
+        componentName: "海量点",
+        config: []
+      },
+      lineLayer: {
+        name: "线图层",
+        code: "lineLayer",
+        componentName: "线图层",
+        config: []
+      },
+      pulseLineLayer: {
+        name: "脉冲图层",
+        code: "pulseLineLayer",
+        componentName: "脉冲图层",
+        config: []
+      },
     }
   }
 };

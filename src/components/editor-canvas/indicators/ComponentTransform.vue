@@ -24,6 +24,8 @@ const Content = defineAsyncComponent(() => import('../../text-area/Content.vue')
 const Headline = defineAsyncComponent(() => import('../../text-area/Headline.vue'));
 const NormalTitle = defineAsyncComponent(() => import('../../text-area/NormalTitle.vue'));
 const Subhead = defineAsyncComponent(() => import('../../text-area/Subhead.vue'));
+// 地图
+const LineLayer = defineAsyncComponent(() => import('../../map/LineLayer.vue'));
 
 export default defineComponent({
   name: 'ComponentTransform',
@@ -46,7 +48,8 @@ export default defineComponent({
     Content,
     Headline,
     NormalTitle,
-    Subhead
+    Subhead,
+    LineLayer
   },
   setup(props) {
     const componentType: ComputedRef = computed(() => props.info?.code || '');

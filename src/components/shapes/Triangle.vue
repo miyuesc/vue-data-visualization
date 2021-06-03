@@ -1,5 +1,5 @@
 <template>
-  <div class="shape-canvas triangle-shape-canvas">
+  <div class="chart-component triangle-shape-canvas">
     <div class="shape-canvas triangle-shape-canvas">
       <canvas style="width: 100%; height: 100%" ref="triangleShapeRef"></canvas>
     </div>

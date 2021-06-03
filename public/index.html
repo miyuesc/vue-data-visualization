@@ -6,13 +6,26 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>logo.ico">
     <title>Vue Data Visualization - 自定义大屏数据可视化项目</title>
+    <!-- 使用CDN的CSS文件 -->
+    <% for (var i in htmlWebpackPlugin.options.cdn &&
+    htmlWebpackPlugin.options.cdn.css) { %>
+    <link href="<%= htmlWebpackPlugin.options.cdn.css[i] %>" rel="stylesheet" />
+    <% } %>
+    <!-- 使用CDN的CSS文件 -->
+    <!-- 使用CDN的JS文件 -->
+    <% for (var i in htmlWebpackPlugin.options.cdn && htmlWebpackPlugin.options.cdn.js) { %>
+    <script src="<%= htmlWebpackPlugin.options.cdn.js[i] %>"></script>
+    <% } %>
+    <!-- 使用CDN的JS文件 -->
+    <script src="<%= BASE_URL %>iconfont.js"></script>
   </head>
   <body>
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
     <div id="app"></div>
-    <script src="<%= BASE_URL %>iconfont.js"></script>
+    <script src="https://webapi.amap.com/maps?v=2.0&key=0d17e9413144a9e08e0f223c135979f5"></script>
+    <script src="https://webapi.amap.com/loca?v=2.0.0&key=0d17e9413144a9e08e0f223c135979f5"></script>
     <!-- built files will be auto injected -->
   </body>
 </html>
