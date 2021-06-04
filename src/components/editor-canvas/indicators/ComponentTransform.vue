@@ -26,6 +26,7 @@ const NormalTitle = defineAsyncComponent(() => import('../../text-area/NormalTit
 const Subhead = defineAsyncComponent(() => import('../../text-area/Subhead.vue'));
 // 地图
 const LineLayer = defineAsyncComponent(() => import('../../map/LineLayer.vue'));
+const MarkerCluster = defineAsyncComponent(() => import('../../map/MarkerCluster.vue'));
 
 export default defineComponent({
   name: 'ComponentTransform',
@@ -49,7 +50,8 @@ export default defineComponent({
     Headline,
     NormalTitle,
     Subhead,
-    LineLayer
+    LineLayer,
+    MarkerCluster
   },
   setup(props) {
     const componentType: ComputedRef = computed(() => props.info?.code || '');
