@@ -11,6 +11,7 @@ export interface Size {
 export type ComponentConfig =
   | 'titleConfig'
   | 'background'
+  | 'font'
   | 'xAxis'
   | 'yAxis'
   | 'legend'

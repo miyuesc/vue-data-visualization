@@ -17,6 +17,7 @@ import MLineConfig from '@/components/editor-content-pad/configuration/MLineConf
 import MTitleConfig from '@/components/editor-content-pad/configuration/MTitleConfig.vue';
 import MXAxis from '@/components/editor-content-pad/configuration/MXAxis.vue';
 import MYAxis from '@/components/editor-content-pad/configuration/MYAxis.vue';
+import MFont from '@/components/editor-content-pad/configuration/MFont.vue';
 
 export default defineComponent({
   name: 'ContentPad',
@@ -27,7 +28,8 @@ export default defineComponent({
     MLineConfig,
     MTitleConfig,
     MXAxis,
-    MYAxis
+    MYAxis,
+    MFont
   },
   setup() {
     const store = useStore();
