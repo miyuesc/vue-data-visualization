@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build --report",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "lint:fix": "npm run lint -- --fix"
   },
   "dependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
