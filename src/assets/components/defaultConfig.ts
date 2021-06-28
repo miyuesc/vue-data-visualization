@@ -13,6 +13,7 @@ export const fontStyle = {
   fontWeight: 'normal' // bold, bolder, lighter
 };
 
+// 组件标题相关设置
 export const titleConfig = {
   titleVisible: false,
   titleContent: '',
@@ -28,6 +29,7 @@ export const titleConfig = {
   unitSize: 14
 };
 
+// 组件背景设置
 export const background = {
   color: '',
   opacity: 0.8,

@@ -83,6 +83,11 @@ export function isObject(data: any): boolean {
   return Object.prototype.toString.call(data) === '[object Object]';
 }
 
+
+export function isArray(data: any): boolean {
+  return Object.prototype.toString.call(data) === '[object Array]';
+}
+
 export function hexToRgb(hex: string): string {
   return 'rgb(' + parseInt('0x' + hex.slice(1, 3)) + ',' + parseInt('0x' + hex.slice(3, 5))
     + ',' + parseInt('0x' + hex.slice(5, 7)) + ')';
@@ -94,6 +99,11 @@ export function hexToRgba(hex:string, opacity: number): string {
     + parseInt('0x' + hex.slice(5, 7)) + ',' + opacity + ')';
 }
 
+/**
+ * 对象拷贝
+ * @param target 目标对象
+ * @param source 源对象
+ */
 export function objectDeepClone(target: { [key: string]: any }, source: { [key: string]: any }) {
   for (const key in source) {
     if (isObject(source[key])) {
