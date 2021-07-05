@@ -29,7 +29,7 @@
 - [x] 画布整体缩放
 - [x] 组件层级调整
 - [x] 组件图层列表
-- [ ] 常用形状组件
+- [x] 常用形状组件
 - [ ] 标题/文字组件
 - [ ] 图表的不同设置
 - [ ] 高德地图组件
@@ -64,23 +64,27 @@ npm run build
 
 ### 1. 初始界面
 
-![image-20210418152927141](README/static/image-20210418152927141.png)
+![image-20210705145317801](https://gitee.com/MiyueSC/image-bed/raw/master/image-20210705145317801.png)
 
 ### 2. 拖拽效果
 
-![image-20210418153707284](README/static/image-20210418153707284.png)
+![image-20210705145333404](https://gitee.com/MiyueSC/image-bed/raw/master/image-20210705145333404.png)
 
 ### 3. 标题与单位配置
 
-![image-20210418153739172](README/static/image-20210418153739172.png)
+![image-20210705145411569](https://gitee.com/MiyueSC/image-bed/raw/master/image-20210705145411569.png)
 
 ### 4. 背景边框配置
 
-![image-20210418153932966](README/static/image-20210418153932966.png)
+![image-20210705145621180](https://gitee.com/MiyueSC/image-bed/raw/master/image-20210705145621180.png)
 
 ### 5. X轴/Y轴配置
 
-![image-20210418154052623](README/static/image-20210418154052623.png)
+![image-20210705145838804](https://gitee.com/MiyueSC/image-bed/raw/master/image-20210705145838804.png)
+
+### 6. 图层管理与锁定
+
+![image-20210705145932618](https://gitee.com/MiyueSC/image-bed/raw/master/image-20210705145932618.png)
 
 
 
