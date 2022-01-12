@@ -7,7 +7,10 @@ const cdn = {
     AMap: 'AMap'
   },
   css: ['https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css'],
-  js: ['https://unpkg.com/vue@next', 'https://unpkg.com/element-plus/lib/index.full.js']
+  js: [
+    'https://unpkg.com/vue@3.2.26/dist/vue.global.js',
+    'https://unpkg.com/element-plus@1.3.0-beta.5/dist/index.full.min.js'
+  ]
 };
 
 module.exports = {
