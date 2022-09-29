@@ -62,7 +62,7 @@ export default defineComponent({
           return `transform: scale(${1 / canvas.value.scale}) translateX(-50%); display: ${display}`;
         }
         if (point === 'ml' || point === 'mr') {
-          return `transform: scale(${1 / canvas.value.scale}) translateY(-50%);; display: ${display}`;
+          return `transform: scale(${1 / canvas.value.scale}) translateY(-50%); display: ${display}`;
         }
         return `transform: scale(${1 / canvas.value.scale}); display: ${display}`;
       };
